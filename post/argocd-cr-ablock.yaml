@@ -1,0 +1,71 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: argocd
+  labels:
+    profile: redhat-canada-gitops
+spec:
+  server:
+    route: true
+  dex:
+    image: quay.io/redhat-cop/dex
+    version: v2.22.0-openshift
+    openShiftOAuth: true
+  applicationInstanceLabelKey: argocd.argoproj.io/instance
+  resourceCustomizations: |
+    apps/Deployment:
+      ignoreDifferences: |
+        jsonPointers:
+        - /spec/template/spec/containers/0/image
+    build.openshift.io/BuildConfig:
+      ignoreDifferences: |
+        jsonPointers:
+        - /status/lastVersion
+    route.openshift.io/Route:
+      ignoreDifferences: |
+        jsonPointers:
+        - /status/ingress
+        - /spec/host
+    /ServiceAccount:
+      ignoreDifferences: |
+        jsonPointers:
+        - /imagePullSecrets
+    PersistentVolumeClaim:
+      health.lua: |
+        hs = {}
+        if obj.status ~= nil then
+          if obj.status.phase ~= nil then
+            if obj.status.phase == "Pending" then
+              hs.status = "Healthy"
+              hs.message = obj.status.phase
+              return hs
+            end
+            if obj.status.phase == "Bound" then
+              hs.status = "Healthy"
+              hs.message = obj.status.phase
+              return hs
+            end
+          end
+        end
+        hs.status = "Progressing"
+        hs.message = "Waiting for PVC."
+        return hs
+  resourceExclusions: |
+    - apiGroups:
+      - tekton.dev
+      kinds:
+      - PipelineRun
+  rbac:
+    defaultPolicy: role:readonly
+    policy: |
+      g, argocdadmins, role:admin
+      g, argocdusers, role:readonly
+    scopes: "[groups]"
+  initialRepositories: |
+    - url: https://us-south.git.cloud.ibm.com/osdu/utilites.git
+      passwordSecret:
+        name: repo-gitops-osdu
+        key: password
+      usernameSecret:
+        name: repo-gitops-osdu
+        key: username

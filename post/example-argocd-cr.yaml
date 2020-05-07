@@ -13,6 +13,11 @@ spec:
     insecure: false
     route: true
     host: argocd.apps.jasonhorn.io
+  rbac:
+    defaultPolicy: 'role:readonly'
+    policy: |
+      g, system:cluster-admins, role:admin
+    scopes: '[groups]'
   tls:
     ca:
       configMapName: jth-argocd-ca
