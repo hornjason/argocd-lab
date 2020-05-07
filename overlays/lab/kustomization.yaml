@@ -1,0 +1,4 @@
+bases:
+- ../../custom-certs
+patchesStrategicMerge:
+- ingress-controller.yaml 
