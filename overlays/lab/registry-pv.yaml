@@ -1,0 +1,8 @@
+- op: add
+  path: /spec
+  value: 
+    capacity:
+      storage: 100Gi
+    nfs:
+      path: /ocp-registry
+      server: nasbook.foo.bar

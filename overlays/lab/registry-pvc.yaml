@@ -1,0 +1,9 @@
+- op: add
+  path: /spec
+  value: 
+    resources:
+      requests:
+        storage: 100Gi
+    selector:
+      matchLabels:
+        registry: nfs 
