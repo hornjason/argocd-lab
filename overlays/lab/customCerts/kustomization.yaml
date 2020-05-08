@@ -1,5 +1,5 @@
 bases:
-- ../../custom-certs
+- ../../../custom-certs
 patchesJson6902:
   - target:
       group: config.openshift.io
