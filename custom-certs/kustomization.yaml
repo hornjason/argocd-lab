@@ -1,2 +1,4 @@
 resources:
 - apiserver.yaml
+- ingress-controller.yaml
+

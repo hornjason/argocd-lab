@@ -13,3 +13,17 @@ patchesJson6902:
       kind: APIServer
       name: cluster
     path: servingCert.yaml
+  - target:
+      group: operator.openshift.io
+      version: v1
+      kind: IngressController
+      name: default
+      namespace: openshift-ingress-operator
+    path: ingress-default-cert.yaml
+  - target:
+      group: operator.openshift.io
+      version: v1
+      kind: IngressController
+      name: default
+      namespace: openshift-ingress-operator
+    path: ingress-replicas.yaml
