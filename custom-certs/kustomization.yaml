@@ -1,6 +1,2 @@
 resources:
-- apiserver-custom-cert-sealed-secret.yaml
 - apiserver.yaml
-- ingress-controller.yaml
-- ingress-default-cert-sealed-secret.yaml 
--

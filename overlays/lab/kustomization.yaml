@@ -1,4 +1,15 @@
 bases:
 - ../../custom-certs
-patchesStrategicMerge:
-- ingress-controller.yaml 
+patchesJson6902:
+  - target:
+      group: config.openshift.io
+      version: v1
+      kind: APIServer
+      name: cluster
+    path: namedCert.yaml
+  - target:
+      group: config.openshift.io
+      version: v1
+      kind: APIServer
+      name: cluster
+    path: servingCert.yaml

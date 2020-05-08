@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/servingCerts/namedCertificates/0/names/0
+  value: api.ocp4.foo.bar
