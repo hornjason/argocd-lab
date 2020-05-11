@@ -1,2 +1,3 @@
 resources:
-- 
+- google-oauth-cr.yaml
+- google-sealed-secret.yaml
