@@ -1,5 +1,5 @@
 bases:
-- ../../../identity 
+- ../../../identityProvider
 patchesJson6902:
   - target:
       group: config.openshift.io
