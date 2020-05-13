@@ -1,3 +1,5 @@
+commonLabels:
+  registry: nfs
 bases:
 - ../../../registry
 patchesJson6902:

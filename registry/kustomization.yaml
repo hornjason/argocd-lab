@@ -1,6 +1,4 @@
-commonLabels:
-  registry: nfs
 resources:
-- registry-pv.yml
-- registry-pvc.yml
-- config-imageregistry.yaml
+- registry-pv.yaml
+- registry-pvc.yaml
+- image-registry-cr.yaml
