@@ -3,6 +3,11 @@ kind: PersistentVolume
 metadata:
   name: ocp-registry
 spec:
+  capacity:
+    storage: 100Gi
+  nfs:
+    path: /change/me
+    server: change.me
   accessModes:
   - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain 

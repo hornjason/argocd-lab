@@ -1,8 +1,6 @@
 - op: add
   path: /spec
   value:
-    managementState: Managed
-    defaultRoute: true
     storage:
       pvc:
         claim: image-registry-storage
