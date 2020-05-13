@@ -7,3 +7,5 @@
     selector:
       matchLabels:
         registry: nfs 
+    accessModes:
+    - ReadWriteMany

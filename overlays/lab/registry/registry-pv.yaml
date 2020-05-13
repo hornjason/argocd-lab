@@ -6,3 +6,6 @@
     nfs:
       path: /ocp-registry
       server: nasbook.foo.bar
+    accessModes:
+    - ReadWriteMany
+    persistentVolumeReclaimPolicy: Retain
