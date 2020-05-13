@@ -4,8 +4,8 @@ metadata:
   name: cluster
 spec:
   storage:
-  pvc:
-    claim: image-registry-storage
+    pvc:
+      claim: image-registry-storage
   replicas: 1
   defaultRoute: true
   disableRedirect: false
