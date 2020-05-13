@@ -1,4 +1,6 @@
 resources:
+- infra-mcp.yaml
+- default-node-selector.yaml 
 - label-infra-nodes.yaml
 
 patchesJson6902:
