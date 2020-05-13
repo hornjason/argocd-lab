@@ -12,3 +12,4 @@ spec:
       some: label
   accessModes:
     - ReadWriteMany
+  storageClassName: ''
