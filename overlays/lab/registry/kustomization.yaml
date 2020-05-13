@@ -14,9 +14,9 @@ patchesJson6902:
       kind: PersistentVolume
       name: ocp-registry
     path: registry-pv.yaml
-  - target:
-      group: imageregistry.operator.openshift.io
-      version: v1
-      kind: Config
-      name: cluster
-    path: registry-cr.yaml
+    #  - target:
+    #      group: imageregistry.operator.openshift.io
+    #      version: v1
+    #      kind: Config
+    #      name: cluster
+    #    path: registry-cr.yaml
