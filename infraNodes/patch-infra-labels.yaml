@@ -1,5 +1,5 @@
 - op: add
-  path: /metadata/labels/node-role.kubernetes.io~1infrap
+  path: /metadata/labels/node-role.kubernetes.io~1infra
   value: "" 
 
 
