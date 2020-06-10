@@ -14,11 +14,9 @@ spec:
     route: true
     host: argocd.apps.jasonhorn.io
   rbac:
-    defaultPolicy: 'role:readonly'
+    defaultPolicy: 'role:admin'
     policy: |
-      g, system:cluster-admins, role:admin
+      g, argo-admins, role:admin
     scopes: '[groups]'
-  tls:
-    ca:
-      configMapName: jth-argocd-ca
-      secretName: jth-argocd-ca
+  initialRepositories: |
+    - url: https://github.com/hornjason/argocd-lab.git
