@@ -1,0 +1,11 @@
+resources:
+- infra-mcp.yaml
+- default-node-selector.yaml 
+- label-infra-nodes.yaml
+
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Node
+      name: compute-0
+    path: patch-infra-labels.yaml

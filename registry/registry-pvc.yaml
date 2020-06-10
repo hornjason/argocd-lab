@@ -4,11 +4,12 @@ metadata:
   name: image-registry-storage
   namespace: openshift-image-registry
 spec:
-  selector: 
-    matchLabels:
-      registry: nfs
-  accessModes:
-    - ReadWriteMany
   resources:
     requests:
-      storage: 100Gi 
+      storage: 100Gi
+  selector:
+    matchLabels:
+      some: label
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ''

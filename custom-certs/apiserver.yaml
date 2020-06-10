@@ -6,6 +6,6 @@ spec:
   servingCerts:
     namedCertificates:
     - names:
-      - api.apps.jasonhorn.io
+      - changeme
       servingCertificate:
-        name: jasonhorn-cert
+        name: changeme

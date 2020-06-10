@@ -1,0 +1,7 @@
+- op: add
+  path: /metadata/labels/node-role.kubernetes.io~1infra
+  value: "" 
+
+
+- op: remove
+  path: /metadata/labels/node-role.kubernetes.io~1worker

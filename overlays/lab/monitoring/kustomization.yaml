@@ -1,0 +1,29 @@
+bases:
+- ../../../monitoring
+patchesJson6902:
+  - target:
+      group: config.openshift.io
+      version: v1
+      kind: APIServer
+      name: cluster
+    path: namedCert.yaml
+  - target:
+      group: config.openshift.io
+      version: v1
+      kind: APIServer
+      name: cluster
+    path: servingCert.yaml
+  - target:
+      group: operator.openshift.io
+      version: v1
+      kind: IngressController
+      name: default
+      namespace: openshift-ingress-operator
+    path: ingress-default-cert.yaml
+  - target:
+      group: operator.openshift.io
+      version: v1
+      kind: IngressController
+      name: default
+      namespace: openshift-ingress-operator
+    path: ingress-replicas.yaml
