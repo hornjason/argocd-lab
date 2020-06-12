@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: label-infranodes
+spec:
+  parallelism: 1    
+  completions: 1    
+  activeDeadlineSeconds: 30
+  backoffLimit: 2
+  template:         
+    metadata:
+      name: label-infranodes
+    spec:
+      serviceAccountName: relabel
+      containers:
+      - name: relabel
+        image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:b0edd74f803bc66809975af282244b1c2d9d6c72d90ac86c24f5f626be236079
+        command: ["oc", "label", "nodes" , "compute-0", "compute-1", "compute-2", "node-role.kubernetes.io/infra=", 'node-role.kubernetes.io/worker-']
+      restartPolicy: OnFailure    

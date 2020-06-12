@@ -3,4 +3,3 @@ kind: OAuth
 metadata:
   name: cluster
 spec:
- 

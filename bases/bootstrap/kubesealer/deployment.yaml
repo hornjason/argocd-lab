@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bootstrap
+  namespace: default
+  labels:
+    app: bootstrap
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: bootstrap
+  template:
+    metadata:
+      labels:
+        app: bootstrap
+    spec:
+      containers:
+        - image:  quay.io/jhorn/kubesealer-oc-ubi
+          imagePullPolicy: Always
+          name: bootstrap
+          command: ["/bin/bash", "-c"]
+          args: [ "while true;  do sleep 1000; done;"]
+      restartPolicy: Always
+      serviceAccountName: relabel

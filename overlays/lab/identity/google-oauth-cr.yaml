@@ -8,6 +8,6 @@
         google:
           clientID: '520327157727-5i0mildljkumbiiuchnrrtad3m1de7t9.apps.googleusercontent.com'
           clientSecret: 
-            name: google-secret
+            name: idp-secret
           hostedDomain: "redhat.com"
 
