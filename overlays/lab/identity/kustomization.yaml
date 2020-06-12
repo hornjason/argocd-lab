@@ -4,22 +4,22 @@ kind: Kustomization
 #namespace: openshift-config
 
 bases:
-- ../../../bases/bootstrap/identity
+- ../../../bases/identity
 
-secretGenerator:
-  - name: idp-secret
-    files: 
-      - clientSecret
-    namespace: openshift-config
-    type: Opaque
+#secretGenerator:
+#  - name: idp-secret
+#    files: 
+#      - clientSecret
+#    namespace: openshift-config
+#    type: Opaque
+#
+#generatorOptions:
+#  disableNameSuffixHash: true
 
-generatorOptions:
-  disableNameSuffixHash: true
-
-#patchesJson6902:
-# - target:
-#     group: config.openshift.io
-#     version: v1
-#     kind: OAuth
-#     name: cluster
-#   path: google-oauth-cr.yaml
+patchesJson6902:
+ - target:
+     group: config.openshift.io
+     version: v1
+     kind: OAuth
+     name: cluster
+   path: google-oauth-cr.yaml

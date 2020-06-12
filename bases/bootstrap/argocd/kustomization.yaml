@@ -1,0 +1,5 @@
+resources:
+- project.yaml
+- example-argocd-cr.yaml    
+- subscription.yaml 
+- operatorgroup.yaml    
