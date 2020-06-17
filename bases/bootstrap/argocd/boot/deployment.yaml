@@ -25,4 +25,5 @@ spec:
           command: ["/bin/bash", "-c"]
           args: [ "while true;  do sleep 1000; done;"]
       restartPolicy: Always
-      serviceAccountName: relabel
+      serviceAccountName: bootstrap
+
