@@ -1,7 +1,7 @@
 apiVersion: project.openshift.io/v1
 kind: Project
 metadata:
+  annotations:
+    openshift.io/description: "ArgoCD project for gitops"
+    openshift.io/display-name: "ArgoCD"
   name: argocd
-spec:
-  finalizers:
-  - kubernetes

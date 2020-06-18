@@ -1,17 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-#namespace: openshift-config
 
 bases:
-- ../../../bases/bootstrap/identity
+- ../../../bases/bootstrap
 
-secretGenerator:
-  - name: idp-secret
-    files: 
-      - clientSecret
-    namespace: openshift-config
-    type: Opaque
-
-generatorOptions:
-  disableNameSuffixHash: true

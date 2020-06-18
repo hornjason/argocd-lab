@@ -1,5 +1,7 @@
 resources:
 - project.yaml
-- example-argocd-cr.yaml    
+- argo_admin_group.yaml
 - subscription.yaml 
-- operatorgroup.yaml    
+- operatorgroup.yaml   
+- example-argocd-cr.yaml    
+- cluster-role-binding.yaml

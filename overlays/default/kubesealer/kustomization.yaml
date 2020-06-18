@@ -1,25 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-#namespace: openshift-config
-
 bases:
-- ../../../bases/kubesealer
-
-secretGenerator:
-  - name: idp-secret
-    files:
-      - clientSecret
-    namespace: openshift-config
-    type: Opaque
-
-generatorOptions:
-  disableNameSuffixHash: true
-
-patchesJson6902:
-  - target:
-      group: config.openshift.io
-      version: v1
-      kind: OAuth
-      name: cluster
-    path: google-oauth-cr.yaml
+  -  ../../../bases/bootstrap/kubesealer
