@@ -24,6 +24,12 @@ spec:
           name: bootstrap
           command: ["/bin/bash", "-c"]
           args: [ "while true;  do sleep 1000; done;"]
+          volumeMounts:
+            - mountPath: /etc/tls/private
+              name: secret-alertmanager-main-tls
+      volumes:
+        - name: script-data
+          hostPath: script.sh
       restartPolicy: Always
       serviceAccountName: bootstrap
 
