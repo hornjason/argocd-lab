@@ -41,6 +41,8 @@ spec:
               name: tls-certs
             - mountPath: /run/bootstrap/idp
               name: idp-secret
+            - mountPath: /run/bootstrap/git
+              name: git
       volumes:
         - name: tls-certs
           secret:
@@ -48,6 +50,9 @@ spec:
         - name: idp-secret
           secret:
             secretName: idp-secret
+        - name: git
+          secret:
+            secretName: repo-github
       restartPolicy: Always
       serviceAccountName: bootstrap
 
