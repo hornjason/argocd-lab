@@ -39,7 +39,7 @@ kustomize build ./ --reorder none | oc apply -f -
  done;
 
 # Install argo applications to start syncing
-cd /${project}/overlays/argocd 
+cd /${project}/overlays/lab/argocd 
 kustomize build ./ --reorder none | oc apply -f -
 
 #Label infra nodes & remove worker
