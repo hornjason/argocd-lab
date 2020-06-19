@@ -6,4 +6,4 @@
       - names:
         - api.apps.jasonhorn.io
         servingCertificate:
-          name: jasonhorn-cert
+          name: custom-cert

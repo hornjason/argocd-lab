@@ -6,11 +6,11 @@ namespace: argocd
 bases:
   -  ../../../bases/bootstrap/argocd
 
-secretGenerator:
-  - name: repo-github
-    envs: 
-    - github.env
-    type: Opaque
-
-generatorOptions:
-  disableNameSuffixHash: true
+  #secretGenerator:
+  #  - name: repo-github
+  #    envs: 
+  #    - github.env
+  #    type: Opaque
+  #
+  #generatorOptions:
+  #  disableNameSuffixHash: true
