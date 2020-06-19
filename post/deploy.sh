@@ -26,8 +26,8 @@ tlsKeyFile=~/jasonhorn.io.key
 # git information
 gitRepo="https://github.com/hornjason/argocd-lab.git"
 gitProject="argocd-lab"
-gitUser="hornjason"
-gitPass="f9874fddd15c938103f69e656a0dbbd2c5a30d41"
+gitUser=""
+gitPass=""
 
 ###################
 # DON'T Change for POC
