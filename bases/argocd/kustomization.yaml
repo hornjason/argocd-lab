@@ -1,0 +1,3 @@
+resources:
+- example-argocd-cr.yaml    
+- identity-provider-application.yaml

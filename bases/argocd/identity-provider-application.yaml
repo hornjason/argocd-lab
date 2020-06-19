@@ -10,6 +10,6 @@ spec:
   syncPolicy:
     automated: {}
   source:
-    path: overlays/identity/lab
+    path: overlays/lab/identity
     repoURL: "https://github.com/hornjason/argocd-lab.git"
     targetRevision: master
