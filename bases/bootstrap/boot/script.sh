@@ -28,6 +28,8 @@ identitySecret=$(echo ${clientSecret} |base64)
 # touch done /run/done and invoke from outside of pod
 # pull file over and continue parent script 
 cd /${project}/bases/bootstrap/identitySecret
+echo "${clientSecret}" | oc  create secret generic idp-secret \
+--from-file=clientSecret=/dev/stdin -o yaml | kubeseal - -o yaml>/run/idp_sealed_secret.yaml
 
 # Install ArgoCD
 cd /${project}/overlays/default/argocd 
