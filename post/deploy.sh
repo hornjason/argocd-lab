@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 # 1. create sa for bootstrap depolyment.yaml 
 # oc create sa bootstrap -n default
 #  oc adm policy add-cluster-role-to-user cluster-admin serviceaccount:default:bootstrap
