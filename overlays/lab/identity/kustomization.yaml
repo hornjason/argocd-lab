@@ -6,16 +6,6 @@ kind: Kustomization
 bases:
 - ../../../bases/identity
 
-#secretGenerator:
-#  - name: idp-secret
-#    files: 
-#      - clientSecret
-#    namespace: openshift-config
-#    type: Opaque
-#
-#generatorOptions:
-#  disableNameSuffixHash: true
-
 patchesJson6902:
  - target:
      group: config.openshift.io
