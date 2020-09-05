@@ -1,3 +1,0 @@
-- op: replace
-  path: /spec/servingCerts/namedCertificates/0/servingCertificate/name
-  value: custom-cert

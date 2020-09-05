@@ -1,9 +1,0 @@
-apiVersion: operators.coreos.com/v1
-kind: OperatorGroup
-metadata:
-  generateName: argocd-
-  name: argocd-operatorgroup
-  namespace: argocd
-spec:
-  targetNamespaces:
-  - argocd
