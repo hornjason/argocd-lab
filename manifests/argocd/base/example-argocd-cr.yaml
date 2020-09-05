@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: example-argocd
+spec:
+  dex:
+    image: quay.io/redhat-cop/dex
+    openShiftOAuth: true
+    version: v2.22.0-openshift
+  server:
+    route:
+      enabled: true
+    host: test.apps.clusterid.domain
+  rbac:
+    defaultPolicy: 'role:readonly'
+    policy: |
+      g, argo-admins, role:admin
+    scopes: '[groups]'
+  initialRepositories: |
+    - url: https://github.com/user/proj

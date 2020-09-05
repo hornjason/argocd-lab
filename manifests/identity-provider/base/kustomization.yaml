@@ -1,0 +1,6 @@
+generatorOptions:
+  disableNameSuffixHash: true
+
+resources:
+- google-oauth-cr.yaml
+- bindings.yaml

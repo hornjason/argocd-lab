@@ -1,0 +1,22 @@
+commonLabels:
+  registry: nfs
+bases:
+- ../../../registry
+patchesJson6902:
+  - target:
+      version: v1
+      kind: PersistentVolumeClaim
+      name: image-registry-storage
+      namespace: openshift-image-registry
+    path: registry-pvc.yaml
+  - target:
+      version: v1
+      kind: PersistentVolume
+      name: ocp-registry
+    path: registry-pv.yaml
+    #  - target:
+    #      group: imageregistry.operator.openshift.io
+    #      version: v1
+    #      kind: Config
+    #      name: cluster
+    #    path: registry-cr.yaml
