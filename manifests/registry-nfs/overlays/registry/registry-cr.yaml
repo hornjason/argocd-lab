@@ -1,0 +1,6 @@
+- op: add
+  path: /spec
+  value:
+    storage:
+      pvc:
+        claim: image-registry-storage

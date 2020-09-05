@@ -1,0 +1,9 @@
+- op: add
+  path: /spec
+  value: 
+    servingCerts:
+      namedCertificates:
+      - names:
+        - api.apps.jasonhorn.io
+        servingCertificate:
+          name: custom-cert
