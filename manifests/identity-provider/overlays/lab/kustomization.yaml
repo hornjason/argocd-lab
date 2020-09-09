@@ -8,7 +8,7 @@ patchesStrategicMerge:
 
 secretGenerator:
   - name: idp-secret
-    behavior: replace
+    #behavior: replace
     files: 
       - clientSecret
     namespace: openshift-config
