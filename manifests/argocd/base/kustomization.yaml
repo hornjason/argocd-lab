@@ -4,4 +4,4 @@ resources:
 - argo_admin_group.yaml    
 - cluster-role-binding.yaml
 - example-argocd-cr.yaml    
-- argocd-project.yaml
+#- argocd-project.yaml

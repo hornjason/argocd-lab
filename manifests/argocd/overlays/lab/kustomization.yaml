@@ -3,8 +3,6 @@ bases:
 
 namespace: argocd
 
-namePrefix: lab-
-
 generatorOptions:
   disableNameSuffixHash: true
 
@@ -17,4 +15,4 @@ generatorOptions:
 patchesStrategicMerge:
   - patch-example-argocd-cr.yaml
   - patch-argo-admins.yaml
-  - argocd-project.yaml
+  #  - argocd-project.yaml
