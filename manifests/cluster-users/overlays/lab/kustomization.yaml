@@ -1,0 +1,9 @@
+bases:
+- ../../base
+
+patchesStrategicMerge:
+  - bindings.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
