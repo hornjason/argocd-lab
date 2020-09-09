@@ -12,6 +12,6 @@ spec:
     targetRevision: demo
     directory:
       recurse: true
-  project: hub
+  project: default
   syncPolicy:
     automated: {}

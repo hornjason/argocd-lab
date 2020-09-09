@@ -34,6 +34,7 @@ metadata:
 spec:
    managementState: Managed
    replicas: 2
+   logging: 2
    storage:
      pvc:
        claim: image-registry-pvc
