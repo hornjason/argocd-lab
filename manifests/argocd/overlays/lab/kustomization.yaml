@@ -3,15 +3,17 @@ bases:
 
 namespace: argocd
 
+namePrefix: lab-
+
 generatorOptions:
   disableNameSuffixHash: true
 
-secretGenerator:
-- name: repo-github
-  envs: 
-  - github.env
-  type: Opaque
-
+#secretGenerator:
+#  - name: repo-github
+#    envs: 
+#      - github.env
+#    type: Opaque
+#
 patchesStrategicMerge:
   - patch-example-argocd-cr.yaml
   - patch-argo-admins.yaml
