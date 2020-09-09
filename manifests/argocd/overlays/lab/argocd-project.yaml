@@ -1,0 +1,9 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: hub
+  namespace: argocd
+spec:
+  description: hub clusters
+  sourceRepos:
+    - 'https://github.com/hornjason/argocd-lab'

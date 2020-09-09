@@ -5,7 +5,6 @@ bases:
 
 patchesStrategicMerge:
   - google-oauth-cr.yaml
-  - bindings.yaml
 
 secretGenerator:
   - name: idp-secret
