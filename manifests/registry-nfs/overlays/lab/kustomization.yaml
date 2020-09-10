@@ -1,11 +1,14 @@
 commonLabels:
   registry: nfs
+
 bases:
 - ../../base
 
 
 patchesStrategicMerge:
-  - patch-registry-nfs.yaml
+  - registry-pv.yaml
+  - registry-pvc.yaml
+  - registry-cr.yaml
 
 #patchesJson6902:
 #  - target:
