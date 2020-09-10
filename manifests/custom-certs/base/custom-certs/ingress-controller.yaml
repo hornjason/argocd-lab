@@ -6,8 +6,4 @@ metadata:
 spec:
   defaultCertificate:
     name: custom-certs-default
-  nodePlacement:
-    nodeSelector:
-      matchLabels:
-        node-role.kubernetes.io/infra: ""
   replicas: 2
