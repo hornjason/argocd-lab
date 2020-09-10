@@ -2,4 +2,4 @@ generatorOptions:
   disableNameSuffixHash: true
 
 resources:
-- bindings.yaml
+  - cluster-role-bindings.yaml

@@ -1,9 +1,9 @@
 bases:
 - ../../base
-
-patchesStrategicMerge:
-  - bindings.yaml
-
 generatorOptions:
   disableNameSuffixHash: true
+
+patchesStrategicMerge:
+  - cluster-role-bindings.yaml
+
 
