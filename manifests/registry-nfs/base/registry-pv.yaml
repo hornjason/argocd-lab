@@ -6,9 +6,9 @@ spec:
   accessModes:
     - ReadWriteMany
   capacity:
-      storage: 50Gi
+      storage: 100Gi
   nfs:
     path: /export
-    server: 192.168.1.168
+    server: 1.1.1.1
   persistentVolumeReclaimPolicy: Retain
   volumeMode: Filesystem

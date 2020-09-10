@@ -3,9 +3,9 @@ kind: Config
 metadata:
   name: cluster
 spec:
+   logging: 2
    managementState: Managed
    replicas: 2
-   logging: 2
    storage:
      pvc:
        claim: image-registry-pvc

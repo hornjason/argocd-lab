@@ -1,2 +1,4 @@
 resources:
-- registry-nfs.yaml
+- registry-pv.yaml
+- registry-pvc.yaml
+- registry-cr.yaml
