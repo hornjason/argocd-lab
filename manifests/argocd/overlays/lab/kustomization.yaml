@@ -13,6 +13,5 @@ generatorOptions:
 #    type: Opaque
 #
 patchesStrategicMerge:
-  - patch-example-argocd-cr.yaml
-  - patch-argo-admins.yaml
-  #  - argocd-project.yaml
+  - example-argocd-cr.yaml
+  - argocd-admins.yaml
