@@ -14,4 +14,4 @@ generatorOptions:
 #
 patchesStrategicMerge:
   - example-argocd-cr.yaml
-  - argocd-admins.yaml
+  - argocd-admin-group.yaml

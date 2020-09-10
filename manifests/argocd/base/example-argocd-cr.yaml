@@ -16,5 +16,3 @@ spec:
     policy: |
       g, argo-admins, role:admin
     scopes: '[groups]'
-  initialRepositories: |
-    - url: https://github.com/user/proj
