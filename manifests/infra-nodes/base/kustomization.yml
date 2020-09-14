@@ -1,0 +1,3 @@
+resources:
+  - infra-mcp.yaml
+  - default-scheduler.yaml

@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: migrate-metrics-lab
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: 'https://api.managed.foo.bar:6443'
+  source:
+    path: manifests/migrate-metrics/overlays/lab
+    repoURL: 'https://github.com/hornjason/argocd-lab.git'
+    targetRevision: demo
+    directory:
+      recurse: true
+  project: default
+  syncPolicy:
+    automated: {}
