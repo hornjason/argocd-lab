@@ -1,6 +1,6 @@
 # Configuration
 - create a file clientSecrt in the correct overlay directory, add the google credentials for IDP
-  - `cat "Secret" > overlays/lab/clientSecret`
+  - `echo -n  'Secret' > overlays/lab/clientSecret`
 - edit `google-oauth-cr.yaml`
   - changed googleID
 
