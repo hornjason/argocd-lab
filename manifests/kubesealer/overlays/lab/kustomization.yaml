@@ -1,0 +1,9 @@
+bases:
+- ../../base
+generatorOptions:
+  disableNameSuffixHash: true
+
+patchesStrategicMerge:
+  - controller.yaml
+
+
