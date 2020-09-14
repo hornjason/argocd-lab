@@ -6,4 +6,4 @@
 
 
 # Apply
-- `oc apply -k overlays/lab`
+- `oc apply -f overlays/lab/argocd-app-idp-lab.yaml
