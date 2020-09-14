@@ -11,8 +11,6 @@ spec:
     path: manifests/identity-provider/overlays/lab
     repoURL: 'https://github.com/hornjason/argocd-lab.git'
     targetRevision: demo
-    directory:
-      recurse: true
   project: default
   syncPolicy:
     automated: {}
