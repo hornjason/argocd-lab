@@ -1,17 +1,17 @@
 bases:
--  ../../base
+- ../../base
 
 namespace: argocd
 
 generatorOptions:
   disableNameSuffixHash: true
 
-secretGenerator:
-  - name: second-clusetr 
-    files: 
-      - github.env
-    type: Opaque
-
+  #secretGenerator:
+  #  - name: second-clusetr 
+  #    files: 
+  #      - github.env
+  #    type: Opaque
+  #
 patchesStrategicMerge:
   - example-argocd-cr.yaml
   - argocd-admin-group.yaml

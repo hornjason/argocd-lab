@@ -1,6 +1,7 @@
 namespace: argocd 
 
 resources:
-- argo_admin_group.yaml    
-- cluster-role-binding.yaml
-- example-argocd-cr.yaml    
+  - argo_admin_group.yaml    
+  - cluster-role-binding.yaml
+  - example-argocd-cr.yaml    
+  
