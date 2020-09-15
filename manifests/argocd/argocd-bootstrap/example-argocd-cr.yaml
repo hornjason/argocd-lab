@@ -3,5 +3,7 @@ kind: ArgoCD
 metadata:
   name: example-argocd
 spec:
+  server:
+    host: argocd.apps.hub.foo.ba
   rbac:
     defaultPolicy: 'role:admin'
