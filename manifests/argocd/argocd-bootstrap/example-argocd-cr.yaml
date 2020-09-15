@@ -4,4 +4,4 @@ metadata:
   name: example-argocd
 spec:
   rbac:
-    defaultPolicy: 'role:readonly'
+    defaultPolicy: 'role:admin'
