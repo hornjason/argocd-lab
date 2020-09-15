@@ -2,3 +2,5 @@
 resources:
   - argocd-namespace.yaml
   - argocd-operator.yaml
+  - cluster-role-binding.yaml
+  - example-argocd-cr.yaml

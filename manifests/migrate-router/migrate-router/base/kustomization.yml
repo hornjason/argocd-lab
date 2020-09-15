@@ -1,4 +1,0 @@
-resources:
-- placementrule.yaml
-- bindings.yaml
-- policy-migrate-router.yaml
