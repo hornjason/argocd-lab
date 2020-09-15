@@ -1,8 +1,2 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
 resources:
-  #- operatorgroup.yaml The operator doesn't work correctly
-  #- subscription.yaml . And is maintained seperately from kubesealer core 
   - controller.yaml
-  #- deployment.yaml
