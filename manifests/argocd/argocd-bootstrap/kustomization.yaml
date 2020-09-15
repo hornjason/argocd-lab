@@ -2,3 +2,4 @@
 resources:
   - argocd-namespace.yaml
   - argocd-operator.yaml
+  - example-argocd-cr.yaml
