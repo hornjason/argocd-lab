@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: migrate-router-lab
+  name: cluster-users-lab-cluster2
   namespace: argocd
 spec:
   destination:
-    namespace: argocd
+    namespace: default
     server: 'https://api.managed.foo.bar:6443'
   source:
-    path: manifests/migrate-router/overlays/lab
+    path: manifests/cluster-users/overlays/lab
     repoURL: 'https://github.com/hornjason/argocd-lab.git'
     targetRevision: demo
   project: default

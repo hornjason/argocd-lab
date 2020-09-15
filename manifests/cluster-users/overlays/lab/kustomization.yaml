@@ -1,5 +1,8 @@
 bases:
 - ../../base
+
+namespace: default
+
 generatorOptions:
   disableNameSuffixHash: true
 
