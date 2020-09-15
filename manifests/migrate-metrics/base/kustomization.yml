@@ -1,2 +1,4 @@
+namespace: openshift-monitoring
+
 resources:
 - migrate-metrics.yaml
