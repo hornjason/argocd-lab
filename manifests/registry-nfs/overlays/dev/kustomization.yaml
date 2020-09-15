@@ -1,0 +1,11 @@
+commonLabels:
+  registry: nfs
+
+bases:
+- ../../base
+
+
+patchesStrategicMerge:
+  - registry-pv.yaml
+  - registry-pvc.yaml
+  - registry-cr.yaml
