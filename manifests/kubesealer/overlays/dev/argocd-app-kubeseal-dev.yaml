@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kube-sealer-lab
+  name: kube-sealer-dev
   namespace: argocd
 spec:
   destination:
     namespace: argocd
-    server: 'https://kubernetes.default.svc'
+    server: 'https://api.managed.foo.bar:6443'
   source:
-    path: manifests/kubesealer/overlays/lab
+    path: manifests/kubesealer/overlays/dev
     repoURL: 'https://github.com/hornjason/argocd-lab.git'
     targetRevision: demo
   project: default

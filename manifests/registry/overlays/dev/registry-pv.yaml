@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: registry-pv
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+      storage: 50Gi
+  vsphereVolume:
+    fsType: ext4
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+  storageClassName: thin

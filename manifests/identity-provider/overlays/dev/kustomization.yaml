@@ -1,0 +1,21 @@
+bases:
+- ../../base
+
+patchesStrategicMerge:
+  - idp-sealed-secret.yaml
+  - google-oauth-cr.yaml
+
+  # useful for private repos 
+  # for public used kubeseal
+  # oc create secret generic idp-secret --from-literal=clientSecret="secretgoeshere" --dry-run -o yaml|kubeseal -o yaml > idp-sealed-secret.yaml
+  #secretGenerator:
+  #  - name: idp-secret
+  #    files: 
+  #      - clientSecret
+  #    namespace: openshift-config
+  #    type: Opaque
+  #
+
+generatorOptions:
+  disableNameSuffixHash: true
+

@@ -1,4 +1,0 @@
-resources:
-- registry-pv.yaml
-- registry-pvc.yaml
-- registry-cr.yaml

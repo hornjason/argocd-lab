@@ -1,0 +1,12 @@
+bases:
+- ../../base
+
+namespace: default
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+patchesStrategicMerge:
+  - cluster-role-bindings.yaml
+
+
