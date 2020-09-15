@@ -4,6 +4,6 @@ metadata:
   name: example-argocd
 spec:
   server:
-    host: argocd.apps.hub.foo.ba
+    host: argocd.apps.hub.foo.bar
   rbac:
     defaultPolicy: 'role:admin'
