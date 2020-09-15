@@ -1,6 +1,0 @@
-bases:
-- ../../base
-
-patchesStrategicMerge:
-- placementrule.yaml
-- policy-migrate-router.yaml 

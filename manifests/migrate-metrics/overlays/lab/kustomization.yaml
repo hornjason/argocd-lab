@@ -1,7 +1,0 @@
-bases:
-- ../../base
-
-namespace: openshift-monitoring
-
-patchesStrategicMerge:
-  - migrate-metrics.yaml
