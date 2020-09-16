@@ -3,7 +3,16 @@ kind: ArgoCD
 metadata:
   name: example-argocd
 spec:
+  dex:
+    image: quay.io/redhat-cop/dex
+    openShiftOAuth: true
+    version: v2.22.0-openshift
   server:
+    route:
+      enabled: true
     host: argocd.apps.hub.foo.bar
   rbac:
     defaultPolicy: 'role:admin'
+    policy: |
+      g, argo-admins, role:admin
+    scopes: '[groups]'
