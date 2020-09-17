@@ -288,20 +288,25 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
     
 -   image-registry cluster operator is degraded , state = removed
     
-		o
+		oc config use-context lab
+		
 		oc get configs.imageregistry.operator.openshift.io cluster -o=jsonpath="{.spec.managementState}"
 
 		oc get co image-registry
 
 ##### Deploy
+- Deploy the ArgoCD application
 
-oc apply -f manifests/registry/overlays/lab/argocd-app-registry-lab.yaml
+		oc config use-context lab
 
--   Show ArgoCD now has a new application
+		oc apply -f manifests/registry/overlays/lab/argocd-app-registry-lab.yaml
+
+- Show ArgoCD now has a new application
     
--   Show image-registry cluster operator running
+- Show image-registry cluster operator running
     
-
+##### Verify
+- Verify registry 
 oc get co image-registry
 
 oc get configs.imageregistry cluster -o=jsonpath="{.spec.managementState}"
@@ -446,5 +451,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NDg1MzYwMjQsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbMTk5Nzc0MzM0OSwtMTM4NDA3Mjc1XX0=
 -->
