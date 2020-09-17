@@ -257,19 +257,20 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 #### Dev
 - Check for existing clusterrolebinding
-
-oc config use-context dev
-    
-oc get clusterrolebindings.rbac cluster-users (doesn’t exist)
+		
+		oc config use-context dev
+		    
+		oc get clusterrolebindings.rbac cluster-users  # shouldn't exist
     
 
 ##### Deploy
+- Deploy the ArgoCD application
 
--   oc config use-context lab
-    
--   oc apply -f manifests/cluster-users/overlays/dev/argocd-app-clusterusers-dev.yaml
-    
--   oc describe clusterrolebindings.rbac cluster-users -o yaml
+		oc config use-context lab
+		    
+		oc apply -f manifests/cluster-users/overlays/dev/argocd-app-clusterusers-dev.yaml
+		    
+	    oc describe clusterrolebindings.rbac cluster-users -o yaml
     
 -   Matches what's described in kustomize.
     
@@ -277,13 +278,7 @@ oc get clusterrolebindings.rbac cluster-users (doesn’t exist)
 ### Registry
 
 -   Describe tree of manifest/registry/
-    
-
--   Base is generic
-    
--   overlay/<env> is specific for that env.
-    
-
+   
 -   Describe purpose, expectations
     
 
@@ -293,10 +288,10 @@ oc get clusterrolebindings.rbac cluster-users (doesn’t exist)
     
 -   image-registry cluster operator is degraded , state = removed
     
+		o
+		oc get configs.imageregistry.operator.openshift.io cluster -o=jsonpath="{.spec.managementState}"
 
-oc get configs.imageregistry.operator.openshift.io cluster -o=jsonpath="{.spec.managementState}"
-
-oc get co image-registry
+		oc get co image-registry
 
 ##### Deploy
 
@@ -451,5 +446,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MTAwMDQ4NTQsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTE4NDg1MzYwMjQsLTEzODQwNzI3NV19
 -->
