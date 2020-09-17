@@ -178,7 +178,9 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 ##### Deploy
 - Deploy the google clientSecret as a Sealed Secret and create the ArgoCD application
 
-		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run --from-file=clientSecret=/dev/stdin -o yaml | kubeseal - -o yaml>/run/idp_sealed_secret.yaml
+		oc config use-context lab
+
+		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run --from-file=clientSecret=/dev/stdin -o yaml | kubeseal - -o yaml> manifests/identity-provider/overlays/dev/idp_sealed_secret.yaml
     
 		oc apply -f manifests/identity-provider/overlays/dev/argocd-app-idp-dev.yaml
     
@@ -186,16 +188,14 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 - Verify Secret is correctly configured using secretGenerator
 
--   oc get secrets -n openshift-config idp-secret -o=jsonpath="{.data.clientSecret}"|base64 -d
+		oc config use-context dev
+		
+		oc get secrets -n openshift-config idp-secret -o=jsonpath="{.data.clientSecret}"|base64 -d
     
 
 -   Login using IDP
-    
-
--   Should see appropriate IDP screen.
-    
-
--     
+   
+-   Should see appropriate IDP screen. 
     
 
   
@@ -456,5 +456,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEzODY1NzI1MSwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbMzkyOTA0Nzk0LC0xMzg0MDcyNzVdfQ==
 -->
