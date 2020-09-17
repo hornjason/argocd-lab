@@ -59,34 +59,20 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
 
 -   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
     
-    
 
-oc config use-context lab
-
-oc get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > master.yaml
-
--   I then installed this master.yaml on the “Dev” cluster which creates a secret used to decrypt SealedSecrets. This enables us to use the same sealed secrets on both clusters as the keys are the same.
-    
-
-“Dev” cluster:
-
-oc config use-context dev
-
-oc apply -f master.yaml
 
   
   ### ArgoCD
   
-#### Deploy ArgoCD
+#### Deploy ArgoCD Operator
+- Deploy ArgoCD Operator on the "Lab" cluster
 
-oc config set-context lab
+		oc config set-context lab
 
-oc apply -k manifests/argocd/argocd-bootstrap
+		oc apply -k manifests/argocd/argocd-bootstrap
 
 -   Show ArgoCD Operator deployed in OCP
     
-
-  
 
 ### Sealed Secrets
 
@@ -465,5 +451,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4MTk0MzAzOTcsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTQ2NjQ3MzE4MiwtMTM4NDA3Mjc1XX0=
 -->
