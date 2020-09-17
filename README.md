@@ -211,28 +211,22 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 ##### Deploy ArgoCD instance
 - Deploy a ArgoCD instance for this demo will be "example-argocd"
 
+		
+		oc config use-context lab
+		
 		oc apply -k manifests/argocd/overlays/lab
-
-
-  
-  
 
 -   Show route created from overlays
     
-
-oc get route -o jsonpath='{.items[*].spec.host}' -n argocd
+		oc get route -o jsonpath='{.items[*].spec.host}' -n argocd
 
 -   Demonstrate argo-admins group created for RBAC Controls
     
 
-oc describe groups argo-admins
+		oc describe groups argo-admins
 
 -   Access ArgoCD GUI login with OCP and demo no apps created
     
-
-  
-  
-  
 
 ### Cluster Users
 
@@ -242,10 +236,11 @@ oc describe groups argo-admins
     
 
 #### Lab
+- Deploy the ArgoCD application
 
--   oc config use-context lab
-    
--   oc get clusterrolebindings.rbac cluster-users (doesn’t exist)
+	-   oc config use-context lab
+	    
+	-   oc get clusterrolebindings.rbac cluster-users (doesn’t exist)
     
 
 ##### Deploy
@@ -452,5 +447,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3NzI1MzAyNTMsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTM0NDkwMDIwMCwtMTM4NDA3Mjc1XX0=
 -->
