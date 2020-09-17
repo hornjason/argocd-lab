@@ -236,7 +236,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
     
 
 #### Lab
-- Check for cluster users 
+- Check for existing clusterrolebinding 
 
 		oc config use-context lab
 		    
@@ -245,18 +245,22 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 ##### Deploy
 - Deploy the ArgoCD application
+		
+		oc config use-context lab
+		
 		oc apply -f manifests/cluster-users/overlays/lab/argocd-app-clusterusers-lab.yaml
 		    
-		-   oc describe clusterrolebindings.rbac cluster-users
+		oc describe clusterrolebindings.rbac cluster-users
     
 -   Matches what's described in kustomize.
     
 
 #### Dev
+- Check for existing clusterrolebinding
 
--   oc config use-context dev
+oc config use-context dev
     
--   oc get clusterrolebindings.rbac cluster-users (doesn’t exist)
+oc get clusterrolebindings.rbac cluster-users (doesn’t exist)
     
 
 ##### Deploy
@@ -447,5 +451,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEwOTQ3Mzk5MSwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbLTE3MTAwMDQ4NTQsLTEzODQwNzI3NV19
 -->
