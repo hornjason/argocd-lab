@@ -59,9 +59,6 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
 
 -   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
     
-
--   There will be two installations of Sealed Secrets for this demo, lab and dev.  
-    “Lab” cluster :
     
 
 oc config use-context lab
@@ -78,26 +75,9 @@ oc config use-context dev
 oc apply -f master.yaml
 
   
+  ### ArgoCD
   
-
-  
-  
-  
-  
-  
-  
-  
-
-### ArgoCD
-
--   Diagram of what we are trying to achieve
-    
--   Update readme.md on argocd-lab
-    
-
-#### Bootstrap ArgoCD
-
-##### Deploy argocd-bootstrap
+#### Deploy ArgoCD
 
 oc config set-context lab
 
@@ -485,5 +465,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM2MTc2ODgyNywtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbLTE4MTk0MzAzOTcsLTEzODQwNzI3NV19
 -->
