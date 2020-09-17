@@ -65,7 +65,7 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
   
   ### ArgoCD
   
-#### Deploy ArgoCD Operator
+#### ArgoCD Operator
 - Deploy ArgoCD Operator on the "Lab" cluster
 
 		oc config set-context lab
@@ -74,6 +74,33 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
 
 -   Show ArgoCD Operator deployed in OCP
     
+    
+### ArgoCD Additional Cluster
+- To import additional clusters into ArgoCD 
+
+		argocd login --sso $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd)
+
+-   Add context to kubeconfig for second cluster
+    
+			
+		export=/Users/jhorn/projects/git/tech-ready/vsphere-ipi/hub/auth/kubeconfig
+
+		oc config get-contexts
+
+		oc login -u <login> https://api.managed:6443
+
+-   A new context is added
+    
+
+Oc config get-contexts; oc config rename-context <old> <new friendly name>
+
+argocd cluster add; # lists the contexts out
+
+argocd cluster add < context of second clusters friendly name>
+
+-   argocd cluster add dev
+    
+
 
 ### Sealed Secrets
 
@@ -101,32 +128,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 		oc config use-context lab
 
 		oc apply -f manifests/sealed-secrets/overlays/dev/argocd-app-sealedsecrets.yaml
-
-### ArgoCD Additional Cluster
-- To import additional clusters into ArgoCD 
-
-		argocd login --sso $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd)
-
--   Add context to kubeconfig for second cluster
-    
-			
-		export=/Users/jhorn/projects/git/tech-ready/vsphere-ipi/hub/auth/kubeconfig
-
-		oc config get-contexts
-
-		oc login -u <login> https://api.cluser.domain.name:6443
-
--   A new context is added
-    
-
-Oc config get-contexts; oc config rename-context <old> <new friendly name>
-
-argocd cluster add; # lists the contexts out
-
-argocd cluster add < context of second clusters friendly name>
-
--   argocd cluster add dev
-    
 
   
 
@@ -452,5 +453,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTEwMzUyNzE5NiwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbNTM3Mjc3NzU1LC0xMzg0MDcyNzVdfQ==
 -->
