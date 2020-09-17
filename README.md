@@ -1,11 +1,9 @@
-# argocd-lab![](https://lh4.googleusercontent.com/96qjZd_03KvN3yldyfTOvd__lpL1Ia2txX_p7oV5YjKwGhpqC6TSeIz_TaFi-OauTi_TNQJFA-5JUsqXJbXtgkF5wuD2Mwq92Ev7RQe35h9Sc6lJOYRH9Rv6stdAAJZhyZz2c7Sn)
+
 
 -     
-    
 
-## Presentation
+> This repository contains manifests to configure OpenShift 4 clusters with ArgoCD.  Below is a 
 
-  
   
 
 ## Demo Environment
@@ -518,5 +516,5 @@ oc get mcp
 
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM2NDY2NTk0LC0xMzg0MDcyNzVdfQ==
+eyJoaXN0b3J5IjpbMTIyNTE0NDM0NSwtMTM4NDA3Mjc1XX0=
 -->
