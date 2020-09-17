@@ -81,25 +81,26 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 #### Deploy Lab
 
-To re-use a Sealed Secret key encrypted from a prior version you can apply it before installing. For the purposes of this demo we will start from scratch.
+- To re-use a Sealed Secret key encrypted from a prior version you can apply it before installing. For the purposes of this demo we will start from scratch.
 
-	oc config use-context lab
+		oc config use-context lab
 
-	oc apply -f manifests/sealed-secrets/overlays/lab/argocd-app-sealedsecrets.yaml
+		oc apply -f manifests/sealed-secrets/overlays/lab/argocd-app-sealedsecrets.yaml
 
 -   Grab Sealed Secret KEY, you’ll want to back this up so you can unseal secrets that use this key later.
     
 		oc get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > master.yaml
 
 #### Deploy Dev
+- Deploy Sealed Secrets on the Dev cluster, applying the master.yaml, ( sealed secret key ) from the Lab cluster.
 
-oc config use-context dev
+		oc config use-context dev
 
-oc apply -f master.yaml
+		oc apply -f master.yaml
 
-oc config use-context lab
+		oc config use-context lab
 
-oc apply -f manifests/sealed-secrets/overlays/dev/argocd-app-sealedsecrets.yaml
+		oc apply -f manifests/sealed-secrets/overlays/dev/argocd-app-sealedsecrets.yaml
 
 ### ArgoCD Additional Cluster
 - To import additional clusters into ArgoCD 
@@ -451,5 +452,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg5MzIyOTc0NSwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbMTEwMzUyNzE5NiwtMTM4NDA3Mjc1XX0=
 -->
