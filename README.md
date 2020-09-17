@@ -2,7 +2,7 @@
 
 -     
 
-> This repository contains manifests to configure OpenShift 4 clusters with ArgoCD.  Below is a 
+> This repository contains manifests to configure OpenShift 4 clusters with ArgoCD.  Detailed below is a guide illustrating how this works.
 
   
 
@@ -12,7 +12,22 @@
 
 1.    
     
+## Pre-Reqs
 
+
+### Sealed Secrets
+
+Kubeseal is the CLI for sealed secrets and can be installed below.
+
+#### Linux
+
+	wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.12.5/kubeseal-linux-amd64 -O kubeseal
+
+	sudo install -m 755 kubeseal /usr/local/bin/kubeseal
+
+#### Mac
+
+brew install kubeseal
 ### Notes:
 
 -   When creating secrets the base64 encoded secret may different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
@@ -73,19 +88,6 @@
   
   
 
-### Sealed Secrets
-
-Kubeseal is the CLI for sealed secrets and can be installed below.
-
-#### Linux
-
-wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.12.5/kubeseal-linux-amd64 -O kubeseal
-
-sudo install -m 755 kubeseal /usr/local/bin/kubeseal
-
-#### Mac
-
-brew install kubeseal
 
 #### Notes
 
@@ -516,5 +518,5 @@ oc get mcp
 
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIyNTE0NDM0NSwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbLTU2OTIwMjc5MiwtMTM4NDA3Mjc1XX0=
 -->
