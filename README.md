@@ -87,19 +87,19 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
 
 		oc config get-contexts
 
-		oc login -u <login> https://api.managed:6443
+		oc login -u <login> https://api.managed.foo.bar:6443 # Dev Cluster
 
 -   A new context is added
     
 
-Oc config get-contexts; oc config rename-context <old> <new friendly name>
 
-argocd cluster add; # lists the contexts out
+		oc config get-contexts; oc config rename-context <old> <new friendly name>
+		argocd cluster add; # lists the contexts out
 
-argocd cluster add < context of second clusters friendly name>
+		argocd cluster add < context of second clusters friendly name>
 
--   argocd cluster add dev
-    
+		argocd cluster add dev
+		    
 
 
 ### Sealed Secrets
@@ -453,5 +453,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTM3Mjc3NzU1LC0xMzg0MDcyNzVdfQ==
+eyJoaXN0b3J5IjpbLTUwMjY3Njc5MSwtMTM4NDA3Mjc1XX0=
 -->
