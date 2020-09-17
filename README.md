@@ -135,18 +135,19 @@ oc config use-context lab
 
 oc apply -f manifests/sealed-secrets/overlays/dev/argocd-app-sealedsecrets.yaml
 
-### Second Cluster
+### ArgoCD Additional Cluster
+- To import additional clusters into ArgoCD 
 
-argocd login --sso $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd)
+		argocd login --sso $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd)
 
 -   Add context to kubeconfig for second cluster
     
+			
+		export=/Users/jhorn/projects/git/tech-ready/vsphere-ipi/hub/auth/kubeconfig
 
-export=/Users/jhorn/projects/git/tech-ready/vsphere-ipi/hub/auth/kubeconfig
+		oc config get-contexts
 
-oc config get-contexts
-
-oc login -u <login> https://api.cluser.domain.name:6443
+		oc login -u <login> https://api.cluser.domain.name:6443
 
 -   A new context is added
     
@@ -484,5 +485,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MjIzNzIxMjMsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTM2MTc2ODgyNywtMTM4NDA3Mjc1XX0=
 -->
