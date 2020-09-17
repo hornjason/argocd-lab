@@ -22,7 +22,7 @@
 | Metrics| | X | 
 | Router | | X | 
 | | | |   
-## Pre-Reqs
+## Pre-Reqs / Setup
 
 
 ### Sealed Secrets
@@ -43,7 +43,8 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
 
   - Download [argocd](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli) cli,  this will be used to managed argocd and for the purposes of this demo import additional clusters.
  
-### Notes:
+ #### 
+#### Notes:
 
 -   When creating secrets the base64 encoded secret may different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
     
@@ -54,58 +55,9 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
     
 
 
-    
--   argocd cluster add <context from kubeconfig>
-    
--   INFO[0000] ServiceAccount "argocd-manager" created in namespace "kube-system" ### This is on the cluster being imported into argoCD
-    
--   INFO[0000] ClusterRole "argocd-manager-role" created
-    
--   INFO[0000] ClusterRoleBinding "argocd-manager-role-binding" created
-    
-
-#### Lab
-
--   Argocd is installed
-    
-
--   Deploying argocd applications requires the context to be this CLUSTER
-    
-
--   SealedSecrets is installed
-    
--   Uses NFS for registry
-    
--   No Infrastructure Nodes
-    
-
-#### Dev
-
--   SealedSecrets is installed
-    
--   Uses block device for registry , replicas 1
-    
--   Has 2 infrastructure nodes
-    
--   Migrating infrastructure workloads
-    
-
--   Registry
-    
--   Router
-    
--   Monitoring
-    
-
-  
-  
-  
-  
-
-
 #### Notes
 
--   There will be two installations of Sealed Secrets for this demo, lab and demo.  
+-   There will be two installations of Sealed Secrets for this demo, lab and dev.  
     “Lab” cluster :
     
 
@@ -124,10 +76,6 @@ oc apply -f master.yaml
 
   
   
-
-Git clone [git@github.com](mailto:git@github.com):hornjason/argocd-lab.git
-
-Git checkout demo
 
   
   
@@ -533,5 +481,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTUzNDE5MDUzOCwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbMTEwNTEwMDc5MiwtMTM4NDA3Mjc1XX0=
 -->
