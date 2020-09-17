@@ -348,35 +348,35 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
     
 -   Show image-registry cluster operator is not degraded/storage attached
     
+##### Verify
+- Verify registry has been provisioned
 
-oc config use-context dev
+		oc config use-context dev
 
-oc get co image-registry
+		oc get co image-registry
 
-oc get configs.imageregistry cluster -o=jsonpath="{.spec.managementState}"
+		oc get configs.imageregistry cluster -o=jsonpath="{.spec.managementState}"
 
-oc get configs.imageregistry cluster -o=jsonpath="{.spec.storage}”
+		oc get configs.imageregistry cluster -o=jsonpath="{.spec.storage}”
 
--     
+-   Show  registry PV, PVC
     
--   Show there is no registry PV, PVC
-    
 
-oc get pv
+		oc get pv
 
-oc get pvc -n openshift-image-registry
+		oc get pvc -n openshift-image-registry
 
 -   #### The “Dev” cluster contains infrastructure nodes so the overlay for dev updates the registry CR adding a toleration and nodeselector.
     
 
-oc get po -o wide -n openshift-image-registry
+		oc get po -o wide -n openshift-image-registry
 
   
   
   
   
 
-##### Migrate Metrics
+#### Migrate Metrics
 
 -   Since the “Dev” cluster contains infrastructure nodes we will move metrics pods to those nodes with tolerations and nodeselectors using the overlay for dev.
     
@@ -397,7 +397,7 @@ oc apply -f manifests/migrate-metrics/overlays/dev/argocd-app-migratemetrics-dev
 
   
 
-Verify
+#### Verify
 
 oc config use-context dev
 
@@ -453,5 +453,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg3NDkwOTAwOCwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbMTYzMDM5MzUyNiwtMTM4NDA3Mjc1XX0=
 -->
