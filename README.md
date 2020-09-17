@@ -435,18 +435,19 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 -   This manifest sets the default scheduler and create an infra MachineConfigPool
     
 -   To create an “Infra” machine set try:
-    
 
--   [https://github.com:christianh814/mk-machineset](https://github.com/christianh814/mk-machineset)
+	-   [https://github.com:christianh814/mk-machineset](https://github.com/christianh814/mk-machineset)
     
 
 #### Deploy
+- Deploy the ArgoCD application
 
-oc config use-context lab
+		oc config use-context lab
 
-oc apply -f manifests/infra-nodes/overlays/dev/argocd-app-infranodes-lab.yaml
+		oc apply -f manifests/infra-nodes/overlays/dev/argocd-app-infranodes-lab.yaml
 
 #### Verify
+- Verify an Infra MachineConfigPool has been created and the defau
 
 oc config use-context dev
 
@@ -455,5 +456,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg5MDQzNzc3NCwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbMTczMTg5OTY2OCwtMTM4NDA3Mjc1XX0=
 -->
