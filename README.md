@@ -27,7 +27,11 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
 
 #### Mac
 
-brew install kubeseal
+    brew install kubeseal
+
+###ArgoCD CLI
+
+   Download [argocd](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli)
 ### Notes:
 
 -   When creating secrets the base64 encoded secret may different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
@@ -39,7 +43,7 @@ brew install kubeseal
 -   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
     
 
--   Download [argocd](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli)
+
     
 -   argocd cluster add <context from kubeconfig>
     
@@ -517,6 +521,7 @@ oc config use-context dev
 oc get mcp
 
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU2OTIwMjc5MiwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbLTEyMjgxNTAzMDIsLTEzODQwNzI3NV19
 -->
