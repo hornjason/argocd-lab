@@ -51,12 +51,12 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
 		git checkout demo
 
 #### Notes:
-
+##### Sealed Secrets
 -   When creating secrets the base64 encoded secret may different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
     
 	 `echo -n “clienSecret” > manifests/identity-provider/overlays/lab/clientSecret`
     
-
+##### ArgoCD importing clusters
 -   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
     
 
@@ -456,6 +456,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 		oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM1NzUxNDg5NywtMTM5MjUwNTk1NywtMT
-M4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbNDYwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMz
+g0MDcyNzVdfQ==
 -->
