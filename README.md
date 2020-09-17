@@ -11,12 +11,16 @@
 |  | Lab | Dev |
 |--|--|--|
 | Domain | hub.foo.bar | managed.foo.bar |
-| Worker Nodes | | |
-| Infra Nodes | | |
+| Worker Nodes | 3 | 3 |
+| Infra Nodes |0 | 2 |
 | ArgoCD| | |
 | Sealed Secrets| | | 
-| Identity  | | |
-| | | |
+| Identity Provider | | |
+| Cluster Users | | |
+| Registry| | | 
+| Infra Node | | |
+| Metrics| | | 
+| Router | | | 
 | | | |   
 ## Pre-Reqs
 
@@ -530,5 +534,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDk3MTk1MjAzLC0xMzg0MDcyNzVdfQ==
+eyJoaXN0b3J5IjpbLTg3ODMxODY1NywtMTM4NDA3Mjc1XX0=
 -->
