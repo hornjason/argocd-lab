@@ -8,15 +8,15 @@
 
 ## Demo Environment
 
-![](https://lh6.googleusercontent.com/ABAkXx1kfN1X-Q4sDOk31V94bi7q0Zt7UtuxA_GA-owcV5D7eqr37QuDUqXNH27PRtc3PKbZ4IAqBmkW5lfNsSTVfEbVRxjbT9Qr-ar8cv8LIM6kITp1r0x_slG8CGR6_PzKwyHj)
+
 
 |  | Lab | Dev |
 |--|--|--|
 | Domain | hub.foo.bar | managed.foo.bar |
-| | | |
-| | | |
-| | | |
-| | | |    
+| Worker Nodes | | |
+| Infra Nodes | | |
+| ArgoCD| | |
+| Sealed Secrets| | |    
 ## Pre-Reqs
 
 
@@ -529,5 +529,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2NjA5NDM2NzksLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbNjY3Mzg1ODE3LC0xMzg0MDcyNzVdfQ==
 -->
