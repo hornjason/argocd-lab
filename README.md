@@ -9,7 +9,6 @@
 ## Demo Environment
 
 ![](https://lh6.googleusercontent.com/ABAkXx1kfN1X-Q4sDOk31V94bi7q0Zt7UtuxA_GA-owcV5D7eqr37QuDUqXNH27PRtc3PKbZ4IAqBmkW5lfNsSTVfEbVRxjbT9Qr-ar8cv8LIM6kITp1r0x_slG8CGR6_PzKwyHj)
-
 1.    
     
 ## Pre-Reqs
@@ -29,9 +28,10 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
 
     brew install kubeseal
 
-###ArgoCD CLI
+### ArgoCD CLI
 
-   Download [argocd](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli)
+  - Download [argocd](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli) cli,  this will be used to managed argocd and for the purposes of this demo import additional clusters.
+  
 ### Notes:
 
 -   When creating secrets the base64 encoded secret may different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
@@ -523,5 +523,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMjgxNTAzMDIsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTE1MDk1NjkwOTIsLTEzODQwNzI3NV19
 -->
