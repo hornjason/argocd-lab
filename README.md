@@ -7,16 +7,17 @@
   
 
 ## Demo Environment
-
-
-
+![](https://documents.app.lucidchart.com/documents/7e70c17a-2110-4e53-9e65-3b2727e8f475/pages/0_0?a=991&x=219&y=103&w=902&h=814&store=1&accept=image%2F*&auth=LCA%20cf46c0435508c81350eb1583031db09cca6046bc-ts%3D1600293951)
 |  | Lab | Dev |
 |--|--|--|
 | Domain | hub.foo.bar | managed.foo.bar |
 | Worker Nodes | | |
 | Infra Nodes | | |
 | ArgoCD| | |
-| Sealed Secrets| | |    
+| Sealed Secrets| | | 
+| Identity  | | |
+| | | |
+| | | |   
 ## Pre-Reqs
 
 
@@ -529,5 +530,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjY3Mzg1ODE3LC0xMzg0MDcyNzVdfQ==
+eyJoaXN0b3J5IjpbNDk3MTk1MjAzLC0xMzg0MDcyNzVdfQ==
 -->
