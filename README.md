@@ -306,28 +306,32 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 - Show image-registry cluster operator running
     
 ##### Verify
-- Verify registry 
-oc get co image-registry
+- Verify registry has been provisioned
 
-oc get configs.imageregistry cluster -o=jsonpath="{.spec.managementState}"
+		oc config use-context lab
+		
+		oc get co image-registry
 
-oc get configs.imageregistry cluster -o=jsonpath="{.spec.storage}"
+		oc get configs.imageregistry cluster -o=jsonpath="{.spec.managementState}"
 
--   Show there is no registry PV, PVC
+		oc get configs.imageregistry cluster -o=jsonpath="{.spec.storage}"
+
+-   Show registry PV, PVC
     
-
--   oc get pv
-    
--   oc get pvc -n openshift-image-registry
+		 oc get pv
+		 
+	     oc get pvc -n openshift-image-registry
     
 
   
 
 #### Dev (Block)
+-   contents of registry/overlays/lab/
+    
+-   image-registry cluster operator is degraded , state = removed
 
-oc config use-context dev
-
--   Show contents of registry/overlays/dev/
+		oc config use-context dev
+	Show contents of registry/overlays/dev/
     
 -   image-registry cluster operator is degraded , state = removed
     
@@ -451,5 +455,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk5Nzc0MzM0OSwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbMTM5MDIzNDU4MywtMTM4NDA3Mjc1XX0=
 -->
