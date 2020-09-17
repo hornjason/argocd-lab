@@ -13,14 +13,14 @@
 | Domain | hub.foo.bar | managed.foo.bar |
 | Worker Nodes | 3 | 3 |
 | Infra Nodes |0 | 2 |
-| ArgoCD| | |
-| Sealed Secrets| | | 
-| Identity Provider | | |
-| Cluster Users | | |
-| Registry| | | 
-| Infra Node | | |
-| Metrics| | | 
-| Router | | | 
+| ArgoCD| X | |
+| Sealed Secrets| X | X | 
+| Identity Provider | Google | Google |
+| Cluster Users | X | X |
+| Registry| NFS (RWX) | Block (RWO) | 
+| Infra Node |  | X |
+| Metrics| | X | 
+| Router | | X | 
 | | | |   
 ## Pre-Reqs
 
@@ -534,5 +534,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg3ODMxODY1NywtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbLTk2NDI0NDc2NCwtMTM4NDA3Mjc1XX0=
 -->
