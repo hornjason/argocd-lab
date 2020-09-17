@@ -43,7 +43,13 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
 
   - Download [argocd](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli) cli,  this will be used to managed argocd and for the purposes of this demo import additional clusters.
  
- #### 
+ #### Code Setup
+ - Clone this repository
+ 
+		git clone [git@github.com](mailto:git@github.com):hornjason/argocd-lab.git
+
+		git checkout demo
+
 #### Notes:
 
 -   When creating secrets the base64 encoded secret may different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
@@ -53,9 +59,6 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
 
 -   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
     
-
-
-#### Notes
 
 -   There will be two installations of Sealed Secrets for this demo, lab and dev.  
     “Lab” cluster :
@@ -481,5 +484,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTEwNTEwMDc5MiwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbLTE3MjIzNzIxMjMsLTEzODQwNzI3NV19
 -->
