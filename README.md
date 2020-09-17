@@ -201,7 +201,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
   
   
 
-#### Create ArgoCD instance
+####  ArgoCD instance
 
 -   Describe tree of argocd directory
     
@@ -209,14 +209,10 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
     
 
 ##### Deploy ArgoCD instance
+- Deploy a ArgoCD instance for this demo will be "example-argocd"
 
-oc apply -k manifests/argocd/overlays/lab
+		oc apply -k manifests/argocd/overlays/lab
 
-clusterrolebinding.rbac.authorization.k8s.io/argocd-application-controller-cluster-admin created
-
-argocd.argoproj.io/example-argocd created
-
-group.user.openshift.io/argo-admins created
 
   
   
@@ -456,5 +452,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzkyOTA0Nzk0LC0xMzg0MDcyNzVdfQ==
+eyJoaXN0b3J5IjpbLTE3NzI1MzAyNTMsLTEzODQwNzI3NV19
 -->
