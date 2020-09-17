@@ -405,7 +405,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
   
 
-#### Migrate Router
+### Migrate Router
 
 -   Since the “Dev” cluster contains infrastructure nodes we will move router pods to those nodes with tolerations and node selectors using the overlay for dev.
     
@@ -430,7 +430,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc get po -o wide -n openshift-ingress
 
-#### Infra Nodes
+### Infra Nodes
 
 -   This manifest sets the default scheduler and create an infra MachineConfigPool
     
@@ -447,14 +447,14 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 		oc apply -f manifests/infra-nodes/overlays/dev/argocd-app-infranodes-lab.yaml
 
 #### Verify
-- Verify an Infra MachineConfigPool has been created and the defau
+- Verify an Infra MachineConfigPool has been created and the cluster scheduler has been updated.
 
-oc config use-context dev
+		oc config use-context dev
 
-oc get mcp
+		oc get mcp
 
-oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
+		oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTczMTg5OTY2OCwtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbLTEzOTI1MDU5NTcsLTEzODQwNzI3NV19
 -->
