@@ -407,26 +407,28 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 #### Migrate Router
 
--   Since the “Dev” cluster contains infrastructure nodes we will move router pods to those nodes with tolerations and nodeselectors using the overlay for dev.
+-   Since the “Dev” cluster contains infrastructure nodes we will move router pods to those nodes with tolerations and node selectors using the overlay for dev.
     
+		
+		oc config use-context dev
 
-oc config use-context dev
-
-oc get po -o wide -n openshift-ingress
+		oc get po -o wide -n openshift-ingress
 
   
 
 #### Deploy
+- Deploy the ArgoCD application
+		
+		oc config use-context lab
 
-oc config use-context lab
-
-oc apply -f manifests/migrate-metrics/overlays/dev/argocd-app-migratemetrics-dev.yaml
+		oc apply -f manifests/migrate-metrics/overlays/dev/argocd-app-migratemetrics-dev.yaml
 
 #### Verify
+- Verify registry has been provisioned
 
-oc config use-context dev
+		oc config use-context dev
 
-oc get po -o wide -n openshift-ingress
+		oc get po -o wide -n openshift-ingress
 
 #### Infra Nodes
 
@@ -453,5 +455,5 @@ oc get mcp
 oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNjQ2ODkyNzAsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbMTg5MDQzNzc3NCwtMTM4NDA3Mjc1XX0=
 -->
