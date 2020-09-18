@@ -70,7 +70,6 @@ brew install kustomize
  
 		git clone [git@github.com](mailto:git@github.com):hornjason/argocd-lab.git
 		cd argocd-lab
-
 		git checkout demo
 
 #### Notes:
@@ -480,6 +479,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTcwNTE0MTUyOSw0NjA0NTU1MDgsLTEzOT
-I1MDU5NTcsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTEyMzY2NjA4MjEsNDYwNDU1NTA4LC0xMz
+kyNTA1OTU3LC0xMzg0MDcyNzVdfQ==
 -->
