@@ -1,6 +1,8 @@
 
 
 
+
+
 -     
 
 > This repository contains manifests to configure OpenShift 4 clusters with ArgoCD.  Detailed below is a guide illustrating how this works.
@@ -93,7 +95,7 @@ oc config get-contexts
 | * | openshift-image-registry/api-hub-foo-bar:6443/system:admin | api-hub-foo-bar:6443 | system:admin|openshift-image-registry|
 
 ```
-oc config rename-contexts openshift-image-registry/api-hub-foo-bar:6443/system:admin hub
+oc config rename-contexts openshift-image-registry/api-hub-foo-bar:6443/system:admin lab
 
 oc login -u kubeadmin api.managed.foo.bar:6443
 oc config get-contexts
@@ -108,7 +110,7 @@ oc config get-contexts
  | CURRENT | NAME | CLUSTER | AUTHINFO | NAMESPACE |
 |--|--|--|--|--|
 |* | dev | api-managed-foo-bar:6443 | kube:admin |
-| | hub | api-hub-foo-bar:6443 | system:admin  | openshift-image-registry |
+| | lab | api-hub-foo-bar:6443 | system:admin  | openshift-image-registry |
 
   ## Deployment
   
@@ -119,11 +121,14 @@ oc config get-contexts
 
 		oc config set-context lab
 
-		oc apply -k manifests/argocd/argocd-bootstrap
+		oc apply -k manifests/argocd/argocd-operator
 
 -   Show ArgoCD Operator deployed in OCP
     
-    
+#### ArgoCD Bootstrap
+- Create the initial ArgoCD instance
+```
+
 ### ArgoCD Additional Cluster
 - To import additional clusters into ArgoCD 
 
@@ -506,6 +511,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkwMjI2MzQ2NiwtMTIzNjY2MDgyMSw0Nj
-A0NTU1MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbMjA1MjYxNTY3LDE5MDIyNjM0NjYsLTEyMz
+Y2NjA4MjEsNDYwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMzg0MDcy
+NzVdfQ==
 -->
