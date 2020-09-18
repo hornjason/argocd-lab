@@ -1,5 +1,6 @@
 
 
+
 -     
 
 > This repository contains manifests to configure OpenShift 4 clusters with ArgoCD.  Detailed below is a guide illustrating how this works.
@@ -65,22 +66,36 @@ kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 brew install kustomize
 ```
 
- #### Code Setup
+ ### Code Setup
  - Clone this repository
  
 		git clone [git@github.com](mailto:git@github.com):hornjason/argocd-lab.git
 		cd argocd-lab
 		git checkout demo
 
-#### Notes:
-##### Sealed Secrets
+### Notes:
+#### Sealed Secrets
 -   When creating secrets the base64 encoded secret may different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
     
 	 `echo -n “clienSecret” > manifests/identity-provider/overlays/lab/clientSecret`
     
-##### ArgoCD importing clusters
+#### ArgoCD importing clusters
 -   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
     
+### K8s Context setup
+Example setup using above architecture and domain names is shown below, adjust as needed.
+```
+export KUBECONFIG=/path/to/kubeconfig
+oc config get-contexts
+```
+
+> CURRENT   NAME                                                        
+> CLUSTER                AUTHINFO       NAMESPACE
+>           admin                                                        hub                    admin
+> [*}         openshift-image-registry/api-hub-foo-bar:6443/system:admin   api-hub-foo-bar:6443   system:admin   openshift-image-registry
+
+oc config rename-contexts lab
+oc login -u <admin user> 
 
 
   ## Deployment
@@ -479,6 +494,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMzY2NjA4MjEsNDYwNDU1NTA4LC0xMz
-kyNTA1OTU3LC0xMzg0MDcyNzVdfQ==
+eyJoaXN0b3J5IjpbLTIwNzc3OTM0NjQsLTEyMzY2NjA4MjEsND
+YwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMzg0MDcyNzVdfQ==
 -->
