@@ -128,6 +128,8 @@ oc config get-contexts
 #### ArgoCD Bootstrap
 - Create the initial ArgoCD instance
 ```
+	oc apply -k manifests/argocd/overlays/bootstrap
+```
 
 ### ArgoCD Additional Cluster
 - To import additional clusters into ArgoCD 
@@ -511,7 +513,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA1MjYxNTY3LDE5MDIyNjM0NjYsLTEyMz
+eyJoaXN0b3J5IjpbOTkyMDMyMzAzLDE5MDIyNjM0NjYsLTEyMz
 Y2NjA4MjEsNDYwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMzg0MDcy
 NzVdfQ==
 -->
