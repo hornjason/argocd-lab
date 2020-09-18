@@ -108,8 +108,7 @@ oc config get-contexts
  | CURRENT | NAME | CLUSTER | AUTHINFO | NAMESPACE |
 |--|--|--|--|--|
 |* | dev | api-managed-foo-bar:6443 | kube:admin |
-     openshift-image-registry
-          openshift-image-registry/api-hub-foo-bar:6443/system:admin   api-hub-foo-bar:6443       system:admin   openshift-image-registry
+| | hub | api-hub-foo-bar:6443 | system:admin  | openshift-image-registry |
 
   ## Deployment
   
@@ -507,6 +506,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NjMyODM0MzksLTEyMzY2NjA4MjEsND
-YwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMzg0MDcyNzVdfQ==
+eyJoaXN0b3J5IjpbMTkwMjI2MzQ2NiwtMTIzNjY2MDgyMSw0Nj
+A0NTU1MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3NV19
 -->
