@@ -81,7 +81,12 @@ brew install kustomize
 #### ArgoCD importing clusters
 -   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
     
-
+### K8s Context setup
+```
+export KUBECONFIG=/path/to/kubeconfig
+oc config get-contexts
+oc 
+```
 
   ## Deployment
   
@@ -479,5 +484,5 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTMzMTc0OTA5LC0xMjM2NjYwODIxXX0=
+eyJoaXN0b3J5IjpbLTY0Mjg5NjQ0OSwtMTIzNjY2MDgyMV19
 -->
