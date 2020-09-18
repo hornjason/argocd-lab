@@ -52,12 +52,24 @@ brew install argocd
 ```
 ### Kustomize
 
-Kustomize introduces a template-free way to customize application configuration that simplifies the use of off-the-shelf applications. Now, built into `kubectl`  & `oc` as `apply -k`.
+[Kustomize](kustomize.io) introduces a template-free way to customize application configuration that simplifies the use of off-the-shelf applications. Now, built into `kubectl`  & `oc` as `apply -k`.
+
+#### Linux
+```
+curl -s "https://raw.githubusercontent.com/\
+kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+```
+
+#### Mac
+```
+brew install kustomize
+```
 
  #### Code Setup
  - Clone this repository
  
 		git clone [git@github.com](mailto:git@github.com):hornjason/argocd-lab.git
+		cd argocd-lab
 
 		git checkout demo
 
@@ -468,6 +480,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYwMDE5Mjk3Miw0NjA0NTU1MDgsLTEzOT
+eyJoaXN0b3J5IjpbMTcwNTE0MTUyOSw0NjA0NTU1MDgsLTEzOT
 I1MDU5NTcsLTEzODQwNzI3NV19
 -->
