@@ -88,11 +88,11 @@ Example setup using above architecture and domain names is shown below, adjust a
 export KUBECONFIG=/path/to/kubeconfig
 oc config get-contexts
 ```
+oc config get-contexts
 
-> CURRENT   NAME                                                        
-> CLUSTER                AUTHINFO       NAMESPACE
->           admin                                                        hub                    admin
-> [*}         openshift-image-registry/api-hub-foo-bar:6443/system:admin   api-hub-foo-bar:6443   system:admin   openshift-image-registry
+*CURRENT NAME CLUSTER AUTHINFO NAMESPACE 
+  * openshift-image-registry/api-hub-foo-bar:6443/system:admin api-hub-foo-bar:6443 system:admin openshift-image-registry*
+
 
 oc config rename-contexts lab
 oc login -u <admin user> 
@@ -494,6 +494,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNzc3OTM0NjQsLTEyMzY2NjA4MjEsND
+eyJoaXN0b3J5IjpbLTE1MzQyNzUyOTQsLTEyMzY2NjA4MjEsND
 YwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMzg0MDcyNzVdfQ==
 -->
