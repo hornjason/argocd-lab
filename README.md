@@ -88,9 +88,9 @@ Example setup using above architecture and domain names is shown below, adjust a
 export KUBECONFIG=/path/to/kubeconfig
 oc config get-contexts
 ```
-*| CURRENT | NAME | CLUSTER | AUTHINFO | NAMESPACE |
+| CURRENT | NAME | CLUSTER | AUTHINFO | NAMESPACE |
 |--|--|--|--|--|
-| * | openshift-image-registry/api-hub-foo-bar:6443/system:admin | api-hub-foo-bar:6443 | system:admin|openshift-image-registry|*
+| * | openshift-image-registry/api-hub-foo-bar:6443/system:admin | api-hub-foo-bar:6443 | system:admin|openshift-image-registry|
 
 ```
 oc config rename-contexts openshift-image-registry/api-hub-foo-bar:6443/system:admin hub
@@ -98,7 +98,13 @@ oc config rename-contexts openshift-image-registry/api-hub-foo-bar:6443/system:a
 oc login -u kubeadmin api.managed.foo.bar:6443
 oc config get-contexts
 ```
+| CURRENT | NAME | CLUSTER | AUTHINFO | NAMESPACE |
 
+```
+ oc config rename-context  openshift-image-registry/api-managed-foo-bar:6443/kube:admin dev
+ oc get contexts
+ ```
+ 
 
   ## Deployment
   
@@ -496,6 +502,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3ODg0MDc0NjksLTEyMzY2NjA4MjEsND
+eyJoaXN0b3J5IjpbLTE5NTYxNzIyMzUsLTEyMzY2NjA4MjEsND
 YwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMzg0MDcyNzVdfQ==
 -->
