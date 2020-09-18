@@ -132,9 +132,11 @@ oc config get-contexts
 ```
 
 ### ArgoCD Additional Cluster
-- To import additional clusters into ArgoCD 
+- To import additional clusters into ArgoCD, first make sure dex is  a "running" state so --sso will work correctly
 ```
-
+oc get argocd example-argocd -o=jsonpath="{.status.dex}"
+```
+outp ```Running```
 		argocd login --sso $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd)
 
 -   Add context to kubeconfig for second cluster
@@ -514,7 +516,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjI0MTYyNjExLDE5MDIyNjM0NjYsLTEyMz
-Y2NjA4MjEsNDYwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMzg0MDcy
-NzVdfQ==
+eyJoaXN0b3J5IjpbMTk4NjI2MTA3OSwxOTAyMjYzNDY2LC0xMj
+M2NjYwODIxLDQ2MDQ1NTUwOCwtMTM5MjUwNTk1NywtMTM4NDA3
+Mjc1XX0=
 -->
