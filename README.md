@@ -99,7 +99,8 @@ oc login -u kubeadmin api.managed.foo.bar:6443
 oc config get-contexts
 ```
 | CURRENT | NAME | CLUSTER | AUTHINFO | NAMESPACE |
-
+|--|--|--|--|--|
+| * |openshift-image-registry/api-managed-foo-bar:6443/kube:admin | api-managed-foo-bar:6443 | kube:admin|   openshift-image-registry
 ```
  oc config rename-context  openshift-image-registry/api-managed-foo-bar:6443/kube:admin dev
  oc get contexts
@@ -502,6 +503,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NTYxNzIyMzUsLTEyMzY2NjA4MjEsND
-YwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMzg0MDcyNzVdfQ==
+eyJoaXN0b3J5IjpbLTY0MjU1NjAxLC0xMjM2NjYwODIxLDQ2MD
+Q1NTUwOCwtMTM5MjUwNTk1NywtMTM4NDA3Mjc1XX0=
 -->
