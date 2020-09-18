@@ -82,10 +82,12 @@ brew install kustomize
 -   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
     
 ### K8s Context setup
+Example setup using above architecture and domain names is shown below, adjust as needed.
 ```
 export KUBECONFIG=/path/to/kubeconfig
 oc config get-contexts
-oc 
+oc config rename-contexts lab
+oc login -u <admin user> 
 ```
 
   ## Deployment
@@ -484,5 +486,5 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY0Mjg5NjQ0OSwtMTIzNjY2MDgyMV19
+eyJoaXN0b3J5IjpbODcxNzM5MzY0LC0xMjM2NjYwODIxXX0=
 -->
