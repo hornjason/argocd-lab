@@ -1,5 +1,7 @@
 
 
+
+
 -     
 
 > This repository contains manifests to configure OpenShift 4 clusters with ArgoCD.  Detailed below is a guide illustrating how this works.
@@ -87,15 +89,27 @@ Example setup using above architecture and domain names is shown below, adjust a
 export KUBECONFIG=/path/to/kubeconfig
 oc config get-contexts
 ```
+| CURRENT | NAME | CLUSTER | AUTHINFO | NAMESPACE |
+|--|--|--|--|--|
+| * | openshift-image-registry/api-hub-foo-bar:6443/system:admin | api-hub-foo-bar:6443 | system:admin|openshift-image-registry|
 
-> CURRENT   NAME                                                        
-> CLUSTER                AUTHINFO       NAMESPACE
->           admin                                                        hub                    admin
-> [*}         openshift-image-registry/api-hub-foo-bar:6443/system:admin   api-hub-foo-bar:6443   system:admin   openshift-image-registry
-
-oc config rename-contexts lab
-oc login -u <admin user> 
 ```
+oc config rename-contexts openshift-image-registry/api-hub-foo-bar:6443/system:admin hub
+
+oc login -u kubeadmin api.managed.foo.bar:6443
+oc config get-contexts
+```
+| CURRENT | NAME | CLUSTER | AUTHINFO | NAMESPACE |
+|--|--|--|--|--|
+| * |openshift-image-registry/api-managed-foo-bar:6443/kube:admin | api-managed-foo-bar:6443 | kube:admin|   openshift-image-registry
+```
+ oc config rename-context  openshift-image-registry/api-managed-foo-bar:6443/kube:admin dev
+ oc get contexts
+ ```
+ | CURRENT | NAME | CLUSTER | AUTHINFO | NAMESPACE |
+|--|--|--|--|--|
+|* | dev | api-managed-foo-bar:6443 | kube:admin |
+| | hub | api-hub-foo-bar:6443 | system:admin  | openshift-image-registry |
 
   ## Deployment
   
@@ -493,5 +507,5 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg5MDI1Nzk5MiwtMTIzNjY2MDgyMV19
+eyJoaXN0b3J5IjpbOTgzMjU1NzY4LC0xMjM2NjYwODIxXX0=
 -->
