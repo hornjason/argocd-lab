@@ -133,6 +133,7 @@ oc config get-contexts
 
 ### ArgoCD Additional Cluster
 - To import additional clusters into ArgoCD 
+```
 
 		argocd login --sso $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd)
 
@@ -513,7 +514,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTkyMDMyMzAzLDE5MDIyNjM0NjYsLTEyMz
+eyJoaXN0b3J5IjpbNjI0MTYyNjExLDE5MDIyNjM0NjYsLTEyMz
 Y2NjA4MjEsNDYwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMzg0MDcy
 NzVdfQ==
 -->
