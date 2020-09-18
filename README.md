@@ -42,12 +42,16 @@ Kubeseal is the CLI for sealed secrets and can be installed below.
 ### ArgoCD CLI
 ArgoCD CLI allows configuration of argo including importing additional OpenShift clusters.  
 
+#### Linux
+
+    https://github.com/argoproj/argo-cd/releases/latest
+
 #### Mac
 ```
 brew install argocd
 ```
-  - Download [argocd](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli) cli,  this will be used to manage argocd and for the purposes of this demo import additional clusters.
- 
+### Kustomize
+Kustomize allows configuring res
  #### Code Setup
  - Clone this repository
  
@@ -460,7 +464,8 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY5ODgzODYzNSw0NjA0NTU1MDgsLTEzOT
-I1MDU5NTcsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTE5MDg0NDM3NTQsNDYwNDU1NTA4LC0xMz
+kyNTA1OTU3LC0xMzg0MDcyNzVdfQ==
 -->
