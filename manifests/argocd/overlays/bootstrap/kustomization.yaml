@@ -1,0 +1,7 @@
+namespace: argocd
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+resources:
+  - example-argocd-cr.yaml
