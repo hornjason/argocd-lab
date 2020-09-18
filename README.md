@@ -94,7 +94,7 @@ oc config get-contexts
 | * | openshift-image-registry/api-hub-foo-bar:6443/system:admin | api-hub-foo-bar:6443 | system:admin|openshift-image-registry|
 
 ```
-oc config rename-contexts openshift-image-registry/api-hub-foo-bar:6443/system:admin hub
+oc config rename-contexts openshift-image-registry/api-hub-foo-bar:6443/system:admin lab
 
 oc login -u kubeadmin api.managed.foo.bar:6443
 oc config get-contexts
@@ -109,7 +109,7 @@ oc config get-contexts
  | CURRENT | NAME | CLUSTER | AUTHINFO | NAMESPACE |
 |--|--|--|--|--|
 |* | dev | api-managed-foo-bar:6443 | kube:admin |
-| | hub | api-hub-foo-bar:6443 | system:admin  | openshift-image-registry |
+| | lab | api-hub-foo-bar:6443 | system:admin  | openshift-image-registry |
 
   ## Deployment
   
@@ -120,7 +120,7 @@ oc config get-contexts
 
 		oc config set-context lab
 
-		oc apply -k manifests/argocd/argocd-bootstrap
+		oc apply -k manifests/argocd/argocd-operator
 
 -   Show ArgoCD Operator deployed in OCP
     
@@ -507,5 +507,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTgzMjU1NzY4LC0xMjM2NjYwODIxXX0=
+eyJoaXN0b3J5IjpbLTExNzM1MTc1NjIsOTgzMjU1NzY4LC0xMj
+M2NjYwODIxXX0=
 -->
