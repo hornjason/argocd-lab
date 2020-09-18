@@ -51,7 +51,9 @@ ArgoCD CLI allows configuration of argo including importing additional OpenShift
 brew install argocd
 ```
 ### Kustomize
-Kustomize allows configuring res
+
+Kustomize introduces a template-free way to customize application configuration that simplifies the use of off-the-shelf applications. Now, built into `kubectl`  & `oc` as `apply -k`.
+
  #### Code Setup
  - Clone this repository
  
@@ -466,6 +468,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MDg0NDM3NTQsNDYwNDU1NTA4LC0xMz
-kyNTA1OTU3LC0xMzg0MDcyNzVdfQ==
+eyJoaXN0b3J5IjpbLTYwMDE5Mjk3Miw0NjA0NTU1MDgsLTEzOT
+I1MDU5NTcsLTEzODQwNzI3NV19
 -->
