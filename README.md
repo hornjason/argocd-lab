@@ -141,8 +141,15 @@ outputs ```Running```
 ```
 argocd login --sso $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd)
 ```
--   ensure Use the context "dev"
+-   Use the "dev" context
 
+
+		argocd cluster add; # lists the contexts out
+
+		argocd cluster add < context of second clusters friendly name>
+
+		argocd cluster add dev
+		    
 
 
 ### Sealed Secrets
@@ -500,7 +507,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk0MzY3MDc4MSw3NTMwMjg3OTEsMTkwMj
+eyJoaXN0b3J5IjpbLTMxMTQ5ODY5MCw3NTMwMjg3OTEsMTkwMj
 I2MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NTU1MDgsLTEzOTI1MDU5
 NTcsLTEzODQwNzI3NV19
 -->
