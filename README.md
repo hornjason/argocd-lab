@@ -237,6 +237,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
     
 ##### Verify
 
+
 - Verify Secret is correctly configured using secretGenerator
 
 		oc config use-context dev
@@ -508,9 +509,9 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI5NTM3NDYwNSwtMTc0ODE1MjU4OSwtOT
-k0MjcwMjMsMTkyNjAyNjU0NSwtMTAyNjg4MDExNywtMTU1Mjkx
-NjEyNSwtMTYwMDU0MDUwNywtMzExNDk4NjkwLDc1MzAyODc5MS
-wxOTAyMjYzNDY2LC0xMjM2NjYwODIxLDQ2MDQ1NTUwOCwtMTM5
-MjUwNTk1NywtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbODI3Nzg5MTg5LC0xNzQ4MTUyNTg5LC05OT
+QyNzAyMywxOTI2MDI2NTQ1LC0xMDI2ODgwMTE3LC0xNTUyOTE2
+MTI1LC0xNjAwNTQwNTA3LC0zMTE0OTg2OTAsNzUzMDI4NzkxLD
+E5MDIyNjM0NjYsLTEyMzY2NjA4MjEsNDYwNDU1NTA4LC0xMzky
+NTA1OTU3LC0xMzg0MDcyNzVdfQ==
 -->
