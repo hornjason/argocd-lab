@@ -134,7 +134,7 @@ oc config get-contexts
 ### ArgoCD Additional Cluster
 - To import additional clusters into ArgoCD, first make sure dex is  a "running" state so --sso will work correctly
 ```
-oc get argocd example-argocd -o=jsonpath="{.status.dex}"
+oc get argocd example-argocd -o=jsonpath="{.status.dex}" -n argocd
 ```
 outputs ```Running```
 
@@ -507,7 +507,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMxMTQ5ODY5MCw3NTMwMjg3OTEsMTkwMj
-I2MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NTU1MDgsLTEzOTI1MDU5
-NTcsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTE2MDA1NDA1MDcsLTMxMTQ5ODY5MCw3NT
+MwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NTU1
+MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3NV19
 -->
