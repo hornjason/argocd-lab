@@ -94,7 +94,9 @@ brew install kustomize
         value: infra
 ```
 - Infra Node machineset generator can be found here:
-```
+```https://github.com/christianh814/mk-machineset```
+
+
 ### K8s Context setup
 Example setup using above architecture and domain names is shown below, adjust as needed.
 ```
@@ -529,11 +531,11 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjY2NDIyOTQ5LC0xMTQxMjMxMjU5LC0xMj
-UxMzA1OTY3LDE5NjUyOTA5MDUsLTE2Mzk0MDg4MjEsLTE0Mjg2
-MTIyMjksLTE3NDgxNTI1ODksLTk5NDI3MDIzLDE5MjYwMjY1ND
-UsLTEwMjY4ODAxMTcsLTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcs
-LTMxMTQ5ODY5MCw3NTMwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNj
-Y2MDgyMSw0NjA0NTU1MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3
-NV19
+eyJoaXN0b3J5IjpbMTAwNjIxODAzMCwtMTE0MTIzMTI1OSwtMT
+I1MTMwNTk2NywxOTY1MjkwOTA1LC0xNjM5NDA4ODIxLC0xNDI4
+NjEyMjI5LC0xNzQ4MTUyNTg5LC05OTQyNzAyMywxOTI2MDI2NT
+Q1LC0xMDI2ODgwMTE3LC0xNTUyOTE2MTI1LC0xNjAwNTQwNTA3
+LC0zMTE0OTg2OTAsNzUzMDI4NzkxLDE5MDIyNjM0NjYsLTEyMz
+Y2NjA4MjEsNDYwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMzg0MDcy
+NzVdfQ==
 -->
