@@ -497,7 +497,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 		oc apply -f manifests/migrate-router/overlays/dev/argocd-app-migraterouter.yaml
 
 #### Verify
-- Verify registry has been provisioned
+- Verify router application is provisioned in ArgoCD 
 
 		oc config use-context dev
 
@@ -532,11 +532,11 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MzI5MjQ0NzAsMTIxNTE3NzUzNCwxMD
-A2MjE4MDMwLC0xMTQxMjMxMjU5LC0xMjUxMzA1OTY3LDE5NjUy
-OTA5MDUsLTE2Mzk0MDg4MjEsLTE0Mjg2MTIyMjksLTE3NDgxNT
-I1ODksLTk5NDI3MDIzLDE5MjYwMjY1NDUsLTEwMjY4ODAxMTcs
-LTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcsLTMxMTQ5ODY5MCw3NT
-MwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NTU1
-MDgsLTEzOTI1MDU5NTddfQ==
+eyJoaXN0b3J5IjpbLTE4MjI1Mjg4MTEsLTE5MzI5MjQ0NzAsMT
+IxNTE3NzUzNCwxMDA2MjE4MDMwLC0xMTQxMjMxMjU5LC0xMjUx
+MzA1OTY3LDE5NjUyOTA5MDUsLTE2Mzk0MDg4MjEsLTE0Mjg2MT
+IyMjksLTE3NDgxNTI1ODksLTk5NDI3MDIzLDE5MjYwMjY1NDUs
+LTEwMjY4ODAxMTcsLTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcsLT
+MxMTQ5ODY5MCw3NTMwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNjY2
+MDgyMSw0NjA0NTU1MDhdfQ==
 -->
