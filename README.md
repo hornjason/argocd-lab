@@ -439,6 +439,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc get po -o wide -n openshift-monitoring |grep -i infra
 
+- Take note of any pods residing on in
   
 
 #### Deploy
@@ -511,7 +512,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1ODkwMzM5NjksLTEyNTEzMDU5NjcsMT
+eyJoaXN0b3J5IjpbLTE0NDA1NzM1MjUsLTEyNTEzMDU5NjcsMT
 k2NTI5MDkwNSwtMTYzOTQwODgyMSwtMTQyODYxMjIyOSwtMTc0
 ODE1MjU4OSwtOTk0MjcwMjMsMTkyNjAyNjU0NSwtMTAyNjg4MD
 ExNywtMTU1MjkxNjEyNSwtMTYwMDU0MDUwNywtMzExNDk4Njkw
