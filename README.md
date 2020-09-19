@@ -493,7 +493,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 		
 		oc config use-context lab
 
-		oc apply -f manifests/migrate-metrics/overlays/dev/argocd-app-migraterouter.yaml
+		oc apply -f manifests/migrate-router/overlays/dev/argocd-app-migraterouter.yaml
 
 #### Verify
 - Verify registry has been provisioned
@@ -531,7 +531,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTYyODQzODk0OCwxMDA2MjE4MDMwLC0xMT
+eyJoaXN0b3J5IjpbMTIxNTE3NzUzNCwxMDA2MjE4MDMwLC0xMT
 QxMjMxMjU5LC0xMjUxMzA1OTY3LDE5NjUyOTA5MDUsLTE2Mzk0
 MDg4MjEsLTE0Mjg2MTIyMjksLTE3NDgxNTI1ODksLTk5NDI3MD
 IzLDE5MjYwMjY1NDUsLTEwMjY4ODAxMTcsLTE1NTI5MTYxMjUs
