@@ -321,8 +321,10 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 		oc config use-context lab
 		    
 		oc apply -f manifests/cluster-users/overlays/dev/argocd-app-clusterusers-dev.yaml
-		    
-	    oc describe clusterrolebindings.rbac cluster-users -o yaml
+		# switch contexts
+		oc config use-context lab
+		
+	    oc describe clusterrolebindings.rbac cluster-users 
     
 -   Matches what's described in kustomize.
     
@@ -378,7 +380,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
   
 
 #### Dev (Block)
--   contents of registry/overlays/lab/
+-   contents of registry/overlays/dev/
     
 -   image-registry cluster operator is degraded , state = removed
 
@@ -509,9 +511,10 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2Mzk0MDg4MjEsLTE0Mjg2MTIyMjksLT
-E3NDgxNTI1ODksLTk5NDI3MDIzLDE5MjYwMjY1NDUsLTEwMjY4
-ODAxMTcsLTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcsLTMxMTQ5OD
-Y5MCw3NTMwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNjY2MDgyMSw0
-NjA0NTU1MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTEyNTEzMDU5NjcsMTk2NTI5MDkwNSwtMT
+YzOTQwODgyMSwtMTQyODYxMjIyOSwtMTc0ODE1MjU4OSwtOTk0
+MjcwMjMsMTkyNjAyNjU0NSwtMTAyNjg4MDExNywtMTU1MjkxNj
+EyNSwtMTYwMDU0MDUwNywtMzExNDk4NjkwLDc1MzAyODc5MSwx
+OTAyMjYzNDY2LC0xMjM2NjYwODIxLDQ2MDQ1NTUwOCwtMTM5Mj
+UwNTk1NywtMTM4NDA3Mjc1XX0=
 -->
