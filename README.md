@@ -380,7 +380,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
   
 
 #### Dev (Block)
--   contents of registry/overlays/lab/
+-   contents of registry/overlays/dev/
     
 -   image-registry cluster operator is degraded , state = removed
 
@@ -511,10 +511,10 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk2NTI5MDkwNSwtMTYzOTQwODgyMSwtMT
-QyODYxMjIyOSwtMTc0ODE1MjU4OSwtOTk0MjcwMjMsMTkyNjAy
-NjU0NSwtMTAyNjg4MDExNywtMTU1MjkxNjEyNSwtMTYwMDU0MD
-UwNywtMzExNDk4NjkwLDc1MzAyODc5MSwxOTAyMjYzNDY2LC0x
-MjM2NjYwODIxLDQ2MDQ1NTUwOCwtMTM5MjUwNTk1NywtMTM4ND
-A3Mjc1XX0=
+eyJoaXN0b3J5IjpbLTEyNTEzMDU5NjcsMTk2NTI5MDkwNSwtMT
+YzOTQwODgyMSwtMTQyODYxMjIyOSwtMTc0ODE1MjU4OSwtOTk0
+MjcwMjMsMTkyNjAyNjU0NSwtMTAyNjg4MDExNywtMTU1MjkxNj
+EyNSwtMTYwMDU0MDUwNywtMzExNDk4NjkwLDc1MzAyODc5MSwx
+OTAyMjYzNDY2LC0xMjM2NjYwODIxLDQ2MDQ1NTUwOCwtMTM5Mj
+UwNTk1NywtMTM4NDA3Mjc1XX0=
 -->
