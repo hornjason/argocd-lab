@@ -437,7 +437,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc get nodes
 
-		oc get po -o wide -n openshift-monitoring
+		oc get po -o wide -n openshift-monitoring |grep -i infra
 
   
 
@@ -455,7 +455,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc config use-context dev
 
-		oc get po -o wide -n openshift-monitoring
+		oc get po -o wide -n openshift-monitoring | grep -i infra
 
   
 
@@ -511,10 +511,10 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNTEzMDU5NjcsMTk2NTI5MDkwNSwtMT
-YzOTQwODgyMSwtMTQyODYxMjIyOSwtMTc0ODE1MjU4OSwtOTk0
-MjcwMjMsMTkyNjAyNjU0NSwtMTAyNjg4MDExNywtMTU1MjkxNj
-EyNSwtMTYwMDU0MDUwNywtMzExNDk4NjkwLDc1MzAyODc5MSwx
-OTAyMjYzNDY2LC0xMjM2NjYwODIxLDQ2MDQ1NTUwOCwtMTM5Mj
-UwNTk1NywtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbLTE1ODkwMzM5NjksLTEyNTEzMDU5NjcsMT
+k2NTI5MDkwNSwtMTYzOTQwODgyMSwtMTQyODYxMjIyOSwtMTc0
+ODE1MjU4OSwtOTk0MjcwMjMsMTkyNjAyNjU0NSwtMTAyNjg4MD
+ExNywtMTU1MjkxNjEyNSwtMTYwMDU0MDUwNywtMzExNDk4Njkw
+LDc1MzAyODc5MSwxOTAyMjYzNDY2LC0xMjM2NjYwODIxLDQ2MD
+Q1NTUwOCwtMTM5MjUwNTk1NywtMTM4NDA3Mjc1XX0=
 -->
