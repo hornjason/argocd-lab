@@ -324,7 +324,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 		# switch contexts
 		oc config use-context lab
 		
-	    oc describe clusterrolebindings.rbac cluster-users -o yaml
+	    oc describe clusterrolebindings.rbac cluster-users 
     
 -   Matches what's described in kustomize.
     
@@ -511,7 +511,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ4Mjg0NDI1MCwtMTYzOTQwODgyMSwtMT
+eyJoaXN0b3J5IjpbMTk2NTI5MDkwNSwtMTYzOTQwODgyMSwtMT
 QyODYxMjIyOSwtMTc0ODE1MjU4OSwtOTk0MjcwMjMsMTkyNjAy
 NjU0NSwtMTAyNjg4MDExNywtMTU1MjkxNjEyNSwtMTYwMDU0MD
 UwNywtMzExNDk4NjkwLDc1MzAyODc5MSwxOTAyMjYzNDY2LC0x
