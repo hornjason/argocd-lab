@@ -199,7 +199,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 ##### Deploy
 - Deploy the google clientSecret as a Sealed Secret and create the ArgoCD application
  
-		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client  --from-file=clientSecret=/dev/stdin -o yaml | kubeseal - -o yaml> manifests/identity-provider/overlays/lab/idp-sealed-secret.yaml
+		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client  --from-file=clientSecret=/dev/stdin -o yaml -n openshift-config | kubeseal - -o yaml> manifests/identity-provider/overlays/lab/idp-sealed-secret.yaml
 		
 	    oc apply -f manifests/identity-provider/overlays/lab/argocd-app-idp-lab.yaml
     
@@ -231,11 +231,12 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc config use-context lab
 
-		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run --from-file=clientSecret=/dev/stdin -o yaml | kubeseal - -o yaml> manifests/identity-provider/overlays/dev/idp-sealed-secret.yaml
+		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run --from-file=clientSecret=/dev/stdin -o yaml  -n openshift-config  | kubeseal - -o yaml > manifests/identity-provider/overlays/dev/idp-sealed-secret.yaml
     
 		oc apply -f manifests/identity-provider/overlays/dev/argocd-app-idp-dev.yaml
     
 ##### Verify
+
 
 - Verify Secret is correctly configured using secretGenerator
 
@@ -508,8 +509,9 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk5NDI3MDIzLDE5MjYwMjY1NDUsLTEwMj
-Y4ODAxMTcsLTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcsLTMxMTQ5
-ODY5MCw3NTMwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNjY2MDgyMS
-w0NjA0NTU1MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTE0Mjg2MTIyMjksLTE3NDgxNTI1ODksLT
+k5NDI3MDIzLDE5MjYwMjY1NDUsLTEwMjY4ODAxMTcsLTE1NTI5
+MTYxMjUsLTE2MDA1NDA1MDcsLTMxMTQ5ODY5MCw3NTMwMjg3OT
+EsMTkwMjI2MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NTU1MDgsLTEz
+OTI1MDU5NTcsLTEzODQwNzI3NV19
 -->
