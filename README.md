@@ -96,6 +96,7 @@ brew install kustomize
 - Infra Node machineset generator can be found here:
 ```https://github.com/christianh814/mk-machineset```
 
+- Run ```oc get -o jsonpath='{.status.infrastructureName}{"\n"}' infrastructure cluster``` to get the cluster-id to use.
 
 ### K8s Context setup
 Example setup using above architecture and domain names is shown below, adjust as needed.
@@ -502,11 +503,11 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc get po -o wide -n openshift-ingress
 
-- Pods should now be schedule to infra nodes.
+- Pods should now be schedule on infra nodes.
 
 ### Infra Nodes
 
--   This manifest sets the default scheduler and create an infra MachineConfigPool
+-   This manifest sets the default scheduler and creates an infra MachineConfigPool
     
 -   To create an “Infra” machine set try:
 
@@ -531,11 +532,11 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIxNTE3NzUzNCwxMDA2MjE4MDMwLC0xMT
-QxMjMxMjU5LC0xMjUxMzA1OTY3LDE5NjUyOTA5MDUsLTE2Mzk0
-MDg4MjEsLTE0Mjg2MTIyMjksLTE3NDgxNTI1ODksLTk5NDI3MD
-IzLDE5MjYwMjY1NDUsLTEwMjY4ODAxMTcsLTE1NTI5MTYxMjUs
-LTE2MDA1NDA1MDcsLTMxMTQ5ODY5MCw3NTMwMjg3OTEsMTkwMj
-I2MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NTU1MDgsLTEzOTI1MDU5
-NTcsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTE5MzI5MjQ0NzAsMTIxNTE3NzUzNCwxMD
+A2MjE4MDMwLC0xMTQxMjMxMjU5LC0xMjUxMzA1OTY3LDE5NjUy
+OTA5MDUsLTE2Mzk0MDg4MjEsLTE0Mjg2MTIyMjksLTE3NDgxNT
+I1ODksLTk5NDI3MDIzLDE5MjYwMjY1NDUsLTEwMjY4ODAxMTcs
+LTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcsLTMxMTQ5ODY5MCw3NT
+MwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NTU1
+MDgsLTEzOTI1MDU5NTddfQ==
 -->
