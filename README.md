@@ -191,9 +191,10 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 #### Lab
 
 -   Demonstrate there are no IDPs configured
-         oc
-		 oc get oauth cluster -o yaml
-    
+```
+ oc config use-context lab
+ oc get oauth cluster -o yaml
+```    
 
 ##### Deploy
 - Deploy the google clientSecret as a Sealed Secret and create the ArgoCD application
@@ -507,7 +508,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg1NzgzMzkwOSwtMTAyNjg4MDExNywtMT
+eyJoaXN0b3J5IjpbMTkyNjAyNjU0NSwtMTAyNjg4MDExNywtMT
 U1MjkxNjEyNSwtMTYwMDU0MDUwNywtMzExNDk4NjkwLDc1MzAy
 ODc5MSwxOTAyMjYzNDY2LC0xMjM2NjYwODIxLDQ2MDQ1NTUwOC
 wtMTM5MjUwNTk1NywtMTM4NDA3Mjc1XX0=
