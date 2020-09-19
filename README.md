@@ -86,7 +86,9 @@ brew install kustomize
 -   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
     
 #### Creating Infra Machine Sets
-- Sample Infra Machine
+- Sample Infra Machine set Taint used
+```
+
 ### K8s Context setup
 Example setup using above architecture and domain names is shown below, adjust as needed.
 ```
@@ -521,10 +523,10 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjc1Njg5NzQwLC0xMjUxMzA1OTY3LDE5Nj
-UyOTA5MDUsLTE2Mzk0MDg4MjEsLTE0Mjg2MTIyMjksLTE3NDgx
-NTI1ODksLTk5NDI3MDIzLDE5MjYwMjY1NDUsLTEwMjY4ODAxMT
-csLTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcsLTMxMTQ5ODY5MCw3
-NTMwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NT
-U1MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTExNDEyMzEyNTksLTEyNTEzMDU5NjcsMT
+k2NTI5MDkwNSwtMTYzOTQwODgyMSwtMTQyODYxMjIyOSwtMTc0
+ODE1MjU4OSwtOTk0MjcwMjMsMTkyNjAyNjU0NSwtMTAyNjg4MD
+ExNywtMTU1MjkxNjEyNSwtMTYwMDU0MDUwNywtMzExNDk4Njkw
+LDc1MzAyODc5MSwxOTAyMjYzNDY2LC0xMjM2NjYwODIxLDQ2MD
+Q1NTUwOCwtMTM5MjUwNTk1NywtMTM4NDA3Mjc1XX0=
 -->
