@@ -25,6 +25,7 @@
 | Metrics| | X | 
 | Router | | X | 
 | | | |   
+
 ## Pre-Reqs / Setup
 
 
@@ -84,6 +85,8 @@ brew install kustomize
 #### ArgoCD importing clusters
 -   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
     
+#### Creating Infra Machine Sets
+- Sample Infra Machine
 ### K8s Context setup
 Example setup using above architecture and domain names is shown below, adjust as needed.
 ```
@@ -489,7 +492,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc get po -o wide -n openshift-ingress
 
-- Notice which pods have migrated to infra nodes.
+- Pods should now be schedule to infra nodes.
 
 ### Infra Nodes
 
@@ -518,7 +521,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzQ5MTU5Mjc4LC0xMjUxMzA1OTY3LDE5Nj
+eyJoaXN0b3J5IjpbMjc1Njg5NzQwLC0xMjUxMzA1OTY3LDE5Nj
 UyOTA5MDUsLTE2Mzk0MDg4MjEsLTE0Mjg2MTIyMjksLTE3NDgx
 NTI1ODksLTk5NDI3MDIzLDE5MjYwMjY1NDUsLTEwMjY4ODAxMT
 csLTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcsLTMxMTQ5ODY5MCw3
