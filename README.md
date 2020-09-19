@@ -2,6 +2,8 @@
 
 
 
+
+
 -     
 
 > This repository contains manifests to configure OpenShift 4 clusters with ArgoCD.  Detailed below is a guide illustrating how this works.
@@ -24,6 +26,7 @@
 | Metrics| | X | 
 | Router | | X | 
 | | | |   
+
 ## Pre-Reqs / Setup
 
 
@@ -83,6 +86,19 @@ brew install kustomize
 #### ArgoCD importing clusters
 -   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
     
+#### Creating Infra Machine Sets
+- Sample Infra Machine set Taint used
+```
+      taints:
+      - effect: NoSchedule
+        key: node-function
+        value: infra
+```
+- Infra Node machineset generator can be found here:
+```https://github.com/christianh814/mk-machineset```
+
+- Run ```oc get -o jsonpath='{.status.infrastructureName}{"\n"}' infrastructure cluster``` to get the cluster-id to use.
+
 ### K8s Context setup
 Example setup using above architecture and domain names is shown below, adjust as needed.
 ```
@@ -124,26 +140,25 @@ oc config get-contexts
 
 -   Show ArgoCD Operator deployed in OCP
     
-    
+#### ArgoCD Bootstrap
+- Create the initial ArgoCD instance
+```
+	oc apply -k manifests/argocd/overlays/bootstrap
+```
+
 ### ArgoCD Additional Cluster
-- To import additional clusters into ArgoCD 
+- To import additional clusters into ArgoCD, first make sure dex is  a "running" state so --sso will work correctly
+```
+oc get argocd example-argocd -o=jsonpath="{.status.dex}" -n argocd
+```
+outputs ```Running```
 
-		argocd login --sso $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd)
-
--   Add context to kubeconfig for second cluster
-    
-			
-		export=/Users/jhorn/projects/git/tech-ready/vsphere-ipi/hub/auth/kubeconfig
-
-		oc config get-contexts
-
-		oc login -u <login> https://api.managed.foo.bar:6443 # Dev Cluster
-
--   A new context is added
-    
+```
+argocd login --sso $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd)
+```
+-   Use the "dev" context
 
 
-		oc config get-contexts; oc config rename-context <old> <new friendly name>
 		argocd cluster add; # lists the contexts out
 
 		argocd cluster add < context of second clusters friendly name>
@@ -182,7 +197,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
   
 
 ### Identity Provider (google example)
-
+- To setup credentials and domains to use Google Authentication, vist https://developers.google.com/identity/protocols/oauth2/openid-connect
 -   Tree manifests/identity-provider
     
 -   Describe what we are creating / doing. Creating google idp
@@ -191,14 +206,15 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 #### Lab
 
 -   Demonstrate there are no IDPs configured
-    
-		 oc get oauth cluster -o yaml
-    
+```
+ oc config use-context lab
+ oc get oauth cluster -o yaml
+```    
 
 ##### Deploy
 - Deploy the google clientSecret as a Sealed Secret and create the ArgoCD application
  
-		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run --from-file=clientSecret=/dev/stdin -o yaml | kubeseal - -o yaml> manifests/identity-provider/overlays/lab/idp_sealed_secret.yaml
+		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client  --from-file=clientSecret=/dev/stdin -o yaml -n openshift-config | kubeseal - -o yaml> manifests/identity-provider/overlays/lab/idp-sealed-secret.yaml
 		
 	    oc apply -f manifests/identity-provider/overlays/lab/argocd-app-idp-lab.yaml
     
@@ -230,11 +246,12 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc config use-context lab
 
-		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run --from-file=clientSecret=/dev/stdin -o yaml | kubeseal - -o yaml> manifests/identity-provider/overlays/dev/idp_sealed_secret.yaml
+		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client --from-file=clientSecret=/dev/stdin -o yaml  -n openshift-config  | kubeseal - -o yaml > manifests/identity-provider/overlays/dev/idp-sealed-secret.yaml
     
 		oc apply -f manifests/identity-provider/overlays/dev/argocd-app-idp-dev.yaml
     
 ##### Verify
+
 
 - Verify Secret is correctly configured using secretGenerator
 
@@ -319,8 +336,10 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 		oc config use-context lab
 		    
 		oc apply -f manifests/cluster-users/overlays/dev/argocd-app-clusterusers-dev.yaml
-		    
-	    oc describe clusterrolebindings.rbac cluster-users -o yaml
+		# switch contexts
+		oc config use-context lab
+		
+	    oc describe clusterrolebindings.rbac cluster-users 
     
 -   Matches what's described in kustomize.
     
@@ -376,7 +395,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
   
 
 #### Dev (Block)
--   contents of registry/overlays/lab/
+-   contents of registry/overlays/dev/
     
 -   image-registry cluster operator is degraded , state = removed
 
@@ -433,8 +452,9 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc get nodes
 
-		oc get po -o wide -n openshift-monitoring
+		oc get po -o wide -n openshift-monitoring |grep -i infra
 
+- Take note of any pods residing on infra nodes before migration.
   
 
 #### Deploy
@@ -451,7 +471,9 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc config use-context dev
 
-		oc get po -o wide -n openshift-monitoring
+		oc get po -o wide -n openshift-monitoring | grep -i infra
+
+- Notice which pods have migrated to infra nodes.
 
   
 
@@ -464,6 +486,8 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc get po -o wide -n openshift-ingress
 
+- Take note on which nodes the router resides.
+
   
 
 #### Deploy
@@ -471,18 +495,20 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 		
 		oc config use-context lab
 
-		oc apply -f manifests/migrate-metrics/overlays/dev/argocd-app-migratemetrics-dev.yaml
+		oc apply -f manifests/migrate-router/overlays/dev/argocd-app-migraterouter.yaml
 
 #### Verify
-- Verify registry has been provisioned
+- Verify router application is provisioned in ArgoCD 
 
 		oc config use-context dev
 
 		oc get po -o wide -n openshift-ingress
 
+- Pods should now be schedule on infra nodes.
+
 ### Infra Nodes
 
--   This manifest sets the default scheduler and create an infra MachineConfigPool
+-   This manifest sets the default scheduler and creates an infra MachineConfigPool
     
 -   To create an “Infra” machine set try:
 
@@ -507,6 +533,6 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNzM1MTc1NjIsOTgzMjU1NzY4LC0xMj
+eyJoaXN0b3J5IjpbLTIwMDIyMjUzMDUsOTgzMjU1NzY4LC0xMj
 M2NjYwODIxXX0=
 -->
