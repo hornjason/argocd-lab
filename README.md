@@ -182,7 +182,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
   
 
 ### Identity Provider (google example)
-- To setup credentials and domains to use Google Authentication, 
+- To setup credentials and domains to use Google Authentication, vist https://developers.google.com/identity/protocols/oauth2/openid-connect
 -   Tree manifests/identity-provider
     
 -   Describe what we are creating / doing. Creating google idp
@@ -507,8 +507,8 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgyMTEyNTc4OSwtMTYwMDU0MDUwNywtMz
-ExNDk4NjkwLDc1MzAyODc5MSwxOTAyMjYzNDY2LC0xMjM2NjYw
-ODIxLDQ2MDQ1NTUwOCwtMTM5MjUwNTk1NywtMTM4NDA3Mjc1XX
-0=
+eyJoaXN0b3J5IjpbLTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcsLT
+MxMTQ5ODY5MCw3NTMwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNjY2
+MDgyMSw0NjA0NTU1MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3NV
+19
 -->
