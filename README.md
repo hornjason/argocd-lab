@@ -134,27 +134,16 @@ oc config get-contexts
 ### ArgoCD Additional Cluster
 - To import additional clusters into ArgoCD, first make sure dex is  a "running" state so --sso will work correctly
 ```
-oc get argocd example-argocd -o=jsonpath="{.status.dex}"
+oc get argocd example-argocd -o=jsonpath="{.status.dex}" -n argocd
 ```
 outputs ```Running```
 
 ```
 argocd login --sso $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd)
 ```
--   Add context to kubeconfig for second cluster
-    
-			
-		export=/Users/jhorn/projects/git/tech-ready/vsphere-ipi/hub/auth/kubeconfig
-
-		oc config get-contexts
-
-		oc login -u <login> https://api.managed.foo.bar:6443 # Dev Cluster
-
--   A new context is added
-    
+-   Use the "dev" context
 
 
-		oc config get-contexts; oc config rename-context <old> <new friendly name>
 		argocd cluster add; # lists the contexts out
 
 		argocd cluster add < context of second clusters friendly name>
@@ -518,7 +507,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzUzMDI4NzkxLDE5MDIyNjM0NjYsLTEyMz
-Y2NjA4MjEsNDYwNDU1NTA4LC0xMzkyNTA1OTU3LC0xMzg0MDcy
-NzVdfQ==
+eyJoaXN0b3J5IjpbLTE2MDA1NDA1MDcsLTMxMTQ5ODY5MCw3NT
+MwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NTU1
+MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3NV19
 -->
