@@ -88,7 +88,13 @@ brew install kustomize
 #### Creating Infra Machine Sets
 - Sample Infra Machine set Taint used
 ```
-
+      taints:
+      - effect: NoSchedule
+        key: node-function
+        value: infra
+```
+- Infra Node machineset generator can be found here:
+```
 ### K8s Context setup
 Example setup using above architecture and domain names is shown below, adjust as needed.
 ```
@@ -523,10 +529,11 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNDEyMzEyNTksLTEyNTEzMDU5NjcsMT
-k2NTI5MDkwNSwtMTYzOTQwODgyMSwtMTQyODYxMjIyOSwtMTc0
-ODE1MjU4OSwtOTk0MjcwMjMsMTkyNjAyNjU0NSwtMTAyNjg4MD
-ExNywtMTU1MjkxNjEyNSwtMTYwMDU0MDUwNywtMzExNDk4Njkw
-LDc1MzAyODc5MSwxOTAyMjYzNDY2LC0xMjM2NjYwODIxLDQ2MD
-Q1NTUwOCwtMTM5MjUwNTk1NywtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbMjY2NDIyOTQ5LC0xMTQxMjMxMjU5LC0xMj
+UxMzA1OTY3LDE5NjUyOTA5MDUsLTE2Mzk0MDg4MjEsLTE0Mjg2
+MTIyMjksLTE3NDgxNTI1ODksLTk5NDI3MDIzLDE5MjYwMjY1ND
+UsLTEwMjY4ODAxMTcsLTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcs
+LTMxMTQ5ODY5MCw3NTMwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNj
+Y2MDgyMSw0NjA0NTU1MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3
+NV19
 -->
