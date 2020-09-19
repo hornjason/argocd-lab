@@ -198,7 +198,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 ##### Deploy
 - Deploy the google clientSecret as a Sealed Secret and create the ArgoCD application
  
-		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run --from-file=clientSecret=/dev/stdin -o yaml | kubeseal - -o yaml> manifests/identity-provider/overlays/lab/idp_sealed_secret.yaml
+		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client  --from-file=clientSecret=/dev/stdin -o yaml | kubeseal - -o yaml> manifests/identity-provider/overlays/lab/idp_sealed_secret.yaml
 		
 	    oc apply -f manifests/identity-provider/overlays/lab/argocd-app-idp-lab.yaml
     
@@ -507,8 +507,8 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcsLT
-MxMTQ5ODY5MCw3NTMwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNjY2
-MDgyMSw0NjA0NTU1MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3NV
-19
+eyJoaXN0b3J5IjpbLTEwMjY4ODAxMTcsLTE1NTI5MTYxMjUsLT
+E2MDA1NDA1MDcsLTMxMTQ5ODY5MCw3NTMwMjg3OTEsMTkwMjI2
+MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NTU1MDgsLTEzOTI1MDU5NT
+csLTEzODQwNzI3NV19
 -->
