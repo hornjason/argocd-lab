@@ -191,7 +191,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 #### Lab
 
 -   Demonstrate there are no IDPs configured
-    
+         oc
 		 oc get oauth cluster -o yaml
     
 
@@ -507,8 +507,8 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMjY4ODAxMTcsLTE1NTI5MTYxMjUsLT
-E2MDA1NDA1MDcsLTMxMTQ5ODY5MCw3NTMwMjg3OTEsMTkwMjI2
-MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NTU1MDgsLTEzOTI1MDU5NT
-csLTEzODQwNzI3NV19
+eyJoaXN0b3J5IjpbLTg1NzgzMzkwOSwtMTAyNjg4MDExNywtMT
+U1MjkxNjEyNSwtMTYwMDU0MDUwNywtMzExNDk4NjkwLDc1MzAy
+ODc5MSwxOTAyMjYzNDY2LC0xMjM2NjYwODIxLDQ2MDQ1NTUwOC
+wtMTM5MjUwNTk1NywtMTM4NDA3Mjc1XX0=
 -->
