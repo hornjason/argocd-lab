@@ -439,7 +439,7 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc get po -o wide -n openshift-monitoring |grep -i infra
 
-- Take note of any pods residing on in
+- Take note of any pods residing on infra nodes before migration.
   
 
 #### Deploy
@@ -458,6 +458,8 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 		oc get po -o wide -n openshift-monitoring | grep -i infra
 
+- Notice which pods have migrated to infra nodes.
+
   
 
 ### Migrate Router
@@ -468,6 +470,8 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 		oc config use-context dev
 
 		oc get po -o wide -n openshift-ingress
+
+- Take note on which nodes the router resides.
 
   
 
@@ -484,6 +488,8 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 		oc config use-context dev
 
 		oc get po -o wide -n openshift-ingress
+
+- Notice which pods have migrated to infra nodes.
 
 ### Infra Nodes
 
@@ -512,10 +518,10 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0NDA1NzM1MjUsLTEyNTEzMDU5NjcsMT
-k2NTI5MDkwNSwtMTYzOTQwODgyMSwtMTQyODYxMjIyOSwtMTc0
-ODE1MjU4OSwtOTk0MjcwMjMsMTkyNjAyNjU0NSwtMTAyNjg4MD
-ExNywtMTU1MjkxNjEyNSwtMTYwMDU0MDUwNywtMzExNDk4Njkw
-LDc1MzAyODc5MSwxOTAyMjYzNDY2LC0xMjM2NjYwODIxLDQ2MD
-Q1NTUwOCwtMTM5MjUwNTk1NywtMTM4NDA3Mjc1XX0=
+eyJoaXN0b3J5IjpbMzQ5MTU5Mjc4LC0xMjUxMzA1OTY3LDE5Nj
+UyOTA5MDUsLTE2Mzk0MDg4MjEsLTE0Mjg2MTIyMjksLTE3NDgx
+NTI1ODksLTk5NDI3MDIzLDE5MjYwMjY1NDUsLTEwMjY4ODAxMT
+csLTE1NTI5MTYxMjUsLTE2MDA1NDA1MDcsLTMxMTQ5ODY5MCw3
+NTMwMjg3OTEsMTkwMjI2MzQ2NiwtMTIzNjY2MDgyMSw0NjA0NT
+U1MDgsLTEzOTI1MDU5NTcsLTEzODQwNzI3NV19
 -->
