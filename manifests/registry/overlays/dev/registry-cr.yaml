@@ -6,6 +6,7 @@ spec:
    managementState: Managed
    replicas: 1
    logging: 2
+   rolloutStrategy: Recreate
    tolerations:
    - key: node-function
      operator: Exists
