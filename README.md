@@ -101,8 +101,9 @@ ArgoCD emphasizes many [GitOps](https://www.weave.works/technologies/gitops/) pr
 
 
 #### Linux
-
-    https://github.com/argoproj/argo-cd/releases/latest
+```
+https://github.com/argoproj/argo-cd/releases/latest
+```
 
 #### Mac
 ```
@@ -269,325 +270,328 @@ Demonstrate there are no IDPs configured
 ```    
 
 ##### Deploy
-- Deploy the google clientSecret as a Sealed Secret and create the ArgoCD application
- 
-		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client  --from-file=clientSecret=/dev/stdin -o yaml -n openshift-config | kubeseal - -o yaml> manifests/identity-provider/overlays/lab/idp-sealed-secret.yaml
-		
-	    oc apply -f manifests/identity-provider/overlays/lab/argocd-app-idp-lab.yaml
+Deploy the google clientSecret as a Sealed Secret and create the ArgoCD application
+ ```
+echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client  --from-file=clientSecret=/dev/stdin -o yaml -n openshift-config | kubeseal - -o yaml> manifests/identity-provider/overlays/lab/idp-sealed-secret.yaml
+
+oc apply -f manifests/identity-provider/overlays/lab/argocd-app-idp-lab.yaml
+```
     
 
 ##### Verify
-- Verify Secret is correctly configured using secretGenerator
-
-		oc config use-context lab
+Verify Secret is correctly configured using secretGenerator
+```
+oc config use-context lab
 		
-		oc get secrets -n openshift-config idp-secret -o=jsonpath="{.data.clientSecret}"|base64 -d
-    
--   Login using IDP
-    
+oc get secrets -n openshift-config idp-secret -o=jsonpath="{.data.clientSecret}"|base64 -d
+```
 
--   Should see appropriate IDP screen.
+Login using IDP
+    
+Should see appropriate IDP screen.
     
 
 #### Dev
 
--   Demonstrate there are no IDPs configured
-    
-		oc config use-context dev
+Demonstrate there are no IDPs configured
+```    
+oc config use-context dev
 
-		oc get oauth cluster -o yaml
-    
+oc get oauth cluster -o yaml
+```   
 
 ##### Deploy
-- Deploy the google clientSecret as a Sealed Secret and create the ArgoCD application
+Deploy the google clientSecret as a Sealed Secret and create the ArgoCD application
+```
+oc config use-context lab
 
-		oc config use-context lab
+echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client --from-file=clientSecret=/dev/stdin -o yaml  -n openshift-config  | kubeseal - -o yaml > manifests/identity-provider/overlays/dev/idp-sealed-secret.yaml
+    
+oc apply -f manifests/identity-provider/overlays/dev/argocd-app-idp-dev.yaml
+```
 
-		echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client --from-file=clientSecret=/dev/stdin -o yaml  -n openshift-config  | kubeseal - -o yaml > manifests/identity-provider/overlays/dev/idp-sealed-secret.yaml
-    
-		oc apply -f manifests/identity-provider/overlays/dev/argocd-app-idp-dev.yaml
-    
 ##### Verify
-
-
-- Verify Secret is correctly configured using secretGenerator
-
-		oc config use-context dev
+Verify Secret is correctly configured using secretGenerator
+```
+oc config use-context dev
 		
-		oc get secrets -n openshift-config idp-secret -o=jsonpath="{.data.clientSecret}"|base64 -d
-    
+oc get secrets -n openshift-config idp-secret -o=jsonpath="{.data.clientSecret}"|base64 -d
+``` 
 
--   Login using IDP
+Login using IDP
    
--   Should see appropriate IDP screen. 
+Should see appropriate IDP screen. 
     
-
-  
-  
 
 ####  ArgoCD instance
 
--   Describe tree of argocd directory
+Describe tree of argocd directory
     
--   Describe base / overlays
+Describe base / overlays
     
 
 ##### Deploy ArgoCD instance
-- Deploy a ArgoCD instance for this demo will be "example-argocd"
-
+Deploy a ArgoCD instance for this demo will be "example-argocd"
+```		
+oc config use-context lab
 		
-		oc config use-context lab
-		
-		oc apply -k manifests/argocd/overlays/lab
+oc apply -k manifests/argocd/overlays/lab
+```
 
--   Show route created from overlays
-    
-		oc get route -o jsonpath='{.items[*].spec.host}' -n argocd
+Show route created from overlays
+```   
+oc get route -o jsonpath='{.items[*].spec.host}' -n argocd
+```
 
--   Demonstrate argo-admins group created for RBAC Controls
-    
-
-		oc describe groups argo-admins
-
--   Access ArgoCD GUI login with OCP and demo no apps created
+Demonstrate argo-admins group created for RBAC Controls
+```    
+oc describe groups argo-admins
+```
+Access ArgoCD GUI login with OCP and demo no apps created
     
 
 ### Cluster Users
 
--   Tree manifests/cluster-users
+tree manifests/cluster-users
     
--   Describe what we are creating / doing. Creating cluster-users with 2 users
+Describe what we are creating / doing. Creating cluster-users with 2 users
     
 
 #### Lab
-- Check for existing clusterrolebinding 
-
-		oc config use-context lab
+Check for existing clusterrolebinding 
+```
+oc config use-context lab
 		    
-		oc get clusterrolebindings.rbac cluster-users # shouldn't exist
-    
+oc get clusterrolebindings.rbac cluster-users # shouldn't exist
+```    
 
 ##### Deploy
-- Deploy the ArgoCD application
+Deploy the ArgoCD application
+
+```
+oc config use-context lab
 		
-		oc config use-context lab
-		
-		oc apply -f manifests/cluster-users/overlays/lab/argocd-app-clusterusers-lab.yaml
+oc apply -f manifests/cluster-users/overlays/lab/argocd-app-clusterusers-lab.yaml
 		    
-		oc describe clusterrolebindings.rbac cluster-users
-    
--   Matches what's described in kustomize.
+oc describe clusterrolebindings.rbac cluster-users
+```
+
+Matches what's described in kustomize.
     
 
 #### Dev
-- Check for existing clusterrolebinding
-		
-		oc config use-context dev
+Check for existing clusterrolebinding
+```		
+oc config use-context dev
 		    
-		oc get clusterrolebindings.rbac cluster-users  # shouldn't exist
-    
+oc get clusterrolebindings.rbac cluster-users  # shouldn't exist
+```    
 
 ##### Deploy
-- Deploy the ArgoCD application
-
-		oc config use-context lab
+Deploy the ArgoCD application
+```
+oc config use-context lab
 		    
-		oc apply -f manifests/cluster-users/overlays/dev/argocd-app-clusterusers-dev.yaml
-		# switch contexts
-		oc config use-context lab
+oc apply -f manifests/cluster-users/overlays/dev/argocd-app-clusterusers-dev.yaml
+# switch contexts
+oc config use-context lab
 		
-	    oc describe clusterrolebindings.rbac cluster-users 
-    
--   Matches what's described in kustomize.
+oc describe clusterrolebindings.rbac cluster-users 
+```    
+
+Matches what's described in kustomize.
     
 
 ### Registry
 
--   Describe tree of manifest/registry/
+Describe tree of manifest/registry/
    
--   Describe purpose, expectations
+Describe purpose, expectations
     
 
 #### LAB (NFS)
 
--   contents of registry/overlays/lab/
+contents of registry/overlays/lab/
     
--   image-registry cluster operator is degraded , state = removed
-    
-		oc config use-context lab
-		
-		oc get configs.imageregistry.operator.openshift.io cluster -o=jsonpath="{.spec.managementState}"
+image-registry cluster operator is degraded , state = removed
 
-		oc get co image-registry
+```
+oc config use-context lab
+		
+oc get configs.imageregistry.operator.openshift.io cluster -o=jsonpath="{.spec.managementState}"
+
+oc get co image-registry
+```
 
 ##### Deploy
-- Deploy the ArgoCD application
+Deploy the ArgoCD application
+```
+oc config use-context lab
 
-		oc config use-context lab
-
-		oc apply -f manifests/registry/overlays/lab/argocd-app-registry-lab.yaml
-
-- Show ArgoCD now has a new application
+oc apply -f manifests/registry/overlays/lab/argocd-app-registry-lab.yaml
+```
+Show ArgoCD now has a new application
     
-- Show image-registry cluster operator running
+Show image-registry cluster operator running
     
 ##### Verify
-- Verify registry has been provisioned
-
-		oc config use-context lab
+Verify registry has been provisioned
+```
+oc config use-context lab
 		
-		oc get co image-registry
+oc get co image-registry
 
-		oc get configs.imageregistry cluster -o=jsonpath="{.spec.managementState}"
+oc get configs.imageregistry cluster -o=jsonpath="{.spec.managementState}"
 
-		oc get configs.imageregistry cluster -o=jsonpath="{.spec.storage}"
+oc get configs.imageregistry cluster -o=jsonpath="{.spec.storage}"
+```
 
--   Show registry PV, PVC
-    
-		 oc get pv
+Show registry PV, PVC
+```
+oc get pv
 		 
-	     oc get pvc -n openshift-image-registry
-    
-
-  
+oc get pvc -n openshift-image-registry
+```   
 
 #### Dev (Block)
--   contents of registry/overlays/dev/
+contents of registry/overlays/dev/
     
--   image-registry cluster operator is degraded , state = removed
+image-registry cluster operator is degraded , state = removed
+```
+oc config use-context dev        
 
-		oc config use-context dev        
+oc get configs.imageregistry.operator.openshift.io cluster -o=jsonpath="{.spec.managementState}"
 
-		oc get configs.imageregistry.operator.openshift.io cluster -o=jsonpath="{.spec.managementState}"
-
-		oc get co image-registry
+oc get co image-registry
+```
 
 ##### Deploy
-- Deploy the ArgoCD application
+Deploy the ArgoCD application
+```
+oc config use-context lab
 
-		oc config use-context lab
+oc apply -f manifests/registry/overlays/dev/arqocd-app-registry-dev.yaml
+```
 
-		oc apply -f manifests/registry/overlays/dev/arqocd-app-registry-dev.yaml
-
-
--   Show ArgoCD now has a new application
+Show ArgoCD now has a new application
     
--   Show image-registry cluster operator is not degraded/storage attached
+Show image-registry cluster operator is not degraded/storage attached
     
 ##### Verify
-- Verify registry has been provisioned
+Verify registry has been provisioned
+```
+oc config use-context dev
 
-		oc config use-context dev
+oc get co image-registry
 
-		oc get co image-registry
+oc get configs.imageregistry cluster -o=jsonpath="{.spec.managementState}"
 
-		oc get configs.imageregistry cluster -o=jsonpath="{.spec.managementState}"
+oc get configs.imageregistry cluster -o=jsonpath="{.spec.storage}”
+```
 
-		oc get configs.imageregistry cluster -o=jsonpath="{.spec.storage}”
+Show  registry PV, PVC
+```
+oc get pv
 
--   Show  registry PV, PVC
-    
+oc get pvc -n openshift-image-registry
+```
 
-		oc get pv
+The “Dev” cluster contains infrastructure nodes so the overlay for dev updates the registry CR adding a toleration and nodeselector.
 
-		oc get pvc -n openshift-image-registry
-
--   #### The “Dev” cluster contains infrastructure nodes so the overlay for dev updates the registry CR adding a toleration and nodeselector.
-    
-
-		oc get po -o wide -n openshift-image-registry
-
-
-  
+```
+oc get po -o wide -n openshift-image-registry
+```
 
 #### Migrate Metrics
 
--   Since the “Dev” cluster contains infrastructure nodes we will move metrics pods to those nodes with tolerations and node selectors using the overlay for dev.
+Since the “Dev” cluster contains infrastructure nodes we will move metrics pods to those nodes with tolerations and node selectors using the overlay for dev.
     
-		
-		oc config use-context dev
+```
+oc config use-context dev
 
-		oc get nodes
+oc get nodes
 
-		oc get po -o wide -n openshift-monitoring |grep -i infra
+oc get po -o wide -n openshift-monitoring |grep -i infra
+```
 
-- Take note of any pods residing on infra nodes before migration.
+Take note of any pods residing on infra nodes before migration.
   
 
 #### Deploy
-- Deploy the ArgoCD application
+Deploy the ArgoCD application
+```
+oc config use-context lab
 
-		oc config use-context lab
-
-		oc apply -f manifests/migrate-metrics/overlays/dev/argocd-app-migratemetrics-dev.yaml
-
+oc apply -f manifests/migrate-metrics/overlays/dev/argocd-app-migratemetrics-dev.yaml
+```
   
 
 #### Verify
-- Verify registry has been provisioned
+Verify registry has been provisioned
+```
+oc config use-context dev
 
-		oc config use-context dev
+oc get po -o wide -n openshift-monitoring | grep -i infra
+```
 
-		oc get po -o wide -n openshift-monitoring | grep -i infra
-
-- Notice which pods have migrated to infra nodes.
-
-  
+Notice which pods have migrated to infra nodes. 
 
 ### Migrate Router
 
--   Since the “Dev” cluster contains infrastructure nodes we will move router pods to those nodes with tolerations and node selectors using the overlay for dev.
-    
-		
-		oc config use-context dev
+Since the “Dev” cluster contains infrastructure nodes we will move router pods to those nodes with tolerations and node selectors using the overlay for dev.
+```
+oc config use-context dev
 
-		oc get po -o wide -n openshift-ingress
+oc get po -o wide -n openshift-ingress
+```
 
-- Take note on which nodes the router resides.
+Take note on which nodes the router resides.
 
   
-
 #### Deploy
-- Deploy the ArgoCD application
-		
-		oc config use-context lab
+Deploy the ArgoCD application
+```		
+oc config use-context lab
 
-		oc apply -f manifests/migrate-router/overlays/dev/argocd-app-migraterouter.yaml
+oc apply -f manifests/migrate-router/overlays/dev/argocd-app-migraterouter.yaml
+```
 
 #### Verify
-- Verify router application is provisioned in ArgoCD 
+Verify router application is provisioned in ArgoCD 
+```
+oc config use-context dev
 
-		oc config use-context dev
+oc get po -o wide -n openshift-ingress
+```
 
-		oc get po -o wide -n openshift-ingress
-
-- Pods should now be schedule on infra nodes.
+Pods should now be schedule on infra nodes.
 
 ### Infra Nodes
 
--   This manifest sets the default scheduler and creates an infra MachineConfigPool
+This manifest sets the default scheduler and creates an infra MachineConfigPool
     
--   To create an “Infra” machine set try:
-
-	-   [https://github.com:christianh814/mk-machineset](https://github.com/christianh814/mk-machineset)
-    
+To create an “Infra” machine set try:
+```
+[https://github.com:christianh814/mk-machineset](https://github.com/christianh814/mk-machineset) 
+```   
 
 #### Deploy
-- Deploy the ArgoCD application
+Deploy the ArgoCD application
+```
+oc config use-context lab
 
-		oc config use-context lab
-
-		oc apply -f manifests/infra-nodes/overlays/dev/argocd-app-infranodes-lab.yaml
+oc apply -f manifests/infra-nodes/overlays/dev/argocd-app-infranodes-lab.yaml
+```
 
 #### Verify
-- Verify an Infra MachineConfigPool has been created and the cluster scheduler has been updated.
+Verify an Infra MachineConfigPool has been created and the cluster scheduler has been updated.
+```
+oc config use-context dev
 
-		oc config use-context dev
+oc get mcp
 
-		oc get mcp
-
-		oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
-
+oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
+```
 
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTIwMDIyMjUzMDUsOTgzMjU1NzY4LC0xMj
