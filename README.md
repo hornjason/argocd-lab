@@ -1,6 +1,7 @@
 Table of Contents
 =================
 
+   * [Table of Contents](#table-of-contents)
    * [ArgoCD Delarative Lab](#argocd-delarative-lab)
       * [Overview](#overview)
       * [Demo Environment](#demo-environment)
@@ -17,8 +18,8 @@ Table of Contents
          * [Kustomize](#kustomize)
             * [Linux](#linux-2)
             * [Mac](#mac-2)
-            * [Additional Notes](#additional-notes)
-            * [Creating Infra Machine Sets](#creating-infra-machine-sets)
+         * [Additional Notes](#additional-notes)
+         * [Creating Infra Machine Sets](#creating-infra-machine-sets)
          * [K8s Context setup](#k8s-context-setup)
       * [Deployment](#deployment)
          * [ArgoCD](#argocd)
@@ -58,7 +59,7 @@ Table of Contents
          * [Infra Nodes](#infra-nodes)
             * [Deploy](#deploy-8)
             * [Verify](#verify-6)
-	    
+
 
 ArgoCD Delarative Lab
 =======================
