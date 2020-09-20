@@ -133,13 +133,6 @@ kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 brew install kustomize
 ```
 
- ### Code Setup
- - Clone this repository
- 
-		git clone [git@github.com](mailto:git@github.com):hornjason/argocd-lab.git
-		cd argocd-lab
-		git checkout demo
-
 #### Additional Notes
 When creating secrets (such as to configure OpenShift Authentication), the base64 encoded secret may be different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
 
@@ -148,17 +141,19 @@ echo -n “clientSecret” > manifests/identity-provider/overlays/lab/clientSecr
 ```
 
 #### Creating Infra Machine Sets
-- Sample Infra Machine set Taint used
+Sample Infra Machine set Taint used
+
 ```
 taints:
 - effect: NoSchedule
   key: node-function
   value: infra
 ```
-- Infra Node machineset generator can be found here:
+
+Infra Node machineset generator can be found here:
 ```https://github.com/christianh814/mk-machineset```
 
-- Run ```oc get -o jsonpath='{.status.infrastructureName}{"\n"}' infrastructure cluster``` to get the cluster-id to use.
+Run ```oc get -o jsonpath='{.status.infrastructureName}{"\n"}' infrastructure cluster``` to get the cluster-id to use.
 
 ### K8s Context setup
 Example setup using above architecture and domain names is shown below, adjust as needed.
@@ -212,7 +207,7 @@ A new namespace called `argocd` will be created with the operator deployed. Conf
 #### ArgoCD Bootstrap
 - Create the initial ArgoCD instance
 ```
-	oc apply -k manifests/argocd/overlays/bootstrap
+oc apply -k manifests/argocd/overlays/bootstrap
 ```
 ```
 oc get pods -n argocd
@@ -236,7 +231,6 @@ argocd cluster add dev
 
 ### Sealed Secrets
 
-Install Sealed Secrets on all clusters, this will allow storing secrets in source control.
 
 #### Deploy Lab
 
@@ -268,7 +262,7 @@ In this exercise, we will integrate with the Google OpenID Connect client that w
 
 #### Lab
 
--   Demonstrate there are no IDPs configured
+Demonstrate there are no IDPs configured
 ```
  oc config use-context lab
  oc get oauth cluster -o yaml
