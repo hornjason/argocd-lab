@@ -149,10 +149,19 @@ sudo install -m 755 kubeseal /usr/local/bin/kubeseal
 
 ```brew install kubeseal```
 
+
+
 ### OpenShift Authentication
 OpenShift provides a pluggable identity provider mechanism for securing access to the cluster. In this exercise, we will use the [Google identity provider](https://docs.openshift.com/container-platform/latest/authentication/identity_providers/configuring-google-identity-provider.html). 
 
 Follow the steps to configure a [Google OpenID Connect Integration](https://developers.google.com/identity/protocols/OpenIDConnect)
+
+#### Additional Notes
+When creating secrets (such as to configure OpenShift Authentication), the base64 encoded secret may be different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
+
+```
+echo -n “clientSecret” > manifests/identity-provider/overlays/lab/clientSecret
+```
 
 ### ArgoCD CLI
 ArgoCD emphasizes many [GitOps](https://www.weave.works/technologies/gitops/) principles by using a Git repository as a source of truth for the configuration of Kubernetes and OpenShift environments.  
@@ -195,12 +204,6 @@ kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 brew install kustomize
 ```
 
-### Additional Notes
-When creating secrets (such as to configure OpenShift Authentication), the base64 encoded secret may be different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
-
-```
-echo -n “clientSecret” > manifests/identity-provider/overlays/lab/clientSecret
-```
 
 ### Creating Infra Machine Sets
 Sample Infra Machine set Taint used
@@ -563,7 +566,7 @@ The “Dev” cluster contains infrastructure nodes so the overlay for dev updat
 oc get po -o wide -n openshift-image-registry
 ```
 
-#### Migrate Metrics
+### Migrate Metrics
 
 Since the “Dev” cluster contains infrastructure nodes we will move metrics pods to those nodes with tolerations and node selectors using the overlay for dev.
     
