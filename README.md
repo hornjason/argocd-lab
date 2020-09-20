@@ -1,16 +1,32 @@
 
 
+ArgoCD Delarative Lab
+=======================
+
+
+This repository contains manifests to configure OpenShift 4 clusters with ArgoCD.
+
+
+## Overview
+
+
+> This repository contains manifests to configure OpenShift 4 clusters with ArgoCD.  Detailed below is a guide illustrating how this works.	The configurations for OpenShift and Kubernetes can be managed in a declarative fashion. Using GitOps tools, such as ArgoCD, the application and management of these manifests can by applied in an automated fashion. 
 
 
 
+This exercise will introduce several approaches for managing an OpenShift environment in a declarative fashion and make use of the folowing tools:
 
--     
+* [ArgoCD](https://argoproj.github.io/argo-cd/) - Declarative, GitOps tool for Kubernetes.
+* [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) - 
+* [Kustomize](https://github.com/kubernetes-sigs/kustomize) - Tool for managing and generating Kubernetes YAML files.
 
-> This repository contains manifests to configure OpenShift 4 clusters with ArgoCD.  Detailed below is a guide illustrating how this works.
 
-  
 
 ## Demo Environment
+
+
+The following diagram depicts the target environment
+
 ![](https://documents.app.lucidchart.com/documents/7e70c17a-2110-4e53-9e65-3b2727e8f475/pages/0_0?a=991&x=219&y=103&w=902&h=814&store=1&accept=image%2F*&auth=LCA%20cf46c0435508c81350eb1583031db09cca6046bc-ts%3D1600293951)
 |  | Lab | Dev |
 |--|--|--|
@@ -30,22 +46,59 @@
 ## Pre-Reqs / Setup
 
 
-### Sealed Secrets CLI
+The following configuration and software is required to be installed on your machine prior to beginning the exercises. 
 
-Kubeseal is the CLI for sealed secrets and can be installed below.
+### OpenShift
+
+Two (2) OpenShift 4 clusters are required for this exercise. The first step is download and install the version of the [OpenShift CLI](https://try.openshift.com/). 
+
+Once the OpenShift CLI has been installed, login to the two clusters and rename their context to `dev` and `lab`. This will allow for easy reference when working through the exercise. 
+
+Login to the cluster designated as _dev_ and rename the Kubernetes context to `dev`:
+
+```
+oc config rename-context $(oc config current-context) dev
+```
+
+Next, login to the cluster designated as lab and rename the Kubernetes context to `lab`:
+
+```
+oc config rename-context $(oc config current-context) lab
+```
+
+Change back to the _dev_ cluster which will be used to begin the exercises:
+
+```
+oc config use-context dev
+```
+
+### Sealed Secrets CLI
+Sealed Secrets allows for encrypting Kubernetes [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) so that it can be stored public repositories.  
+
+Kubeseal is the CLI for Sealed secrets and can be installed using one of the methods below.
 
 #### Linux
 
-	wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.12.5/kubeseal-linux-amd64 -O kubeseal
-
-	sudo install -m 755 kubeseal /usr/local/bin/kubeseal
+```
+wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.12.5/kubeseal-linux-amd64 -O kubeseal
+sudo install -m 755 kubeseal /usr/local/bin/kubeseal
+```
 
 #### Mac
 
-    brew install kubeseal
+```brew install kubeseal```
+
+### OpenShift Authentication
+OpenShift provides a pluggable identity provider mechanism for securing access to the cluster. In this exercise, we will use the [Google identity provider](https://docs.openshift.com/container-platform/latest/authentication/identity_providers/configuring-google-identity-provider.html). 
+
+Follow the steps to configure a [Google OpenID Connect Integration](https://developers.google.com/identity/protocols/OpenIDConnect)
 
 ### ArgoCD CLI
-ArgoCD CLI allows configuration of argo including importing additional OpenShift clusters.  
+ArgoCD emphasizes many [GitOps](https://www.weave.works/technologies/gitops/) principles by using a Git repository as a source of truth for the configuration of Kubernetes and OpenShift environments.  
+
+
+[Download the ArgoCD CLI](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli) which wil be used later on in the exercises for managing multiple clusters.
+
 
 #### Linux
 
@@ -55,6 +108,16 @@ ArgoCD CLI allows configuration of argo including importing additional OpenShift
 ```
 brew install argocd
 ```
+
+### Source Code Retrieval
+
+In order to begin this exercise, clone the repository to your local machine
+
+```
+git clone https://github.com/hornjason/argocd-lab
+cd argocd-lab
+```
+
 ### Kustomize
 
 [Kustomize](kustomize.io) introduces a template-free way to customize application configuration that simplifies the use of off-the-shelf applications. Now, built into `kubectl`  & `oc` as `apply -k`.
@@ -77,22 +140,20 @@ brew install kustomize
 		cd argocd-lab
 		git checkout demo
 
-### Notes:
-#### Sealed Secrets
--   When creating secrets the base64 encoded secret may different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
-    
-	 `echo -n “clienSecret” > manifests/identity-provider/overlays/lab/clientSecret`
-    
-#### ArgoCD importing clusters
--   [Creating Second CLuster](https://argoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional)
-    
+#### Additional Notes
+When creating secrets (such as to configure OpenShift Authentication), the base64 encoded secret may be different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
+
+```
+echo -n “clientSecret” > manifests/identity-provider/overlays/lab/clientSecret
+```
+
 #### Creating Infra Machine Sets
 - Sample Infra Machine set Taint used
 ```
-      taints:
-      - effect: NoSchedule
-        key: node-function
-        value: infra
+taints:
+- effect: NoSchedule
+  key: node-function
+  value: infra
 ```
 - Infra Node machineset generator can be found here:
 ```https://github.com/christianh814/mk-machineset```
@@ -127,44 +188,50 @@ oc config get-contexts
 |* | dev | api-managed-foo-bar:6443 | kube:admin |
 | | lab | api-hub-foo-bar:6443 | system:admin  | openshift-image-registry |
 
-  ## Deployment
-  
-  ### ArgoCD
+## Deployment
+
+With the prerequisites complete, lets work through the exercises in the sections below
+
+### ArgoCD
   
 #### ArgoCD Operator
-- Deploy ArgoCD Operator on the "Lab" cluster
 
-		oc config set-context lab
+The deployment of ArgoCD can be facilitated through the use of the ArgoCD operator.
 
-		oc apply -k manifests/argocd/argocd-operator
+Ensure that you are using the _lab_ contextt and deploy the ArgoCD Operator on the "Lab" cluster
 
--   Show ArgoCD Operator deployed in OCP
-    
+```
+oc config use-context lab
+oc apply -k manifests/argocd/overlays/bootstrap
+```
+
+Note: You may need to run the `oc apply` command more than once due to a race condition in the `ArgoCD` resource being registered to the cluster.
+
+A new namespace called `argocd` will be created with the operator deployed. Confirm the namespace and operator were created and deployed:
+
 #### ArgoCD Bootstrap
 - Create the initial ArgoCD instance
 ```
 	oc apply -k manifests/argocd/overlays/bootstrap
 ```
-
-### ArgoCD Additional Cluster
-- To import additional clusters into ArgoCD, first make sure dex is  a "running" state so --sso will work correctly
 ```
-oc get argocd example-argocd -o=jsonpath="{.status.dex}" -n argocd
+oc get pods -n argocd
 ```
-outputs ```Running```
+#### Adding an ArgoCD Cluster
+
+With ArgoCD deployed, it is automatically configured to manage the cluster it is deployed within. To manage our _dev_ cluster, we will need to [add a new cluster to ArgoCD](https://arßoproj.github.io/argo-cd/getting_started/#5-register-a-cluster-to-deploy-apps-to-optional).
+
+Login to ArgoCD 
+```
+argocd --insecure --grpc-web login $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd) --username admin --password $(oc get pods -n argocd -l app.kubernetes.io/name=example-argocd-server -o jsonpath='{ .items[*].metadata.name }')
+```
+
+Add the _dev_ cluster to ArgoCD:
+
 
 ```
-argocd login --sso $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd)
-```
--   Use the "dev" context
-
-
-		argocd cluster add; # lists the contexts out
-
-		argocd cluster add < context of second clusters friendly name>
-
-		argocd cluster add dev
-		    
+argocd cluster add dev
+```	 
 
 
 ### Sealed Secrets
@@ -173,35 +240,31 @@ Install Sealed Secrets on all clusters, this will allow storing secrets in sourc
 
 #### Deploy Lab
 
-- To re-use a Sealed Secret key encrypted from a prior version you can apply it before installing. For the purposes of this demo we will start from scratch.
+To re-use a Sealed Secret key encrypted from a prior version you can apply it before installing. For the purposes of this demo we will start from scratch.
+```
 
-		oc config use-context lab
-
-		oc apply -f manifests/sealed-secrets/overlays/lab/argocd-app-sealedsecrets.yaml
-
--   Grab Sealed Secret KEY, you’ll want to back this up so you can unseal secrets that use this key later.
-    
-		oc get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > master.yaml
+oc config use-context lab
+oc apply -f manifests/sealed-secrets/overlays/lab/argocd-app-sealedsecrets.yaml
+```
+Grab Sealed Secret KEY. You will want to back this up so you can unseal secrets that use this key later.
+```
+oc get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > master.yaml
+```
 
 #### Deploy Dev
-- Deploy Sealed Secrets on the Dev cluster, applying the master.yaml, ( sealed secret key ) from the Lab cluster.
 
-		oc config use-context dev
-
-		oc apply -f master.yaml
-
-		oc config use-context lab
-
-		oc apply -f manifests/sealed-secrets/overlays/dev/argocd-app-sealedsecrets.yaml
-
-  
+Deploy Sealed Secrets on the Dev cluster, applying the master.yaml, ( sealed secret key ) from the Lab cluster.
+```
+oc config use-context dev
+oc apply -f master.yaml
+oc config use-context lab
+oc apply -f manifests/sealed-secrets/overlays/dev/argocd-app-sealedsecrets.yaml
+```
 
 ### Identity Provider (google example)
-- To setup credentials and domains to use Google Authentication, vist https://developers.google.com/identity/protocols/oauth2/openid-connect
--   Tree manifests/identity-provider
-    
--   Describe what we are creating / doing. Creating google idp
-    
+By default, OpenShift includes a default administrative user (`kubeadmin`), but to allow others the ability to login, additional identity providers can be added.
+
+In this exercise, we will integrate with the Google OpenID Connect client that was created previously.   
 
 #### Lab
 
