@@ -262,7 +262,7 @@ Ensure that you are using the _lab_ contextt and deploy the ArgoCD Operator on t
 
 ```
 oc config use-context lab
-oc apply -k manifests/argocd/overlays/argocd-bootstrap
+oc apply -k manifests/argocd/argocd-operator/
 ```
 
 Note: You may need to run the `oc apply` command more than once due to a race condition in the `ArgoCD` resource being registered to the cluster.
