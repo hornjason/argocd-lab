@@ -283,7 +283,7 @@ With ArgoCD deployed, it is automatically configured to manage the cluster it is
 
 Login to ArgoCD 
 ```
-argocd --insecure --grpc-web login $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd) --username admin --password $(oc get pods -n argocd -l app.kubernetes.io/name=example-argocd-server -o jsonpath='{ .items[*].metadata.name }')
+argocd --insecure --grpc-web login $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd) --username admin --password $(oc get secret example-argocd-cluster -o jsonpath="{.data.admin\.password}"|base64 -d)
 ```
 
 Add the _dev_ cluster to ArgoCD:
