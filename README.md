@@ -11,6 +11,7 @@ Table of Contents
             * [Linux](#linux)
             * [Mac](#mac)
          * [OpenShift Authentication](#openshift-authentication)
+            * [Additional Notes](#additional-notes)
          * [ArgoCD CLI](#argocd-cli)
             * [Linux](#linux-1)
             * [Mac](#mac-1)
@@ -18,7 +19,6 @@ Table of Contents
          * [Kustomize](#kustomize)
             * [Linux](#linux-2)
             * [Mac](#mac-2)
-         * [Additional Notes](#additional-notes)
          * [Creating Infra Machine Sets](#creating-infra-machine-sets)
          * [K8s Context setup](#k8s-context-setup)
       * [Deployment](#deployment)
@@ -36,8 +36,8 @@ Table of Contents
             * [Dev](#dev)
                * [Deploy](#deploy-1)
                * [Verify](#verify-1)
-            * [ArgoCD instance](#argocd-instance)
-               * [Deploy ArgoCD instance](#deploy-argocd-instance)
+         * [ArgoCD instance](#argocd-instance)
+            * [Deploy ArgoCD instance](#deploy-argocd-instance)
          * [Cluster Users](#cluster-users)
             * [Lab](#lab-1)
                * [Deploy](#deploy-2)
@@ -50,7 +50,7 @@ Table of Contents
             * [Dev (Block)](#dev-block)
                * [Deploy](#deploy-5)
                * [Verify](#verify-3)
-            * [Migrate Metrics](#migrate-metrics)
+         * [Migrate Metrics](#migrate-metrics)
             * [Deploy](#deploy-6)
             * [Verify](#verify-4)
          * [Migrate Router](#migrate-router)
@@ -394,7 +394,7 @@ Describe tree of argocd directory
 Describe base / overlays
     
 
-##### Deploy ArgoCD instance
+#### Deploy ArgoCD instance
 Deploy a ArgoCD instance for this demo will be "example-argocd"
 ```		
 oc config use-context lab
