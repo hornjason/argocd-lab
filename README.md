@@ -194,14 +194,14 @@ kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 brew install kustomize
 ```
 
-#### Additional Notes
+### Additional Notes
 When creating secrets (such as to configure OpenShift Authentication), the base64 encoded secret may be different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
 
 ```
 echo -n “clientSecret” > manifests/identity-provider/overlays/lab/clientSecret
 ```
 
-#### Creating Infra Machine Sets
+### Creating Infra Machine Sets
 Sample Infra Machine set Taint used
 
 ```
