@@ -2,7 +2,7 @@ Table of Contents
 =================
 
    * [Table of Contents](#table-of-contents)
-   * [ArgoCD Delarative Lab](#argocd-delarative-lab)
+   * [ArgoCD Declarative Lab](#argocd-delarative-lab)
       * [Overview](#overview)
       * [Demo Environment](#demo-environment)
       * [Pre-Reqs / Setup](#pre-reqs--setup)
@@ -61,7 +61,7 @@ Table of Contents
             * [Verify](#verify-6)
 
 
-ArgoCD Delarative Lab
+ArgoCD Declarative Lab
 =======================
 
 
