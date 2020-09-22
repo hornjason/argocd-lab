@@ -1,3 +1,64 @@
+Table of Contents
+=================
+
+   * [Table of Contents](#table-of-contents)
+   * [ArgoCD Delarative Lab](#argocd-delarative-lab)
+      * [Overview](#overview)
+      * [Demo Environment](#demo-environment)
+      * [Pre-Reqs / Setup](#pre-reqs--setup)
+         * [OpenShift](#openshift)
+         * [Sealed Secrets CLI](#sealed-secrets-cli)
+            * [Linux](#linux)
+            * [Mac](#mac)
+         * [OpenShift Authentication](#openshift-authentication)
+            * [Additional Notes](#additional-notes)
+         * [ArgoCD CLI](#argocd-cli)
+            * [Linux](#linux-1)
+            * [Mac](#mac-1)
+         * [Source Code Retrieval](#source-code-retrieval)
+         * [Kustomize](#kustomize)
+            * [Linux](#linux-2)
+            * [Mac](#mac-2)
+         * [Creating Infra Machine Sets](#creating-infra-machine-sets)
+         * [K8s Context setup](#k8s-context-setup)
+      * [Deployment](#deployment)
+         * [ArgoCD](#argocd)
+            * [ArgoCD Operator](#argocd-operator)
+            * [ArgoCD Bootstrap](#argocd-bootstrap)
+            * [Adding an ArgoCD Cluster](#adding-an-argocd-cluster)
+         * [Sealed Secrets](#sealed-secrets)
+            * [Deploy Lab](#deploy-lab)
+            * [Deploy Dev](#deploy-dev)
+         * [Identity Provider (google example)](#identity-provider-google-example)
+            * [Lab](#lab)
+               * [Deploy](#deploy)
+               * [Verify](#verify)
+            * [Dev](#dev)
+               * [Deploy](#deploy-1)
+               * [Verify](#verify-1)
+         * [ArgoCD instance](#argocd-instance)
+            * [Deploy ArgoCD instance](#deploy-argocd-instance)
+         * [Cluster Users](#cluster-users)
+            * [Lab](#lab-1)
+               * [Deploy](#deploy-2)
+            * [Dev](#dev-1)
+               * [Deploy](#deploy-3)
+         * [Registry](#registry)
+            * [LAB (NFS)](#lab-nfs)
+               * [Deploy](#deploy-4)
+               * [Verify](#verify-2)
+            * [Dev (Block)](#dev-block)
+               * [Deploy](#deploy-5)
+               * [Verify](#verify-3)
+         * [Migrate Metrics](#migrate-metrics)
+            * [Deploy](#deploy-6)
+            * [Verify](#verify-4)
+         * [Migrate Router](#migrate-router)
+            * [Deploy](#deploy-7)
+            * [Verify](#verify-5)
+         * [Infra Nodes](#infra-nodes)
+            * [Deploy](#deploy-8)
+            * [Verify](#verify-6)
 
 
 ArgoCD Delarative Lab
@@ -88,10 +149,19 @@ sudo install -m 755 kubeseal /usr/local/bin/kubeseal
 
 ```brew install kubeseal```
 
+
+
 ### OpenShift Authentication
 OpenShift provides a pluggable identity provider mechanism for securing access to the cluster. In this exercise, we will use the [Google identity provider](https://docs.openshift.com/container-platform/latest/authentication/identity_providers/configuring-google-identity-provider.html). 
 
 Follow the steps to configure a [Google OpenID Connect Integration](https://developers.google.com/identity/protocols/OpenIDConnect)
+
+#### Additional Notes
+When creating secrets (such as to configure OpenShift Authentication), the base64 encoded secret may be different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
+
+```
+echo -n “clientSecret” > manifests/identity-provider/overlays/lab/clientSecret
+```
 
 ### ArgoCD CLI
 ArgoCD emphasizes many [GitOps](https://www.weave.works/technologies/gitops/) principles by using a Git repository as a source of truth for the configuration of Kubernetes and OpenShift environments.  
@@ -134,14 +204,8 @@ kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 brew install kustomize
 ```
 
-#### Additional Notes
-When creating secrets (such as to configure OpenShift Authentication), the base64 encoded secret may be different with \n (newline) if you don’t createthe secret to a file correctly, (echo -n).
 
-```
-echo -n “clientSecret” > manifests/identity-provider/overlays/lab/clientSecret
-```
-
-#### Creating Infra Machine Sets
+### Creating Infra Machine Sets
 Sample Infra Machine set Taint used
 
 ```
@@ -198,7 +262,7 @@ Ensure that you are using the _lab_ contextt and deploy the ArgoCD Operator on t
 
 ```
 oc config use-context lab
-oc apply -k manifests/argocd/overlays/bootstrap
+oc apply -k manifests/argocd/argocd-operator/
 ```
 
 Note: You may need to run the `oc apply` command more than once due to a race condition in the `ArgoCD` resource being registered to the cluster.
@@ -219,7 +283,7 @@ With ArgoCD deployed, it is automatically configured to manage the cluster it is
 
 Login to ArgoCD 
 ```
-argocd --insecure --grpc-web login $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd) --username admin --password $(oc get pods -n argocd -l app.kubernetes.io/name=example-argocd-server -o jsonpath='{ .items[*].metadata.name }')
+argocd --insecure --grpc-web login $(oc get route -o jsonpath='{.items[*].spec.host}' -n argocd) --username admin --password $(oc get secret example-argocd-cluster -o jsonpath="{.data.admin\.password}"|base64 -d)
 ```
 
 Add the _dev_ cluster to ArgoCD:
@@ -330,7 +394,7 @@ Describe tree of argocd directory
 Describe base / overlays
     
 
-##### Deploy ArgoCD instance
+#### Deploy ArgoCD instance
 Deploy a ArgoCD instance for this demo will be "example-argocd"
 ```		
 oc config use-context lab
@@ -502,7 +566,7 @@ The “Dev” cluster contains infrastructure nodes so the overlay for dev updat
 oc get po -o wide -n openshift-image-registry
 ```
 
-#### Migrate Metrics
+### Migrate Metrics
 
 Since the “Dev” cluster contains infrastructure nodes we will move metrics pods to those nodes with tolerations and node selectors using the overlay for dev.
     
@@ -597,4 +661,3 @@ oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 eyJoaXN0b3J5IjpbLTIwMDIyMjUzMDUsOTgzMjU1NzY4LC0xMj
 M2NjYwODIxXX0=
 -->
-
