@@ -658,6 +658,6 @@ oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMDIyMjUzMDUsOTgzMjU1NzY4LC0xMj
-M2NjYwODIxXX0=
+eyJoaXN0b3J5IjpbLTk3NDgwODc3NiwtMjAwMjIyNTMwNSw5OD
+MyNTU3NjgsLTEyMzY2NjA4MjFdfQ==
 -->
