@@ -1,2 +1,3 @@
 resources:
+  #- sealed-secrets-namespace.yaml
   - controller.yaml
