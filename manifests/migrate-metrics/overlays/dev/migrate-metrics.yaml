@@ -54,5 +54,5 @@ data:
           effect: NoSchedule
       nodeSelector:
         node-role.kubernetes.io/infra: ""
-        remediationAction: enforce
-        severity: low
+    remediationAction: enforce
+    severity: low
