@@ -6,7 +6,7 @@ metadata:
 spec:
   destination:
     namespace: argocd
-    server: 'https://api.hub.foo.bar:6443'
+    server: 'https://kubernetes.default.svc'
   source:
     path: manifests/migrate-metrics/overlays/lab
     repoURL: 'https://github.com/hornjason/argocd-lab.git'
