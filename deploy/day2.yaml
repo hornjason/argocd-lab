@@ -1,0 +1,68 @@
+---
+- name: Bootstrappin
+  hosts: openshift
+  tasks:
+  - name: Deploy ArgoCD Operator
+    command: 'oc apply -k {{ git_local_dir }}/manifests/argocd/argocd-operator/ --kubeconfig={{ cluster_kubeconfig }}'
+
+  - name: Wait for ArgoCD CR to be available
+    #k8s_info:
+    k8s_facts:
+      api_version: apiextensions.k8s.io/v1
+      kind: CustomResourceDefinition
+      name: argocds.argoproj.io
+      kubeconfig: "{{ cluster_kubeconfig }}"
+    register: argocds_crd
+    until:
+    - argocds_crd.resources is defined
+    - argocds_crd.resources | length > 0
+    retries: 20 
+    delay: 3
+
+##### Deploy ArgoCD object
+  - name: Deploy ArgoCD Bootstrap Instance
+    command: 'oc apply -k {{ git_local_dir }}/manifests/argocd/overlays/bootstrap --kubeconfig={{ cluster_kubeconfig }}'
+
+  - name: Deploy ArgoCD Lab Configuration
+    command: 'oc apply -k {{ git_local_dir }}/manifests/argocd/overlays/lab --kubeconfig={{ cluster_kubeconfig }}'
+
+  - stat:
+      path: "{{ sealed_secret_key }}"
+    register: sealed_secret_key_check
+
+  - debug:
+      msg: "{{ sealed_secret_key_check.stat.exists }}"
+  - debug:
+      msg:
+        - No SelaedSecret Key found. Sealed Secrets will need to be updated
+        - ex. echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client
+        - --from-file=clientSecret=/dev/stdin -o yaml -n openshift-config |
+        - kubeseal - -o yaml> manifests/identity-provider/overlays/lab/idp-sealed-secret.yaml
+        - Backup new Key
+        - oc get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > master.yaml
+    when: not sealed_secret_key_check.stat.exists|bool
+
+  - name: Pausing 
+    pause:
+    when: not sealed_secret_key_check.stat.exists|bool
+
+  - name: Deploy Sealed Secrets Argo Application
+    command: 'oc apply -f {{ git_local_dir }}/manifests/sealed-secrets/overlays/lab/argocd-app-sealedsecrets.yaml --kubeconfig={{ cluster_kubeconfig }}'
+
+  - name: Deploy Infra Nodes Config
+    command: 'oc apply -f {{ git_local_dir }}/manifests/infra-nodes/overlays/lab/argocd-app-infranodes-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
+
+  - name: Deploy Registry Config
+    command: 'oc apply -f {{ git_local_dir }}/manifests/registry/overlays/lab/argocd-app-registry-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
+
+  - name: Deploy  Metrics Config
+    command: 'oc apply -f {{ git_local_dir }}/manifests/migrate-metrics/overlays/lab/argocd-app-migratemetrics-dev.yaml --kubeconfig={{ cluster_kubeconfig }}'
+
+  - name: Deploy Router Config
+    command: 'oc apply -f {{ git_local_dir }}/manifests/migrate-router/overlays/lab/argocd-app-migraterouter.yaml --kubeconfig={{ cluster_kubeconfig }}'
+
+  - name: Deploy Cluster Users
+    command: 'oc apply -f {{ git_local_dir }}/manifests/cluster-users/overlays/lab/argocd-app-clusterusers-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
+
+##  - name: Deploy Identity Provider
+##    command: 'oc apply -f {{ git_local_dir }}/manifests/identity-provider/overlays/lab/argocd-app-idp-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
