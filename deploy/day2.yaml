@@ -26,6 +26,10 @@
   - name: Deploy ArgoCD Lab Configuration
     command: 'oc apply -k {{ git_local_dir }}/manifests/argocd/overlays/lab --kubeconfig={{ cluster_kubeconfig }}'
 
+##### Deploy Custom Certs
+#  - name: Deploy ArgoCD Custom Certs
+#    command: 'oc apply -f {{ git_local_dir }}/manifests/custom-certs/overlays/lab/argocd-app-customcerts.yaml --kubeconfig={{ cluster_kubeconfig }}'
+
   - stat:
       path: "{{ sealed_secret_key }}"
     register: sealed_secret_key_check
@@ -45,6 +49,13 @@
   - name: Pausing 
     pause:
     when: not sealed_secret_key_check.stat.exists|bool
+
+  - name: Deploy Sealed Secrets Backup Key
+    command: oc apply -f  "{{ sealed_secret_key }}"
+    when: sealed_secret_key_check.stat.exists|bool
+
+  - name: Pausing 
+    pause:
 
   - name: Deploy Sealed Secrets Argo Application
     command: 'oc apply -f {{ git_local_dir }}/manifests/sealed-secrets/overlays/lab/argocd-app-sealedsecrets.yaml --kubeconfig={{ cluster_kubeconfig }}'

@@ -28,20 +28,20 @@
       src: "install-config.j2"
       dest: "{{ cluster_deploy_dir }}/{{ cluster_name }}/install-config.yaml"
 
-#  - name: Run IPI Installer
-#    command: 'openshift-install --dir={{ cluster_deploy_dir }}/{{ cluster_name }} create cluster'
-#    async: 3000
-#    poll: 0
-#    register: cluster_deploy
-#    when:  deploy | bool | default('true') 
-#  
-#- name: Check sync status
-#  async_status:
-#    jid: "{{ cluster_deploy.ansible_job_id }}"
-#  register: job_results
-#  until: job_results.finished
-#  retries: 30
-
+  - name: Run IPI Installer
+    command: 'openshift-install --dir={{ cluster_deploy_dir }}/{{ cluster_name }} create cluster'
+    async: 3000
+    poll: 0
+    register: cluster_deploy
+    when:  deploy | bool | default('true') 
+  
+#  - name: Check sync status
+#    async_status:
+#      jid: "{{ cluster_deploy.ansible_job_id }}"
+#    register: job_results
+#    until: job_results.finished
+#    retries: 30
+  
   - name: Wait for OpenShift Install
     wait_for:
       delay: 10

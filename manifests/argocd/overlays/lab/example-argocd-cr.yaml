@@ -4,7 +4,7 @@ metadata:
   name: example-argocd
 spec:
   server:
-    host: argocd.apps.hub.foo.bar
+    host: argocd.apps.the.jasonhorn.io
   rbac:
     defaultPolicy: 'role:readonly'
     policy: |

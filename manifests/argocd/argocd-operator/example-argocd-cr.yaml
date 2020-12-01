@@ -10,7 +10,7 @@ spec:
   server:
     route:
       enabled: true
-    host: argocd.apps.hub.foo.bar
+    host: argocd.apps.the.jasonhorn.io
   rbac:
     defaultPolicy: 'role:admin'
     policy: |

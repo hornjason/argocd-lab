@@ -4,6 +4,8 @@ metadata:
   name: default
   namespace: openshift-ingress-operator
 spec:
+  defaultCertificate:
+    name: apps-the-jasonhorn-io
   nodePlacement:
     tolerations:
       - key: node-function
