@@ -66,6 +66,9 @@
   - name: Deploy Registry Config
     command: 'oc apply -f {{ git_local_dir }}/manifests/registry/overlays/lab/argocd-app-registry-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
 
+  - name: Deploy Registry Pruner Job
+    command: 'oc create job --from=cronjob.batch/image-pruner test --kubeconfig={{ cluster_kubeconfig }}'
+
   - name: Deploy  Metrics Config
     command: 'oc apply -f {{ git_local_dir }}/manifests/migrate-metrics/overlays/lab/argocd-app-migratemetrics-dev.yaml --kubeconfig={{ cluster_kubeconfig }}'
 
@@ -75,5 +78,5 @@
   - name: Deploy Cluster Users
     command: 'oc apply -f {{ git_local_dir }}/manifests/cluster-users/overlays/lab/argocd-app-clusterusers-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
 
-##  - name: Deploy Identity Provider
-##    command: 'oc apply -f {{ git_local_dir }}/manifests/identity-provider/overlays/lab/argocd-app-idp-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
+  - name: Deploy Identity Provider
+    command: 'oc apply -f {{ git_local_dir }}/manifests/identity-provider/overlays/lab/argocd-app-idp-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
