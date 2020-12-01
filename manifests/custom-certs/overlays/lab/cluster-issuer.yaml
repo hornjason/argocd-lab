@@ -27,4 +27,3 @@ spec:
             name: route53-secret
             key: secret-key
           # you can also assume a role with these credentials
-          role: ""
