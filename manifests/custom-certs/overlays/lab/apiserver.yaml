@@ -1,0 +1,11 @@
+apiVersion: config.openshift.io/v1
+kind: APIServer
+metadata:
+  name: cluster
+spec:
+  servingCerts:
+    namedCertificates:
+    - names:
+      - 'api.the.jasonhorn.io'
+      servingCertificate:
+        name: api-the-jasonhorn-io

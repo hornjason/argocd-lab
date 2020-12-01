@@ -1,0 +1,12 @@
+bases:
+- ../../base
+
+resources:
+- cert-manager-namespace.yaml
+- route53-sealed-secret.yaml
+- cert-manager-crd.yaml
+- cluster-issuer.yaml
+- api-certificate.yaml
+- apps-certificate.yaml
+- apiserver.yaml
+- ingress-controller.yaml
