@@ -1,7 +1,7 @@
 bases:
 - ../../base
 
-resources:
+patchesStrategicMerge:
 - cert-manager-namespace.yaml
 - route53-sealed-secret.yaml
 - cert-manager-crd.yaml
