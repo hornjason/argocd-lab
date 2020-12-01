@@ -5,8 +5,8 @@ metadata:
   namespace: openshift-config
 spec:
   secretName: api-the-jasonhorn-io
-  duration: 2160h #90d
-  renewBefore: 360h #15d
+  duration: 2160h0m0s #90d
+  renewBefore: 360h0m0s #15d
   dnsNames:
   - 'api.the.jasonhorn.io'
   issuerRef:
