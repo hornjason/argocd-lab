@@ -34,6 +34,15 @@
       path: "{{ sealed_secret_key }}"
     register: sealed_secret_key_check
 
+  - name: Sealed Secrets Install Check
+    command: 'oc get deployment sealed-secrets-controller -o jsonpath="{.status.availableReplicas}" -n kube-system'
+    register: sealed_secret_installed
+
+  - debug:
+      msg: "{{ sealed_secret_installed.stdout }}"
+  - name: Pausing 
+    pause:
+
   - debug:
       msg: "{{ sealed_secret_key_check.stat.exists }}"
   - debug:
@@ -52,14 +61,13 @@
 
   - name: Deploy Sealed Secrets Backup Key
     command: oc apply -f  "{{ sealed_secret_key }}"
-    when: sealed_secret_key_check.stat.exists|bool
-
-  - name: Pausing 
-    pause:
+    when: sealed_secret_key_check.stat.exists|bool and sealed_secret_installed.stdout |int < 1
 
   - name: Deploy Sealed Secrets Argo Application
     command: 'oc apply -f {{ git_local_dir }}/manifests/sealed-secrets/overlays/lab/argocd-app-sealedsecrets.yaml --kubeconfig={{ cluster_kubeconfig }}'
 
+  - name: Deploy Custom Certs + Cert Manager
+    command: 'oc apply -f {{ git_local_dir }}/manifests/custom-certs/overlays/lab/argocd-app-customcerts-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
   - name: Deploy Infra Nodes Config
     command: 'oc apply -f {{ git_local_dir }}/manifests/infra-nodes/overlays/lab/argocd-app-infranodes-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
 
@@ -67,13 +75,14 @@
     command: 'oc apply -f {{ git_local_dir }}/manifests/registry/overlays/lab/argocd-app-registry-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
 
   - name: Deploy Registry Pruner Job
-    command: 'oc create job --from=cronjob.batch/image-pruner test --kubeconfig={{ cluster_kubeconfig }}'
+    command: 'oc create job --from=cronjob.batch/image-pruner test -n openshift-image-registry --kubeconfig={{ cluster_kubeconfig }}'
 
   - name: Deploy  Metrics Config
     command: 'oc apply -f {{ git_local_dir }}/manifests/migrate-metrics/overlays/lab/argocd-app-migratemetrics-dev.yaml --kubeconfig={{ cluster_kubeconfig }}'
 
-  - name: Deploy Router Config
-    command: 'oc apply -f {{ git_local_dir }}/manifests/migrate-router/overlays/lab/argocd-app-migraterouter.yaml --kubeconfig={{ cluster_kubeconfig }}'
+# Disabled,  custom certs updates ingress controller, only one can win
+#  - name: Deploy Router Config
+#    command: 'oc apply -f {{ git_local_dir }}/manifests/migrate-router/overlays/lab/argocd-app-migraterouter.yaml --kubeconfig={{ cluster_kubeconfig }}'
 
   - name: Deploy Cluster Users
     command: 'oc apply -f {{ git_local_dir }}/manifests/cluster-users/overlays/lab/argocd-app-clusterusers-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
