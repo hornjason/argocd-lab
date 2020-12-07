@@ -15,49 +15,44 @@
     community.kubernetes.k8s:
       state: present
       wait: yes
-      validate:
-       fail_on_error: yes
       definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-operatorGroup.yaml') | from_yaml }}"
 
   - name: Deploy ArgoCD Subscription
     community.kubernetes.k8s:
       state: present
       wait: yes
-      validate:
-       fail_on_error: yes
-      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-subscription.yaml') | from_yaml }}"
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-operatorSubscription.yaml') | from_yaml }}"
 
 
   - name: Deploy ArgoCD Cluster Role Bindings
     community.kubernetes.k8s:
       state: present
       wait: yes
-      validate:
-       fail_on_error: yes
       definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/cluster-role-binding.yaml') | from_yaml }}"
 
   - name: Deploy ArgoCD CR
     community.kubernetes.k8s:
       state: present
       wait: yes
-      validate:
-       fail_on_error: yes
       definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/example-argocd-cr.yaml') | from_yaml }}"
 
   - name: Wait for ArgoCD CR to be available
-    k8s_info:
-    #k8s_facts:
+    community.kubernetes.k8s_info:
       api_version: apiextensions.k8s.io/v1
       kind: CustomResourceDefinition
       name: argocds.argoproj.io
       kubeconfig: "{{ cluster_kubeconfig }}"
       wait: True
+      wait_condition:
+        reason: 'NoConflicts'
+        status: 'True'
+        type: 'NamesAccepted'
     register: argocds_crd
-    until:
-    - argocds_crd.resources is defined
-    - argocds_crd.resources | length > 0
-    retries: 20 
-    delay: 3
+#    until:
+#    - argocds_crd.resources[0] is defined
+#    - argocds_crd.resources[0] | length > 0
+#    retries: 20 
+#    delay: 3
 
 ###### Deploy ArgoCD object
 #  - name: Deploy ArgoCD Bootstrap Instance
