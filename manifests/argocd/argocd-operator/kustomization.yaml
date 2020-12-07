@@ -1,5 +1,6 @@
 
 resources:
   - argocd-namespace.yaml
-  - argocd-operator.yaml
+  - argocd-operatorGroup.yaml
+  - argocd-operatorSubscription.yaml
   - cluster-role-binding.yaml

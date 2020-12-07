@@ -3,23 +3,23 @@ kind: MachineSet
 metadata:
   creationTimestamp: null
   labels:
-    machine.openshift.io/cluster-api-cluster: {{ cluster_id.stdout }}
-  name: {{ cluster_id.stdout }}-infra 
+    machine.openshift.io/cluster-api-cluster: {{ cluster_id }}
+  name: {{ cluster_id }}-infra 
   namespace: openshift-machine-api
 spec:
   replicas: 3
   selector:
     matchLabels:
-      machine.openshift.io/cluster-api-cluster: {{ cluster_id.stdout }}
-      machine.openshift.io/cluster-api-machineset: {{ cluster_id.stdout }}-infra
+      machine.openshift.io/cluster-api-cluster: {{ cluster_id }}
+      machine.openshift.io/cluster-api-machineset: {{ cluster_id }}-infra
   template:
     metadata:
       creationTimestamp: null
       labels:
-        machine.openshift.io/cluster-api-cluster: {{ cluster_id.stdout }}
+        machine.openshift.io/cluster-api-cluster: {{ cluster_id }}
         machine.openshift.io/cluster-api-machine-role: infra
         machine.openshift.io/cluster-api-machine-type: infra
-        machine.openshift.io/cluster-api-machineset: {{ cluster_id.stdout }}-infra
+        machine.openshift.io/cluster-api-machineset: {{ cluster_id }}-infra
     spec:
       taints:
       - effect: NoSchedule
@@ -44,7 +44,7 @@ spec:
             - networkName: VM Network
           numCPUs: 4
           numCoresPerSocket: 2
-          template: {{ cluster_id.stdout }}-rhcos
+          template: {{ cluster_id }}-rhcos
           userDataSecret:
             name: worker-user-data
           workspace:

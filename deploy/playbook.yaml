@@ -101,32 +101,49 @@
       msg: "OpenShift Install: Complete!"
 
   - name: Grab Cluster ID
-    command: 'oc get -o jsonpath="{.status.infrastructureName}" infrastructure cluster --kubeconfig "{{ cluster_kubeconfig }}"'
-    register: cluster_id
+    community.kubernetes.k8s_info:
+      kind: Infrastructure
+      api_version: config.openshift.io/v1
+      name: cluster
+      kubeconfig: "{{ cluster_kubeconfig }}"
+    register: infra
 
   - debug:
-      msg: "{{ cluster_id.stdout }}"
+      msg: "{{ item.status.infrastructureName }}"
+    loop: "{{ infra.resources }}"
+    loop_control:
+      label: "{{ item.status.infrastructureName }}"
 
-  - name: Template Infra Nodes MachineSet
-    template:
-      src: infra_node_machineset.j2
-      dest: "{{ cluster_deploy_dir }}/{{ cluster_name }}/infra_node_machineset.yaml"
+  - name: Get a list of Infrastructure
+    community.kubernetes.k8s_info:
+      kind: Infrastructure
+      api_version: config.openshift.io/v1
+      name: cluster
+      kubeconfig: "{{ cluster_kubeconfig }}"
+    register: infra
 
-  - name: Apply Infra MachineSet
-    command: oc apply -f "{{ cluster_deploy_dir }}/{{ cluster_name }}/infra_node_machineset.yaml" --kubeconfig "{{ cluster_kubeconfig }}"
+  - set_fact:
+      cluster_id: "{{ item.status.infrastructureName }}"
+    loop: "{{ infra.resources }}"
+    loop_control:
+      label: "{{ item.status.infrastructureName }}"
 
-  - name: Gather Machine Set desired replicas
-    command: oc get machineset -o=jsonpath="{.status.replicas}" "{{ cluster_id.stdout }}-infra" -n openshift-machine-api --kubeconfig "{{ cluster_kubeconfig }}"
-    delay: 30
-    register: infra_machine_desired
+  - name: Infra MachineSet
+    community.kubernetes.k8s:
+      state: present
+      wait: yes
+      template:
+        path: 'infra_node_machineset.j2'
 
-  - debug:
-      msg: "Desired {{ infra_machine_desired }}.stdout"
-
-  - name: Gather Machine Set available replicas
-    command: oc get machineset -n openshift-machine-api -o=jsonpath="{.status.availableReplicas}" "{{ cluster_id.stdout }}-infra" --kubeconfig "{{ cluster_kubeconfig }}"
-    register: infra_machine_available
-    until: infra_machine_desired.stdout == infra_machine_available.stdout
+  - name: Check in Infra MachineSet is ready
+    community.kubernetes.k8s_info:
+      kind: MachineSet
+      api_version: machine.openshift.io/v1beta1
+      name: "{{ cluster_id }}-infra"
+      namespace: openshift-machine-api
+      kubeconfig: "{{ cluster_kubeconfig }}"
+    register: infra_machine_set
+    until: infra_machine_set.resources[0].status.availableReplicas == infra_machine_set.resources[0].status.replicas
     retries: 20
     delay: 30
 
