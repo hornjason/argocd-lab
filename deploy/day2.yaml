@@ -2,37 +2,40 @@
 - name: Bootstrappin
   hosts: openshift
   tasks:
-#  - name: Deploy ArgoCD Operator
-#    command: 'oc apply -k {{ git_local_dir }}/manifests/argocd/argocd-operator/ --kubeconfig={{ cluster_kubeconfig }}'
-#
+
+# Deploy ArgoCD Operator/CR
   - name: Deploy ArgoCD NameSpace
     community.kubernetes.k8s:
       state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
       wait: yes
       resource_definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-namespace.yaml') | from_yaml }}"
 
   - name: Deploy ArgoCD OperatorGroup
     community.kubernetes.k8s:
       state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
       wait: yes
       definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-operatorGroup.yaml') | from_yaml }}"
 
   - name: Deploy ArgoCD Subscription
     community.kubernetes.k8s:
       state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
       wait: yes
       definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-operatorSubscription.yaml') | from_yaml }}"
-
 
   - name: Deploy ArgoCD Cluster Role Bindings
     community.kubernetes.k8s:
       state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
       wait: yes
       definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/cluster-role-binding.yaml') | from_yaml }}"
 
   - name: Deploy ArgoCD CR
     community.kubernetes.k8s:
       state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
       wait: yes
       definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/example-argocd-cr.yaml') | from_yaml }}"
 
@@ -48,79 +51,134 @@
         status: 'True'
         type: 'NamesAccepted'
     register: argocds_crd
-#    until:
-#    - argocds_crd.resources[0] is defined
-#    - argocds_crd.resources[0] | length > 0
-#    retries: 20 
-#    delay: 3
 
-###### Deploy ArgoCD object
-#  - name: Deploy ArgoCD Bootstrap Instance
-#    command: 'oc apply -k {{ git_local_dir }}/manifests/argocd/overlays/bootstrap --kubeconfig={{ cluster_kubeconfig }}'
-#
-#  - name: Deploy ArgoCD Lab Configuration
-#    command: 'oc apply -k {{ git_local_dir }}/manifests/argocd/overlays/lab --kubeconfig={{ cluster_kubeconfig }}'
-#
-###### Deploy Custom Certs
-##  - name: Deploy ArgoCD Custom Certs
-##    command: 'oc apply -f {{ git_local_dir }}/manifests/custom-certs/overlays/lab/argocd-app-customcerts.yaml --kubeconfig={{ cluster_kubeconfig }}'
-#
-#  - stat:
-#      path: "{{ sealed_secret_key }}"
-#    register: sealed_secret_key_check
-#
-#  - name: Sealed Secrets Install Check
-#    command: 'oc get deployment sealed-secrets-controller -o jsonpath="{.status.availableReplicas}" -n kube-system'
-#    register: sealed_secret_installed
-#
-#  - debug:
-#      msg: "{{ sealed_secret_installed.stdout }}"
-#  - name: Pausing 
-#    pause:
-#
-#  - debug:
-#      msg: "{{ sealed_secret_key_check.stat.exists }}"
-#  - debug:
-#      msg:
-#        - No SelaedSecret Key found. Sealed Secrets will need to be updated
-#        - ex. echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client
-#        - --from-file=clientSecret=/dev/stdin -o yaml -n openshift-config |
-#        - kubeseal - -o yaml> manifests/identity-provider/overlays/lab/idp-sealed-secret.yaml
-#        - Backup new Key
-#        - oc get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > master.yaml
-#    when: not sealed_secret_key_check.stat.exists|bool
-#
-#  - name: Pausing 
-#    pause:
-#    when: not sealed_secret_key_check.stat.exists|bool
-#
-#  - name: Deploy Sealed Secrets Backup Key
-#    command: oc apply -f  "{{ sealed_secret_key }}"
-#    when: sealed_secret_key_check.stat.exists|bool and sealed_secret_installed.stdout |int < 1
-#
-#  - name: Deploy Sealed Secrets Argo Application
-#    command: 'oc apply -f {{ git_local_dir }}/manifests/sealed-secrets/overlays/lab/argocd-app-sealedsecrets.yaml --kubeconfig={{ cluster_kubeconfig }}'
-#
-#  - name: Deploy Custom Certs + Cert Manager
-#    command: 'oc apply -f {{ git_local_dir }}/manifests/custom-certs/overlays/lab/argocd-app-customcerts-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
-#  - name: Deploy Infra Nodes Config
-#    command: 'oc apply -f {{ git_local_dir }}/manifests/infra-nodes/overlays/lab/argocd-app-infranodes-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
-#
-#  - name: Deploy Registry Config
-#    command: 'oc apply -f {{ git_local_dir }}/manifests/registry/overlays/lab/argocd-app-registry-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
-#
-#  - name: Deploy Registry Pruner Job
-#    command: 'oc create job --from=cronjob.batch/image-pruner test -n openshift-image-registry --kubeconfig={{ cluster_kubeconfig }}'
-#
-#  - name: Deploy  Metrics Config
-#    command: 'oc apply -f {{ git_local_dir }}/manifests/migrate-metrics/overlays/lab/argocd-app-migratemetrics-dev.yaml --kubeconfig={{ cluster_kubeconfig }}'
-#
+  - name: Deploy ArgoCD Lab Configuration
+    community.kubernetes.k8s:
+      state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      wait: yes
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/overlays/lab/argocd-app-argocd.yaml') | from_yaml }}"
+
+
+# installing into kube-system show namespace should be there
+  - stat:
+      path: "{{ sealed_secret_key }}"
+    register: sealed_secret_key_check
+
+  - debug:
+      msg:
+        - No SelaedSecret Key found. Sealed Secrets will need to be updated
+        - ex. echo -n “clientSecretRaw” | oc create secret generic idp-secret --dry-run=client
+        - --from-file=clientSecret=/dev/stdin -o yaml -n openshift-config |
+        - kubeseal - -o yaml> manifests/identity-provider/overlays/lab/idp-sealed-secret.yaml
+        - Backup new Key
+        - oc get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > master.yaml
+    when: not sealed_secret_key_check.stat.exists|bool
+
+  - name: Check for Sealed Secrets Deployment
+    community.kubernetes.k8s_info:
+      api_version: apps/v1
+      kind: Deployment
+      name: sealed-secrets-controller
+      namespace: kube-system
+      kubeconfig: "{{ cluster_kubeconfig }}"
+    register: sealed_secret_check
+
+  - name: Sealed Secrets Deployment Scale -> 0
+    community.kubernetes.k8s_scale:
+      api_version: apps/v1
+      kind: Deployment
+      name: sealed-secrets-controller
+      namespace: kube-system
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      replicas: 0
+      wait: True
+    register: deploy
+    when: sealed_secret_check.resources and sealed_secret_key_check.stat.exists|bool
+
+# This key is encrypted with ansible-vault and defined in inventory
+  - name: Deploy encrypted Sealed Secret Key
+    community.kubernetes.k8s:
+      state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      wait: yes
+      definition: "{{ lookup('file', '{{ sealed_secret_key }}') | from_yaml }}"
+      validate:
+        fail_on_error: yes
+    when: sealed_secret_key_check.stat.exists|bool
+
+  - name: Sealed Secrets Deployment Scale -> 1
+    community.kubernetes.k8s_scale:
+      api_version: apps/v1
+      kind: Deployment
+      name: sealed-secrets-controller
+      namespace: kube-system
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      replicas: 1
+      wait: True
+    register: deploy
+    when: sealed_secret_check.resources and sealed_secret_key_check.stat.exists|bool
+
+  - pause:
+
+  - name: Deploy ArgoCD Lab Configuration
+    community.kubernetes.k8s:
+      state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      wait: yes
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/sealed-secrets/overlays/lab/argocd-app-sealedsecrets.yaml') | from_yaml }}"
+#####################################
+
+  - name: Deploy Custom Certs Lab Config in ArgoCD
+    community.kubernetes.k8s:
+      state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      wait: yes
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/custom-certs/overlays/lab/argocd-app-customcerts-lab.yaml') | from_yaml }}"
+
+  - name: Deploy Infra Nodes Lab Config in ArgoCD
+    community.kubernetes.k8s:
+      state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      wait: yes
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/infra-nodes/overlays/lab/argocd-app-infranodes-lab.yaml') | from_yaml }}"
+
+  - name: Deploy Registry Lab Config in ArgoCD
+    community.kubernetes.k8s:
+      state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      wait: yes
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/registry/overlays/lab/argocd-app-registry-lab.yaml') | from_yaml }}"
+
+  - name: Deploy Registry Image Pruner 
+    community.kubernetes.k8s:
+      state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      wait: yes
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/base/image-pruner.yaml') | from_yaml }}"
+
+   - name: Migrate Metrics to Infra Nodes
+    community.kubernetes.k8s:
+      state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      wait: yes
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/migrate-metrics/overlays/lab/argocd-app-migratemetrics-dev.yaml') | from_yaml }}"
+ 
+   - name: Deploy Cluster Users Lab Config in ArgoCD
+    community.kubernetes.k8s:
+      state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      wait: yes
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/cluster-users/overlays/lab/argocd-app-clusterusers-lab.yaml') | from_yaml }}"
+  
+   - name: Deploy Identity Provider Lab Config in ArgoCD
+    community.kubernetes.k8s:
+      state: present
+      kubeconfig: "{{ cluster_kubeconfig }}"
+      wait: yes
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/cluster-users/overlays/lab/argocd-app-idp-lab.yaml') | from_yaml }}"
+     
+ 
 ## Disabled,  custom certs updates ingress controller, only one can win
 ##  - name: Deploy Router Config
 ##    command: 'oc apply -f {{ git_local_dir }}/manifests/migrate-router/overlays/lab/argocd-app-migraterouter.yaml --kubeconfig={{ cluster_kubeconfig }}'
-#
-#  - name: Deploy Cluster Users
-#    command: 'oc apply -f {{ git_local_dir }}/manifests/cluster-users/overlays/lab/argocd-app-clusterusers-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'
-#
-#  - name: Deploy Identity Provider
-#    command: 'oc apply -f {{ git_local_dir }}/manifests/identity-provider/overlays/lab/argocd-app-idp-lab.yaml --kubeconfig={{ cluster_kubeconfig }}'

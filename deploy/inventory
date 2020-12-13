@@ -12,7 +12,7 @@ openshift:
     cluster_ssh_pub_key: "{{ lookup('ini', 'cluster_ssh_pub_key section=hub  file=openshift_config.ini') }}"
     cluster_kubeconfig: "{{ cluster_deploy_dir }}/{{ cluster_name }}/auth/kubeconfig"
     cluster_deploy_dir: '/projects/openshift_deploy'
-    sealed_secret_key: "/root/projects/argocd-lab/master.yaml"
+    sealed_secret_key: "/root/projects/argocd-lab/deploy/sealed-secrets-key.yaml"
     vmware_pass: "{{ lookup('ini', 'vmware_pass section=hub  file=openshift_config.ini') }}"
     git_repo: 'https://github.com/hornjason/argocd-lab.git'
     git_local_dir: '/projects/openshift_config'
