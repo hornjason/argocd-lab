@@ -4,6 +4,7 @@
   vars:
     rm_dir: false
   tasks:
+
   - name: Delete OCP deployment dir
     file:
       path: "{{ cluster_deploy_dir }}"

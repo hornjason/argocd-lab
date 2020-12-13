@@ -2,8 +2,6 @@
 - name: Bootstrappin
   hosts: openshift
   tasks:
-
-# Deploy ArgoCD Operator/CR
   - name: Deploy ArgoCD NameSpace
     community.kubernetes.k8s:
       state: present
