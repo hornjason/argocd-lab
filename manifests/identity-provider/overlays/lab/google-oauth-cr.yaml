@@ -11,3 +11,4 @@ spec:
       clientID: '520327157727-5i0mildljkumbiiuchnrrtad3m1de7t9.apps.googleusercontent.com'
       clientSecret:
         name: idp-secret
+      hostedDomain: ''

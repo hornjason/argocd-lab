@@ -116,10 +116,11 @@
       kubeconfig: "{{ cluster_kubeconfig }}"
       replicas: 1
       wait: True
+      wait_timeout: 300
     register: deploy
     when: sealed_secret_check.resources and sealed_secret_key_check.stat.exists|bool
 
-  - pause:
+#  - pause:
 
   - name: Deploy ArgoCD Lab Configuration
     community.kubernetes.k8s:
@@ -154,8 +155,9 @@
     community.kubernetes.k8s:
       state: present
       kubeconfig: "{{ cluster_kubeconfig }}"
+      namespace: openshift-image-registry
       wait: yes
-      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/base/image-pruner.yaml') | from_yaml }}"
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/registry/base/image-pruner.yaml') | from_yaml }}"
 
   - name: Migrate Metrics to Infra Nodes
     community.kubernetes.k8s:
@@ -176,7 +178,7 @@
       state: present
       kubeconfig: "{{ cluster_kubeconfig }}"
       wait: yes
-      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/cluster-users/overlays/lab/argocd-app-idp-lab.yaml') | from_yaml }}"
+      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/identity-provider/overlays/lab/argocd-app-idp-lab.yaml') | from_yaml }}"
      
  
 ## Disabled,  custom certs updates ingress controller, only one can win
