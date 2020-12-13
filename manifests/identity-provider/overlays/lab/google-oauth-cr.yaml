@@ -5,7 +5,7 @@ metadata:
 spec:
   identityProviders:
   - name: google
-    mappingMethod: claim
+    mappingMethod: lookup
     type: Google
     google:
       clientID: '520327157727-5i0mildljkumbiiuchnrrtad3m1de7t9.apps.googleusercontent.com'
