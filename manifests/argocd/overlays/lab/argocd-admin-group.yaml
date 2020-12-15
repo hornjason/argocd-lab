@@ -1,0 +1,8 @@
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: argo-admins
+users:
+  - kubeadmin
+  - jhorn@redhat.com
+  - jason.horn@redhat.com

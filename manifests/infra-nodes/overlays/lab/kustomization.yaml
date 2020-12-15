@@ -1,0 +1,10 @@
+bases:
+- ../../base
+generatorOptions:
+  disableNameSuffixHash: true
+
+patchesStrategicMerge:
+  - infra-mcp.yaml
+  - default-scheduler.yaml
+
+

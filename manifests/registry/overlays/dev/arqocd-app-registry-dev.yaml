@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: registry-dev
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: 'https://api.managed.foo.bar:6443'
+  source:
+    path: manifests/registry/overlays/dev
+    repoURL: 'https://github.com/hornjason/argocd-lab.git'
+    targetRevision: demo
+  project: default
+  syncPolicy:
+    automated: {}

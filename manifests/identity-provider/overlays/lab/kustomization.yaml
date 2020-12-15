@@ -1,18 +1,9 @@
-namespace: openshift-config
-
 bases:
 - ../../base
 
 patchesStrategicMerge:
+  - idp-sealed-secret.yaml
   - google-oauth-cr.yaml
-
-secretGenerator:
-  - name: idp-secret
-    behavior: replace
-    files: 
-      - clientSecret
-    namespace: openshift-config
-    type: Opaque
 
 generatorOptions:
   disableNameSuffixHash: true

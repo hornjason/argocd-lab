@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: example-argocd
+spec:
+  server:
+    host: argocd.apps.the.jasonhorn.io
+  rbac:
+    defaultPolicy: 'role:readonly'
+    policy: |
+      g, argo-admins, role:admin
+    scopes: '[groups]'

@@ -1,0 +1,53 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  creationTimestamp: null
+  labels:
+    machine.openshift.io/cluster-api-cluster: {{ cluster_id }}
+  name: {{ cluster_id }}-infra 
+  namespace: openshift-machine-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: {{ cluster_id }}
+      machine.openshift.io/cluster-api-machineset: {{ cluster_id }}-infra
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        machine.openshift.io/cluster-api-cluster: {{ cluster_id }}
+        machine.openshift.io/cluster-api-machine-role: infra
+        machine.openshift.io/cluster-api-machine-type: infra
+        machine.openshift.io/cluster-api-machineset: {{ cluster_id }}-infra
+    spec:
+      taints:
+      - effect: NoSchedule
+        key: node-function
+        value: infra
+      metadata:
+        creationTimestamp: null
+        labels:
+          node-role.kubernetes.io/infra: ""
+      providerSpec:
+        value:
+          apiVersion: vsphereprovider.openshift.io/v1beta1
+          credentialsSecret:
+            name: vsphere-cloud-credentials
+          diskGiB: 120
+          kind: VSphereMachineProviderSpec
+          memoryMiB: 16384
+          metadata:
+            creationTimestamp: null
+          network:
+            devices:
+            - networkName: VM Network
+          numCPUs: 4
+          numCoresPerSocket: 2
+          template: {{ cluster_id }}-rhcos
+          userDataSecret:
+            name: worker-user-data
+          workspace:
+            datacenter: DC1
+            datastore: QNAP-VMDATA
+            server: photon-machine.foo.bar

@@ -1,0 +1,60 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    cronjob.kubernetes.io/instantiate: manual
+  creationTimestamp: null
+  labels:
+    created-by: image-pruner
+  name: test
+  ownerReferences:
+  - apiVersion: batch/v1beta1
+    blockOwnerDeletion: true
+    controller: true
+    kind: CronJob
+    name: image-pruner
+    uid: 35cb50b2-a60e-4241-8c5b-fb27e91e9f80
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      affinity: {}
+      containers:
+      - args:
+        - adm
+        - prune
+        - images
+        - --certificate-authority=/var/run/configmaps/serviceca/service-ca.crt
+        - --keep-tag-revisions=3
+        - --keep-younger-than=60m
+        - --prune-registry=true
+        - --confirm=true
+        command:
+        - oc
+        image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:bdc1c8cf65c2b0402d8d55caa3cfb7f9d4fc8e764209c752e587285d96815a29
+        imagePullPolicy: IfNotPresent
+        name: image-pruner
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: FallbackToLogsOnError
+        volumeMounts:
+        - mountPath: /var/run/configmaps/serviceca
+          name: serviceca
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: pruner
+      serviceAccountName: pruner
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: serviceca
+        name: serviceca
+status: {}

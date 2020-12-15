@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infra-nodes-lab
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: manifests/infra-nodes/overlays/lab
+    repoURL: 'https://github.com/hornjason/argocd-lab.git'
+    targetRevision: demo
+  project: default
+  syncPolicy:
+    automated: {}

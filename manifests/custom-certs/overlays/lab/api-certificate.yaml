@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: api-the-jasonhorn-io
+  namespace: openshift-config
+spec:
+  secretName: api-the-jasonhorn-io
+  duration: 2160h0m0s #90d
+  renewBefore: 360h0m0s #15d
+  dnsNames:
+  - 'api.the.jasonhorn.io'
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer

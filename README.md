@@ -2,7 +2,7 @@ Table of Contents
 =================
 
    * [Table of Contents](#table-of-contents)
-   * [ArgoCD Declarative Lab](#argocd-delarative-lab)
+   * [ArgoCD Delarative Lab](#argocd-delarative-lab)
       * [Overview](#overview)
       * [Demo Environment](#demo-environment)
       * [Pre-Reqs / Setup](#pre-reqs--setup)
@@ -61,7 +61,7 @@ Table of Contents
             * [Verify](#verify-6)
 
 
-ArgoCD Declarative Lab
+ArgoCD Delarative Lab
 =======================
 
 
@@ -658,6 +658,6 @@ oc get schedulers.config.openshift.io cluster -o=jsonpath="{.spec}"
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk3NDgwODc3NiwtMjAwMjIyNTMwNSw5OD
-MyNTU3NjgsLTEyMzY2NjA4MjFdfQ==
+eyJoaXN0b3J5IjpbLTIwMDIyMjUzMDUsOTgzMjU1NzY4LC0xMj
+M2NjYwODIxXX0=
 -->

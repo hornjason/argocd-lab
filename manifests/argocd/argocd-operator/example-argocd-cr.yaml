@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: example-argocd
+  namespace: argocd
+spec:
+  dex:
+    image: quay.io/redhat-cop/dex
+    openShiftOAuth: true
+    version: v2.22.0-openshift
+  server:
+    route:
+      enabled: true
+    host: argocd.apps.the.jasonhorn.io
+  rbac:
+    defaultPolicy: 'role:admin'
+    policy: |
+      g, argo-admins, role:admin
+    scopes: '[groups]'
