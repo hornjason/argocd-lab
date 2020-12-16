@@ -7,5 +7,5 @@ metadata:
   labels:
     config.example.com/name: cert-manager
     config.example.com/component: namespaces
-  name: changeme
+  name: cert-manager
 spec:
