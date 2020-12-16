@@ -10,6 +10,6 @@ spec:
   source:
     path: manifests/custom-certs/overlays/lab
     repoURL: 'https://github.com/hornjason/argocd-lab.git'
-    targetRevision: demo
+    targetRevision: master
   project: default
   syncPolicy: {}
