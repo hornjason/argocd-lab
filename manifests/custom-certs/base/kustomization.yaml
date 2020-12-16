@@ -1,5 +1,5 @@
 resources:
-- cert-manager-namespace.yaml
+#- cert-manager-namespace.yaml
 - route53-sealed-secret.yaml
 - cert-manager-crd.yaml
 - cluster-issuer.yaml

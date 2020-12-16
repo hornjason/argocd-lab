@@ -6,6 +6,5 @@ metadata:
     config.example.com/managed-by: gitops
   labels:
     config.example.com/name: cert-manager
-    config.example.com/component: namespaces
   name: cert-manager
 spec:
