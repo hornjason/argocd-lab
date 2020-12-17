@@ -2,7 +2,20 @@ openshift:
   hosts:
     localhost:
   vars:
-    deploy: true
+    # Deploy OCP
+    cluster_deploy: true
+    cluster_deploy_dir: '/projects/openshift_deploy'
+    # Remove openshift deployment directory before installing
+    cluster_rm_deploy_dir: false
+    # Install sealed secrets
+    cluster_sealedsecrets: true
+    # Install ArgoCD Operator
+    cluster_argocd_install: true
+    # Install ArgoCD application
+    cluster_argocd_day2: true
+    # Sealed Secrets Key, Needed if deploying Sealed Secrets from prior install.
+    sealed_secret_key: "/root/projects/argocd-lab/deploy/sealed-secrets-key.yaml"
+    ####
     ansible_connection: local
     cluster_name: "{{ lookup('ini', 'cluster_name section=hub  file=openshift_config.ini') }}"
     cluster_secret: "{{ lookup('ini', 'cluster_secret section=hub  file=openshift_config.ini') }}"
@@ -11,8 +24,6 @@ openshift:
     cluster_base_domain: "{{ lookup('ini', 'cluster_base_domain section=hub  file=openshift_config.ini') }}"
     cluster_ssh_pub_key: "{{ lookup('ini', 'cluster_ssh_pub_key section=hub  file=openshift_config.ini') }}"
     cluster_kubeconfig: "{{ cluster_deploy_dir }}/{{ cluster_name }}/auth/kubeconfig"
-    cluster_deploy_dir: '/projects/openshift_deploy'
-    sealed_secret_key: "/root/projects/argocd-lab/deploy/sealed-secrets-key.yaml"
     vmware_pass: "{{ lookup('ini', 'vmware_pass section=hub  file=openshift_config.ini') }}"
     git_repo: 'https://github.com/hornjason/argocd-lab.git'
     git_local_dir: '/projects/openshift_config'

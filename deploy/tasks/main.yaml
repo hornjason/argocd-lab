@@ -1,0 +1,32 @@
+- name: Include Tasks for OCP Install
+  include_tasks: ocp_install.yaml
+  tags:
+    - install
+    - ocp
+  when: cluster_deploy | bool
+
+# Deploy ArgoCD Operator
+- name: Include Tasks for ArgoCD
+  include_tasks: argocd.yaml
+  tags:
+    - day2
+    - argocd
+  when: cluster_argocd_install | bool
+
+# Configure Sealed Secrets
+- name: Include Tasks for Sealed Secrets
+  include_tasks: sealedsecrets.yaml
+  tags:
+    - day2
+    - sealedsecrets
+  when: cluster_sealedsecrets | bool
+
+# Configure ArgoCD Day2 Applications
+- name: Include Tasks for Deploying ArgoCD Applications
+  include_tasks: argocd-apps.yaml
+  tags:
+    - day2
+    - argocd_apps
+  when: cluster_argocd_day2 | bool
+
+

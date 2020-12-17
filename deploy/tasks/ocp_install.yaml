@@ -1,0 +1,156 @@
+- name: Delete OCP deployment dir
+  file:
+    path: "{{ cluster_deploy_dir }}"
+    state: absent
+  when: cluster_rm_deploy_dir | bool
+
+- name: Create OCP deployment dir
+  file:
+    path: "{{ cluster_deploy_dir }}/{{ cluster_name }}"
+    state: directory
+    recurse: yes
+    mode: '0755'
+
+- name: Clone repo
+  git:
+    repo: "{{ git_repo }}"
+    dest: "{{ git_local_dir }}"
+    version: "demo"
+
+- name: Template install-config.yaml into tmp_dir
+  template:
+    src: "install-config.j2"
+    dest: "{{ cluster_deploy_dir }}/{{ cluster_name }}/install-config.yaml"
+
+- name: Run IPI Installer
+  command: 'openshift-install --dir={{ cluster_deploy_dir }}/{{ cluster_name }} create cluster'
+  async: 3000
+  poll: 0
+  register: cluster_deploy
+  when: cluster_deploy | bool | default('true')
+
+ - name: Check sync status
+   async_status:
+     jid: "{{ cluster_deploy.ansible_job_id }}"
+   register: job_results
+   until: job_results.finished
+   retries: 30
+
+- name: Wait for OpenShift Install
+  wait_for:
+    delay: 10
+    path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
+    search_regex: "Consuming Install Config from target directory"
+    #search_regex: completed (?P<task>\w+)
+  register: waitfor
+- debug:
+    msg: "OpenShift Install: Consuming Install Config"
+
+- name: Wait for OpenShift Install
+  wait_for:
+    delay: 10
+    path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
+    search_regex: Waiting up to 20m0s for the Kubernetes API at (?P<task>\w+\S+:\d{4})
+    #sleep:
+    #timeout:
+  register: waitfor
+
+- debug:
+    msg: "OpenShift Install: Waiting up to 20M0s for Kubernetes API {{ waitfor['match_groupdict']['task'] }}"
+
+- name: Wait for OpenShift Install
+  wait_for:
+    delay: 60
+    path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
+    search_regex: Waiting up to 40m0s for bootstrapping to complete
+    sleep: 30
+    timeout: 2000
+  register: waitfor
+
+- debug:
+    msg: "OpenShift Install: Waiting up to 40m0s for bootstrapping to complete"
+
+- name: Wait for OpenShift Install
+  wait_for:
+    delay: 60
+    path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
+    search_regex: Waiting up to 30m0s for the cluster at (?P<task>\w+\S+:\d{4})
+    sleep: 30
+    timeout: 2000
+  register: waitfor
+
+- debug:
+    msg: "OpenShift Install: Waiting up to 30M0s for the cluster at {{ waitfor['match_groupdict']['task'] }}"
+
+- name: Wait for OpenShift Install
+  wait_for:
+    delay: 60
+    path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
+    search_regex: "Install complete"
+    sleep: 30
+    timeout: 2000
+  register: waitfor
+
+- debug:
+    msg: "OpenShift Install: Complete!"
+
+- name: Grab Cluster ID
+  community.kubernetes.k8s_info:
+    kind: Infrastructure
+    api_version: config.openshift.io/v1
+    name: cluster
+    kubeconfig: "{{ cluster_kubeconfig }}"
+  register: infra
+
+- debug:
+    msg: "{{ item.status.infrastructureName }}"
+  loop: "{{ infra.resources }}"
+  loop_control:
+    label: "{{ item.status.infrastructureName }}"
+
+- name: Get a list of Infrastructure
+  community.kubernetes.k8s_info:
+    kind: Infrastructure
+    api_version: config.openshift.io/v1
+    name: cluster
+    kubeconfig: "{{ cluster_kubeconfig }}"
+  register: infra
+
+- set_fact:
+    cluster_id: "{{ item.status.infrastructureName }}"
+  loop: "{{ infra.resources }}"
+  loop_control:
+    label: "{{ item.status.infrastructureName }}"
+
+- name: Infra MachineSet
+  community.kubernetes.k8s:
+    state: present
+    wait: yes
+    template:
+      path: 'infra_node_machineset.j2'
+
+- name: Check in Infra MachineSet is ready
+  community.kubernetes.k8s_info:
+    kind: MachineSet
+    api_version: machine.openshift.io/v1beta1
+    name: "{{ cluster_id }}-infra"
+    namespace: openshift-machine-api
+    kubeconfig: "{{ cluster_kubeconfig }}"
+  register: infra_machine_set
+  until: infra_machine_set.resources[0].status.availableReplicas == infra_machine_set.resources[0].status.replicas
+  retries: 20
+  delay: 30
+
+- name: Ensure ENV KUBECONFIG is defined
+  lineinfile:
+    path: "~/.bashrc"
+    regexp: "{{ item.regex }}"
+    line: "{{ item.line }}"
+  loop:
+    - { regex: "export KUBECONFIG", line: "export KUBECONFIG={{ cluster_kubeconfig }}" }
+    - { regex: "alias {{ cluster_name }}pass", line: "alias {{ cluster_name }}pass='cat {{ cluster_deploy_dir }}/{{ cluster_name }}/auth/kubeadmin-password'" }
+
+- debug:
+    msg:
+      - ' .bashrc updated remember to source'
+      - ' source ~/.bashrc'
