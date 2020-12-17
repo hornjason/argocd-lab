@@ -13,6 +13,4 @@ spec:
     targetRevision: master
   project: default
   syncPolicy:
-    automated: 
-      prune: true
-      selfHeal: true
+    automated: {}

@@ -10,7 +10,7 @@ spec:
   source:
     path: manifests/migrate-metrics/overlays/lab
     repoURL: 'https://github.com/hornjason/argocd-lab.git'
-    targetRevision: demo
+    targetRevision: master
   project: default
   syncPolicy:
     automated: {}
