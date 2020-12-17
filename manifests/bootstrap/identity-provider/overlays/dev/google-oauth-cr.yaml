@@ -1,0 +1,14 @@
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+spec:
+  identityProviders:
+  - name: google
+    mappingMethod: claim
+    type: Google
+    google:
+      clientID: '520327157727-5i0mildljkumbiiuchnrrtad3m1de7t9.apps.googleusercontent.com'
+      clientSecret:
+        name: idp-secret
+      hostedDomain: "redhat.com"

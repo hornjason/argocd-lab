@@ -8,7 +8,7 @@ spec:
     namespace: argocd
     server: 'https://kubernetes.default.svc'
   source:
-    path: manifests/identity-provider/overlays/lab
+    path: identity-provider/overlays/lab
     repoURL: 'https://github.com/hornjason/argocd-lab.git'
     targetRevision: master
   project: default

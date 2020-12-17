@@ -1,0 +1,10 @@
+bases:
+- ../../base
+
+patchesStrategicMerge:
+  - idp-sealed-secret.yaml
+  - google-oauth-cr.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
