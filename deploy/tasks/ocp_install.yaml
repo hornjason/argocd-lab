@@ -82,7 +82,7 @@
     path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
     search_regex: Waiting up to 40m0s for the cluster at (?P<task>\w+\S+:\d{4})
     sleep: 30
-    timeout: 2000
+    timeout: 2400
   register: waitfor
 
 - debug:
@@ -94,7 +94,7 @@
     path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
     search_regex: Waiting up to 10m0s for the openshift-console route to be created
     sleep: 30
-    timeout: 600
+    timeout: 2400
   register: waitfor
 
 - debug:
