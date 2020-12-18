@@ -1,58 +1,59 @@
-  - name: Deploy ArgoCD NameSpace
-    community.kubernetes.k8s:
-      state: present
-      kubeconfig: "{{ cluster_kubeconfig }}"
-      wait: yes
-      resource_definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-namespace.yaml') | from_yaml }}"
+- name: Deploy ArgoCD NameSpace
+  community.kubernetes.k8s:
+    state: present
+    kubeconfig: "{{ cluster_kubeconfig }}"
+    wait: yes
+    resource_definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-namespace.yaml') | from_yaml }}"
 
-  - name: Deploy ArgoCD OperatorGroup
-    community.kubernetes.k8s:
-      state: present
-      kubeconfig: "{{ cluster_kubeconfig }}"
-      wait: yes
-      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-operatorGroup.yaml') | from_yaml }}"
+- name: Deploy ArgoCD OperatorGroup
+  community.kubernetes.k8s:
+    state: present
+    kubeconfig: "{{ cluster_kubeconfig }}"
+    wait: yes
+    definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-operatorGroup.yaml') | from_yaml }}"
 
-  - name: Deploy ArgoCD Subscription
-    community.kubernetes.k8s:
-      state: present
-      kubeconfig: "{{ cluster_kubeconfig }}"
-      wait: yes
-      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-operatorSubscription.yaml') | from_yaml }}"
+- name: Deploy ArgoCD Subscription
+  community.kubernetes.k8s:
+    state: present
+    kubeconfig: "{{ cluster_kubeconfig }}"
+    wait: yes
+    definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-operatorSubscription.yaml') | from_yaml }}"
 
-  - name: Deploy ArgoCD Cluster Role Bindings
-    community.kubernetes.k8s:
-      state: present
-      kubeconfig: "{{ cluster_kubeconfig }}"
-      wait: yes
-      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/cluster-role-binding.yaml') | from_yaml }}"
+- name: Deploy ArgoCD Cluster Role Bindings
+  community.kubernetes.k8s:
+    state: present
+    kubeconfig: "{{ cluster_kubeconfig }}"
+    wait: yes
+    definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/cluster-role-binding.yaml') | from_yaml }}"
 
-  - pause:
+- pause:
+    minutes: 1
 
-  - name: Deploy ArgoCD CR
-    community.kubernetes.k8s:
-      state: present
-      kubeconfig: "{{ cluster_kubeconfig }}"
-      wait: yes
-      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/example-argocd-cr.yaml') | from_yaml }}"
+- name: Deploy ArgoCD CR
+  community.kubernetes.k8s:
+    state: present
+    kubeconfig: "{{ cluster_kubeconfig }}"
+    wait: yes
+    definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/example-argocd-cr.yaml') | from_yaml }}"
 
-  - name: Wait for ArgoCD CR to be available
-    community.kubernetes.k8s_info:
-      api_version: apiextensions.k8s.io/v1
-      kind: CustomResourceDefinition
-      name: argocds.argoproj.io
-      kubeconfig: "{{ cluster_kubeconfig }}"
-      wait: True
-      wait_condition:
-        reason: 'NoConflicts'
-        status: 'True'
-        type: 'NamesAccepted'
-    register: argocds_crd
+- name: Wait for ArgoCD CR to be available
+  community.kubernetes.k8s_info:
+    api_version: apiextensions.k8s.io/v1
+    kind: CustomResourceDefinition
+    name: argocds.argoproj.io
+    kubeconfig: "{{ cluster_kubeconfig }}"
+    wait: True
+    wait_condition:
+      reason: 'NoConflicts'
+      status: 'True'
+      type: 'NamesAccepted'
+  register: argocds_crd
 
-  - name: Deploy ArgoCD Lab Configuration
-    community.kubernetes.k8s:
-      state: present
-      kubeconfig: "{{ cluster_kubeconfig }}"
-      wait: yes
-      definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/overlays/lab/argocd-app-argocd.yaml') | from_yaml }}"
+- name: Deploy ArgoCD Lab Configuration
+  community.kubernetes.k8s:
+    state: present
+    kubeconfig: "{{ cluster_kubeconfig }}"
+    wait: yes
+    definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/overlays/lab/argocd-app-argocd.yaml') | from_yaml }}"
 
 

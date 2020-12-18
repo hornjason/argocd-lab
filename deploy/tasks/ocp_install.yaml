@@ -16,7 +16,7 @@
   git:
     repo: "{{ git_repo }}"
     dest: "{{ git_local_dir }}"
-    version: "demo"
+    version: "master"
 
 - name: Template install-config.yaml into tmp_dir
   template:
