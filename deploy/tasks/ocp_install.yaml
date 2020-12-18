@@ -121,25 +121,11 @@
     kubeconfig: "{{ cluster_kubeconfig }}"
   register: infra
 
-- debug:
-    msg: "{{ item.status.infrastructureName }}"
-  loop: "{{ infra.resources }}"
-  loop_control:
-    label: "{{ item.status.infrastructureName }}"
-
-- name: Get a list of Infrastructure
-  community.kubernetes.k8s_info:
-    kind: Infrastructure
-    api_version: config.openshift.io/v1
-    name: cluster
-    kubeconfig: "{{ cluster_kubeconfig }}"
-  register: infra
-
 - set_fact:
-    cluster_id: "{{ item.status.infrastructureName }}"
-  loop: "{{ infra.resources }}"
-  loop_control:
-    label: "{{ item.status.infrastructureName }}"
+    cluster_id: "{{ infra.resources[0].status.infrastructureName }}"
+
+- debug:
+    msg: "{{ cluster_id }}"
 
 - name: Infra MachineSet
   community.kubernetes.k8s:
