@@ -27,7 +27,7 @@
   command: 'openshift-install --dir={{ cluster_deploy_dir }}/{{ cluster_name }} create cluster'
   async: 3000
   poll: 0
-  register: cluster_deploy
+  #register: cluster_deploy
   when: cluster_deploy | bool | default('true')
 
 - name: Wait for OpenShift Install

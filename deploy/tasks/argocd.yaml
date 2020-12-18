@@ -26,6 +26,8 @@
       wait: yes
       definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/cluster-role-binding.yaml') | from_yaml }}"
 
+  - pause:
+
   - name: Deploy ArgoCD CR
     community.kubernetes.k8s:
       state: present
