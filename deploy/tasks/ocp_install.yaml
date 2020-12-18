@@ -1,3 +1,4 @@
+---
 - name: Delete OCP deployment dir
   file:
     path: "{{ cluster_deploy_dir }}"
@@ -29,13 +30,6 @@
   register: cluster_deploy
   when: cluster_deploy | bool | default('true')
 
- - name: Check sync status
-   async_status:
-     jid: "{{ cluster_deploy.ansible_job_id }}"
-   register: job_results
-   until: job_results.finished
-   retries: 30
-
 - name: Wait for OpenShift Install
   wait_for:
     delay: 10
@@ -51,8 +45,8 @@
     delay: 10
     path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
     search_regex: Waiting up to 20m0s for the Kubernetes API at (?P<task>\w+\S+:\d{4})
-    #sleep:
-    #timeout:
+    sleep: 30
+    timeout: 1200
   register: waitfor
 
 - debug:
@@ -62,25 +56,49 @@
   wait_for:
     delay: 60
     path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
-    search_regex: Waiting up to 40m0s for bootstrapping to complete
+    search_regex: Waiting up to 30m0s for bootstrapping to complete
     sleep: 30
-    timeout: 2000
+    timeout: 2500
   register: waitfor
 
 - debug:
-    msg: "OpenShift Install: Waiting up to 40m0s for bootstrapping to complete"
+    msg: "OpenShift Install: Waiting up to 30m0s for bootstrapping to complete"
 
 - name: Wait for OpenShift Install
   wait_for:
     delay: 60
     path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
-    search_regex: Waiting up to 30m0s for the cluster at (?P<task>\w+\S+:\d{4})
+    search_regex: Destroying the bootstrap resources
+    sleep: 30
+    timeout: 1200
+  register: waitfor
+
+- debug:
+    msg: "OpenShift Install: Destroying the bootstrap resources"
+
+- name: Wait for OpenShift Install
+  wait_for:
+    delay: 60
+    path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
+    search_regex: Waiting up to 40m0s for the cluster at (?P<task>\w+\S+:\d{4})
     sleep: 30
     timeout: 2000
   register: waitfor
 
 - debug:
-    msg: "OpenShift Install: Waiting up to 30M0s for the cluster at {{ waitfor['match_groupdict']['task'] }}"
+    msg: "OpenShift Install: Waiting up to 40M0s for the cluster at {{ waitfor['match_groupdict']['task'] }}"
+
+- name: Wait for OpenShift Install
+  wait_for:
+    delay: 60
+    path: "{{ cluster_deploy_dir }}/{{ cluster_name }}/.openshift_install.log"
+    search_regex: Waiting up to 10m0s for the openshift-console route to be created
+    sleep: 30
+    timeout: 600
+  register: waitfor
+
+- debug:
+    msg: "OpenShift Install: Waiting up to 10m0s for the openshift-console route to be created"
 
 - name: Wait for OpenShift Install
   wait_for:
@@ -93,6 +111,7 @@
 
 - debug:
     msg: "OpenShift Install: Complete!"
+
 
 - name: Grab Cluster ID
   community.kubernetes.k8s_info:
