@@ -9,6 +9,7 @@ metadata:
     config.example.com/name: argocd-bootstrap
     config.example.com/component: operators
   name: argocd-operator
+  namespace: argocd
 spec:
   channel: alpha
   installPlanApproval: Automatic
