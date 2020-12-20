@@ -5,6 +5,13 @@
     wait: yes
     resource_definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-namespace.yaml') | from_yaml }}"
 
+- name: Deploy ArgoCD Catalog
+  community.kubernetes.k8s:
+    state: present
+    kubeconfig: "{{ cluster_kubeconfig }}"
+    wait: yes
+    definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/argocd-catalogsource.yaml') | from_yaml }}"
+
 - name: Deploy ArgoCD OperatorGroup
   community.kubernetes.k8s:
     state: present
@@ -27,7 +34,7 @@
     definition: "{{ lookup('file', '{{ git_local_dir }}/manifests/argocd/argocd-operator/cluster-role-binding.yaml') | from_yaml }}"
 
 - pause:
-    minutes: 1
+    seconds: 30
 
 - name: Deploy ArgoCD CR
   community.kubernetes.k8s:

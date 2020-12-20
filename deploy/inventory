@@ -5,6 +5,7 @@ openshift:
     # Deploy OCP
     cluster_deploy: true
     cluster_deploy_dir: '/projects/openshift_deploy'
+    cluster_deploy_infranodes: true
     # Remove openshift deployment directory before installing
     cluster_rm_deploy_dir: false
     # Install sealed secrets

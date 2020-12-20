@@ -3,7 +3,7 @@
   tags:
     - install
     - ocp
-  when: cluster_deploy | bool
+  #when: cluster_deploy | bool
 
 # Deploy ArgoCD Operator
 - name: Include Tasks for ArgoCD
