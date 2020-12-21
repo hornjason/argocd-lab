@@ -29,4 +29,12 @@
     - argocd_apps
   when: cluster_argocd_day2 | bool
 
+# Configure PostInstall Tasks
+- name: Include Tasks for PostInstall
+  include_tasks: postinstall.yaml
+  tags:
+    - day2
+    - postinstall
+  #when: cluster_argocd_day2 | bool
+
 

@@ -3,17 +3,10 @@ kind: Job
 metadata:
   annotations:
     cronjob.kubernetes.io/instantiate: manual
-  creationTimestamp: null
   labels:
     created-by: image-pruner
-  name: test
-  ownerReferences:
-  - apiVersion: batch/v1beta1
-    blockOwnerDeletion: true
-    controller: true
-    kind: CronJob
-    name: image-pruner
-    uid: 35cb50b2-a60e-4241-8c5b-fb27e91e9f80
+  name: test-image-pruner
+  namespace: openshift-image-registry
 spec:
   template:
     metadata:
@@ -57,4 +50,3 @@ spec:
           defaultMode: 420
           name: serviceca
         name: serviceca
-status: {}
