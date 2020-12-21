@@ -12,4 +12,6 @@ spec:
     repoURL: 'https://github.com/hornjason/argocd-lab.git'
     targetRevision: master
   project: default
-  syncPolicy: {}
+  syncPolicy:
+    automated:
+      selfHeal: true
